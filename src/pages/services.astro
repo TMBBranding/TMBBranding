@@ -49,7 +49,7 @@ const renderedServices = await Promise.all(
       {renderedServices.map(({ service, Content }, index) => {
         const isEven = index % 2 === 1;
         return (
-          <article class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center pb-24 sm:pb-32 border-b border-creme-border/60 last:border-b-0 last:pb-0">
+          <article id={service.id.replace(/\.md$/, '')} class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center pb-24 sm:pb-32 border-b border-creme-border/60 last:border-b-0 last:pb-0 scroll-mt-24">
             <!-- Visual Column -->
             <div class={`lg:col-span-6 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
               <div class="relative group">

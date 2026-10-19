@@ -23,7 +23,7 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
   currentPath="/"
 >
   <!-- 1. HERO SECTION -->
-  <section class="relative min-h-[calc(100dvh-4rem)] sm:min-h-[calc(100dvh-5rem)] flex items-center py-8 sm:py-12 lg:py-14 overflow-hidden border-b border-creme-border/60">
+  <section class="relative min-h-[calc(100dvh-3.5rem)] sm:min-h-[calc(100dvh-4rem)] flex items-center py-8 sm:py-12 lg:py-14 overflow-hidden border-b border-creme-border/60">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         
@@ -84,137 +84,125 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
   <!-- 2. GRILLE DE SERVICES -->
   <section class="py-24 sm:py-32 bg-terracotta text-creme-powder border-b border-terracotta-dark/30">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <!-- Section Header -->
-      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 space-y-4 md:space-y-0">
-        <div>
-          <h2 class="font-serif text-4xl sm:text-5xl text-creme">
-            Comprehensive Digital Marketing
-          </h2>
-        </div>
-        <a
-          href="/services"
-          class="inline-flex items-center text-xs uppercase tracking-luxury text-creme/90 hover:text-white font-medium underline underline-offset-8 decoration-creme/50 hover:decoration-white transition-colors"
-        >
-          <span>View All 6 Disciplines</span>
-          <span class="ml-2">&rarr;</span>
-        </a>
+      <!-- Section Header (Centered, no button) -->
+      <div class="text-center mb-16 max-w-3xl mx-auto">
+        <h2 class="font-serif text-4xl sm:text-5xl text-creme">
+          Comprehensive Digital Marketing
+        </h2>
       </div>
 
       <!-- Services Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {services.slice(0, 6).map((service) => (
-          <article class="group bg-creme-powder border border-white/20 hover:border-white/50 shadow-warm-xs hover:shadow-warm-lg transition-all duration-500 overflow-hidden flex flex-col justify-between">
-            <div class="space-y-6">
-              <!-- Service Image Ratio 16/10 -->
-              <div class="relative aspect-[16/10] overflow-hidden bg-creme-alabaster">
-                <img
-                  src={service.data.coverImage}
-                  alt={service.data.title}
-                  class="w-full h-full object-cover object-center slow-zoom"
-                  loading="lazy"
-                />
-              </div>
+        {services.slice(0, 6).map((service) => {
+          const serviceAnchor = `/services#${service.id.replace(/\.md$/, '')}`;
+          return (
+            <article class="group bg-creme-powder shadow-warm-xs hover:shadow-warm-lg transition-all duration-500 overflow-hidden flex flex-col justify-between">
+              <div class="space-y-6">
+                <!-- Service Image Ratio 16/10 -->
+                <a href={serviceAnchor} class="block relative aspect-[16/10] overflow-hidden bg-creme-alabaster">
+                  <img
+                    src={service.data.coverImage}
+                    alt={service.data.title}
+                    class="w-full h-full object-cover object-center slow-zoom"
+                    loading="lazy"
+                  />
+                </a>
 
-              <!-- Content -->
-              <div class="px-7 pt-1 pb-4 space-y-3">
-                <h3 class="font-serif text-2xl text-espresso group-hover:text-terracotta transition-colors duration-300">
-                  {service.data.title}
-                </h3>
-                <p class="text-taupe text-sm leading-relaxed font-light line-clamp-3">
-                  {service.data.shortDescription}
-                </p>
+                <!-- Content -->
+                <div class="px-7 pt-1 pb-8 space-y-3">
+                  <h3 class="font-serif text-2xl text-espresso group-hover:text-terracotta transition-colors duration-300">
+                    <a href={serviceAnchor} class="focus:outline-none hover:underline underline-offset-4 decoration-terracotta/40">
+                      {service.data.title}
+                    </a>
+                  </h3>
+                  <p class="text-taupe text-sm leading-relaxed font-light line-clamp-3">
+                    {service.data.shortDescription}
+                  </p>
+                </div>
               </div>
-            </div>
-
-            <!-- Footer Action -->
-            <div class="px-7 pb-7 pt-2 border-t border-creme-border/50">
-              <a
-                href="/services"
-                class="inline-flex items-center text-[10px] uppercase tracking-luxury text-espresso group-hover:text-terracotta font-medium transition-colors"
-              >
-                <span>Learn Details</span>
-                <span class="ml-2 transform group-hover:translate-x-1 transition-transform">&rarr;</span>
-              </a>
-            </div>
-          </article>
-        ))}
+            </article>
+          );
+        })}
       </div>
     </div>
   </section>
 
-  <!-- 4. BANDEAU MARQUES / PARTENAIRES -->
-  <section class="py-20 sm:py-24 bg-creme-alabaster border-b border-creme-border/60">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="text-center max-w-2xl mx-auto mb-14 space-y-3">
-        <h2 class="font-serif text-3xl sm:text-4xl text-espresso">
-          Trusted by Visionary Founders
-        </h2>
-        <p class="text-xs sm:text-sm text-taupe font-light">
-          From seed-stage disruptors to household names across fashion, beauty, wellness, and lifestyle.
-        </p>
+  <!-- 3. TRUSTED BY VISIONARY FOUNDERS & CLIENT TESTIMONIALS -->
+  <section class="py-24 sm:py-32 bg-creme-powder border-b border-creme-border/60">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-20 sm:space-y-28">
+      
+      <!-- Top: Brands Showcase -->
+      <div class="space-y-12">
+        <div class="text-center max-w-2xl mx-auto">
+          <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso">
+            Trusted by Visionary Founders
+          </h2>
+        </div>
+
+        <!-- Monochrome Logos Grid on Terracotta Background, No Borders -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 sm:gap-6 items-center">
+          {brands.map((b) => (
+            <a
+              href="/brands"
+              class="group bg-terracotta p-5 flex flex-col items-center justify-center space-y-3 h-28 transition-all duration-300 shadow-warm-xs hover:shadow-warm hover:-translate-y-0.5"
+              title={b.data.name}
+            >
+              <img
+                src={b.data.logoImage}
+                alt={`${b.data.name} logo`}
+                class="max-h-10 w-auto object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                loading="lazy"
+              />
+              <span class="text-[9px] uppercase tracking-wider text-creme-powder/90 group-hover:text-white font-medium truncate max-w-full">
+                {b.data.name.split(' by ')[0]}
+              </span>
+            </a>
+          ))}
+        </div>
       </div>
 
-      <!-- Monochrome / Warm Logos Grid -->
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 items-center">
-        {brands.map((b) => (
-          <a
-            href="/brands"
-            class="group bg-creme-powder/80 hover:bg-creme-powder border border-creme-border/70 hover:border-terracotta/40 p-5 flex flex-col items-center justify-center space-y-3 h-28 transition-all duration-300 shadow-warm-xs hover:shadow-warm"
-            title={b.data.name}
-          >
-            <img
-              src={b.data.logoImage}
-              alt={`${b.data.name} logo`}
-              class="max-h-10 w-auto object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300"
-              loading="lazy"
-            />
-            <span class="text-[9px] uppercase tracking-wider text-taupe-light font-medium truncate max-w-full">
-              {b.data.name.split(' by ')[0]}
-            </span>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- 5. SECTION TÉMOIGNAGES (LAURIE PAYTON, DALLAS MORENO, REESE PLATT) -->
-  <section class="py-24 sm:py-32 border-b border-creme-border/60">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="text-center max-w-xl mx-auto mb-16">
-        <h2 class="font-serif text-4xl sm:text-5xl text-espresso">
-          What Founders Say
-        </h2>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
-        {home.testimonials.map((item) => (
-          <div class="bg-creme-alabaster/70 border border-creme-border p-8 sm:p-10 flex flex-col justify-between space-y-8 relative shadow-warm-xs hover:shadow-warm transition-shadow duration-300">
-            <!-- Decorative Serif Quote Mark -->
-            <span class="font-serif text-6xl text-ocre/35 leading-none select-none absolute top-6 right-6">
-              &ldquo;
-            </span>
-
-            <p class="font-serif text-lg sm:text-xl text-espresso leading-relaxed font-light italic relative z-10">
-              "{item.quote}"
-            </p>
-
-            <div class="pt-6 border-t border-creme-border/80 flex items-center justify-between">
-              <div>
-                <h3 class="font-sans text-xs uppercase tracking-luxury font-semibold text-espresso">
-                  {item.author}
-                </h3>
-                <p class="text-[10px] text-taupe uppercase tracking-wider mt-0.5">
-                  {item.role}
-                </p>
-              </div>
+      <!-- Bottom: Testimonials Auto-Carousel -->
+      <div class="max-w-3xl mx-auto pt-8 border-t border-creme-border/70">
+        <div id="testimonials-carousel" class="relative overflow-hidden min-h-[220px] sm:min-h-[190px] flex items-center justify-center">
+          {home.testimonials.map((item, idx) => (
+            <div
+              class={`testimonial-slide transition-opacity duration-700 ease-in-out text-center px-4 absolute inset-0 flex flex-col justify-center items-center ${
+                idx === 0 ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
+              }`}
+              data-index={idx}
+            >
+              <span class="font-serif text-5xl sm:text-6xl text-ocre/40 leading-none select-none mb-3">
+                &ldquo;
+              </span>
+              <p class="font-serif text-xl sm:text-2xl lg:text-3xl text-espresso leading-relaxed font-light italic">
+                "{item.quote}"
+              </p>
+              <h3 class="font-sans text-xs uppercase tracking-luxury font-semibold text-terracotta mt-6">
+                {item.author}
+              </h3>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
+
+        <!-- Carousel Dots -->
+        <div class="flex justify-center items-center space-x-2.5 mt-8">
+          {home.testimonials.map((_, idx) => (
+            <button
+              type="button"
+              class={`testimonial-dot h-1.5 transition-all duration-300 ${
+                idx === 0 ? 'w-8 bg-terracotta' : 'w-2 bg-creme-border hover:bg-taupe'
+              }`}
+              data-target={idx}
+              aria-label={`Aller au témoignage ${idx + 1}`}
+            ></button>
+          ))}
+        </div>
       </div>
+
     </div>
   </section>
 
-  <!-- 6. FINAL INVITATION CTA -->
+  <!-- 4. FINAL INVITATION CTA -->
   <section class="py-24 sm:py-32 bg-espresso text-creme-powder text-center relative overflow-hidden">
     <div class="absolute -top-24 -left-24 w-96 h-96 bg-terracotta/10 rounded-full blur-3xl pointer-events-none"></div>
     <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-ocre/10 rounded-full blur-3xl pointer-events-none"></div>
@@ -241,3 +229,66 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
     </div>
   </section>
 </Layout>
+
+<script is:inline>
+  const testimonialSlides = document.querySelectorAll('.testimonial-slide');
+  const testimonialDots = document.querySelectorAll('.testimonial-dot');
+  let currentTestimonialIdx = 0;
+  let testimonialTimer;
+
+  function showTestimonial(index) {
+    testimonialSlides.forEach((slide, i) => {
+      if (i === index) {
+        slide.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+        slide.classList.add('opacity-100', 'pointer-events-auto', 'z-10');
+      } else {
+        slide.classList.remove('opacity-100', 'pointer-events-auto', 'z-10');
+        slide.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+      }
+    });
+
+    testimonialDots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.remove('w-2', 'bg-creme-border');
+        dot.classList.add('w-8', 'bg-terracotta');
+      } else {
+        dot.classList.remove('w-8', 'bg-terracotta');
+        dot.classList.add('w-2', 'bg-creme-border');
+      }
+    });
+
+    currentTestimonialIdx = index;
+  }
+
+  function nextTestimonial() {
+    if (testimonialSlides.length === 0) return;
+    const next = (currentTestimonialIdx + 1) % testimonialSlides.length;
+    showTestimonial(next);
+  }
+
+  function startTestimonialsAutoPlay() {
+    stopTestimonialsAutoPlay();
+    testimonialTimer = setInterval(nextTestimonial, 4500);
+  }
+
+  function stopTestimonialsAutoPlay() {
+    if (testimonialTimer) clearInterval(testimonialTimer);
+  }
+
+  testimonialDots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      showTestimonial(i);
+      startTestimonialsAutoPlay();
+    });
+  });
+
+  const carouselBox = document.getElementById('testimonials-carousel');
+  if (carouselBox) {
+    carouselBox.addEventListener('mouseenter', stopTestimonialsAutoPlay);
+    carouselBox.addEventListener('mouseleave', startTestimonialsAutoPlay);
+  }
+
+  if (testimonialSlides.length > 1) {
+    startTestimonialsAutoPlay();
+  }
+</script>

@@ -18,11 +18,11 @@ const isActive = (href: string) => {
 };
 ---
 
-<header id="site-header" class="sticky top-0 z-50 bg-creme-powder/90 backdrop-blur-md border-b border-creme-border/60 transition-transform duration-300 ease-in-out">
-  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-16 sm:h-20 flex items-center justify-between">
+<header id="site-header" class="sticky top-0 z-50 bg-creme-powder/90 backdrop-blur-md transition-transform duration-300 ease-in-out">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-14 sm:h-16 flex items-center justify-between">
     <!-- Brand Logo -->
-    <a href="/" class="group inline-flex items-center focus:outline-none" aria-label="TMB Branding">
-      <span class="font-serif text-xl sm:text-2xl tracking-editorial font-normal text-espresso group-hover:text-terracotta transition-colors duration-400">
+    <a href="/" class="inline-flex items-center focus:outline-none" aria-label="TMB Branding">
+      <span class="font-sans text-[11px] uppercase tracking-luxury font-medium text-espresso">
         TMB BRANDING
       </span>
     </a>
@@ -42,7 +42,7 @@ const isActive = (href: string) => {
           >
             {item.label}
             {active && (
-              <span class="absolute bottom-0 left-0 w-full h-[1.5px] bg-terracotta"></span>
+              <span class="absolute bottom-0 left-0 right-[0.35em] h-[1.5px] bg-terracotta"></span>
             )}
           </a>
         );
@@ -68,7 +68,7 @@ const isActive = (href: string) => {
   <!-- Fullscreen / Drawer Lookbook Mobile Menu -->
   <div
     id="navbar-mobile-drawer"
-    class="hidden md:hidden fixed inset-x-0 top-[64px] sm:top-[80px] bottom-0 bg-creme-powder/98 backdrop-blur-xl border-t border-creme-border px-8 py-12 flex flex-col justify-between overflow-y-auto"
+    class="hidden md:hidden fixed inset-x-0 top-[56px] sm:top-[64px] bottom-0 bg-creme-powder/98 backdrop-blur-xl border-t border-creme-border px-8 py-12 flex flex-col justify-between overflow-y-auto"
   >
     <div class="space-y-6 pt-4">
       <p class="text-[10px] uppercase tracking-kicker text-ocre font-sans font-semibold">
