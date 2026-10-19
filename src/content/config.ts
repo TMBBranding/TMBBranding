@@ -8,7 +8,7 @@ export const seoSchema = z.object({
 
 export const homeSchema = z.object({
   hero: z.object({
-    kicker: z.string(),
+    kicker: z.string().optional(),
     title: z.string(),
     subtitle: z.string(),
     ctaText: z.string(),

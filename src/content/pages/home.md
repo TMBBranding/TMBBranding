@@ -1,6 +1,5 @@
 ---
 hero:
-  kicker: "AUSTIN, TX — FOUNDER-LED AGENCY"
   title: "Elevating Founder-Led Brands"
   subtitle: "Bringing visionary ideas to life through strategic storytelling, thoughtful partnerships, and digital-first marketing."
   ctaText: "Explore Our Work"

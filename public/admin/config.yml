@@ -22,7 +22,7 @@ collections:
             name: "hero"
             widget: "object"
             fields:
-              - { label: "Kicker / Sur-titre", name: "kicker", widget: "string" }
+              - { label: "Kicker / Sur-titre", name: "kicker", widget: "string", required: false }
               - { label: "Titre Principal", name: "title", widget: "string" }
               - { label: "Sous-titre", name: "subtitle", widget: "text" }
               - { label: "Texte du bouton CTA", name: "ctaText", widget: "string" }

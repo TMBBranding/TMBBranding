@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 240" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600&amp;display=swap');
+      .title-editorial {
+        font-family: 'Cormorant Garamond', Didot, 'Playfair Display', serif;
+        font-size: 72px;
+        font-weight: 300;
+        letter-spacing: 0.22em;
+        fill: #1C1513;
+      }
+      .ampersand {
+        font-family: 'Cormorant Garamond', serif;
+        font-style: italic;
+        font-size: 48px;
+        fill: #C86D51;
+      }
+      .subtitle-editorial {
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        font-size: 11.5px;
+        font-weight: 500;
+        letter-spacing: 0.55em;
+        text-transform: uppercase;
+        fill: #6B5C55;
+      }
+      .separator-line {
+        stroke: #C86D51;
+        stroke-width: 1;
+        opacity: 0.7;
+      }
+    </style>
+  </defs>
+
+  <g transform="translate(400, 120)" text-anchor="middle">
+    <!-- Center Top Accent -->
+    <line x1="-30" y1="-58" x2="30" y2="-58" class="separator-line" />
+    <circle cx="0" cy="-58" r="1.5" fill="#C86D51" />
+
+    <!-- Main High-Contrast Wordmark -->
+    <text x="0" y="-2" class="title-editorial">TMB BRANDING</text>
+
+    <!-- Balanced Spaced Baseline -->
+    <g transform="translate(0, 36)">
+      <line x1="-120" y1="-8" x2="-25" y2="-8" stroke="#E4DDD4" stroke-width="1" />
+      <circle cx="0" cy="-8" r="2.5" fill="#C86D51" />
+      <line x1="25" y1="-8" x2="120" y2="-8" stroke="#E4DDD4" stroke-width="1" />
+      <text x="0" y="16" class="subtitle-editorial">PARIS &middot; LUXE &middot; BEAUTÉ &middot; SANTÉ</text>
+    </g>
+  </g>
+</svg>
