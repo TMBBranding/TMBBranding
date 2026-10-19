@@ -139,23 +139,21 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
           </h2>
         </div>
 
-        <!-- Monochrome Logos Grid on Terracotta Background, No Borders -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 sm:gap-6 items-center">
+        <!-- Monochrome Logos Grid on Black Background, No Borders, Prominent Centered Logos -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 items-center">
           {brands.map((b) => (
             <a
               href="/brands"
-              class="group bg-terracotta p-5 flex flex-col items-center justify-center space-y-3 h-28 transition-all duration-300 shadow-warm-xs hover:shadow-warm hover:-translate-y-0.5"
+              class="group bg-black p-5 sm:p-6 flex items-center justify-center h-28 sm:h-32 transition-all duration-300 shadow-warm-xs hover:shadow-warm hover:-translate-y-0.5 hover:bg-neutral-950"
               title={b.data.name}
+              aria-label={b.data.name}
             >
               <img
                 src={b.data.logoImage}
                 alt={`${b.data.name} logo`}
-                class="max-h-10 w-auto object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                class="max-h-14 sm:max-h-16 max-w-[85%] w-auto h-auto object-contain brightness-0 invert opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-300"
                 loading="lazy"
               />
-              <span class="text-[9px] uppercase tracking-wider text-creme-powder/90 group-hover:text-white font-medium truncate max-w-full">
-                {b.data.name.split(' by ')[0]}
-              </span>
             </a>
           ))}
         </div>
