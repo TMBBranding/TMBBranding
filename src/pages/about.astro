@@ -37,7 +37,7 @@ const { Content: AboutContent } = await render(aboutEntry);
       </div>
 
       <!-- Studio Cover Banner -->
-      <div class="mt-12 sm:mt-16 relative aspect-[16/9] sm:aspect-[21/9] overflow-hidden rounded-luxury-lg bg-creme-alabaster border border-creme-border shadow-warm">
+      <div class="mt-12 sm:mt-16 relative aspect-[16/9] sm:aspect-[21/9] overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm">
         <img
           src={about.hero.coverImage}
           alt="TMB Branding Studio — Austin TX"
@@ -75,9 +75,9 @@ const { Content: AboutContent } = await render(aboutEntry);
         <div class="lg:col-span-5 space-y-4">
           <div class="relative group">
             <!-- Warm Ambient Shadow -->
-            <div class="absolute -inset-2 bg-gradient-to-tr from-ocre-soft/50 via-terracotta-soft/30 to-transparent rounded-luxury-xl blur-lg opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <div class="absolute -inset-2 bg-gradient-to-tr from-ocre-soft/50 via-terracotta-soft/30 to-transparent blur-lg opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-            <div class="relative aspect-[3/4] overflow-hidden rounded-luxury-lg bg-creme-alabaster border border-creme-border shadow-warm-lg">
+            <div class="relative aspect-[3/4] overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm-lg">
               <img
                 src={about.bioFounder.portraitImage}
                 alt={`Portrait of ${about.bioFounder.name}`}
@@ -88,7 +88,7 @@ const { Content: AboutContent } = await render(aboutEntry);
           </div>
 
           <!-- Caption Plate -->
-          <div class="p-5 bg-creme-alabaster border border-creme-border rounded-luxury flex items-center justify-between">
+          <div class="p-5 bg-creme-alabaster border border-creme-border flex items-center justify-between">
             <div>
               <h3 class="font-serif text-xl text-espresso font-medium">
                 {about.bioFounder.name}
@@ -120,7 +120,7 @@ const { Content: AboutContent } = await render(aboutEntry);
           </div>
 
           <!-- Markdown Content from Body (Team Philosophy) -->
-          <div class="prose prose-stone text-taupe text-base sm:text-lg font-light leading-relaxed border-l-2 border-ocre pl-6 italic bg-creme-alabaster/60 p-5 rounded-luxury">
+          <div class="prose prose-stone text-taupe text-base sm:text-lg font-light leading-relaxed border-l-2 border-ocre pl-6 italic bg-creme-alabaster/60 p-5">
             <AboutContent />
           </div>
 
@@ -153,7 +153,7 @@ const { Content: AboutContent } = await render(aboutEntry);
       <!-- Values in Soft Terracotta / Ocre Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
         {about.values.map((val, idx) => (
-          <div class="bg-creme-powder p-8 sm:p-10 rounded-luxury-lg border border-terracotta/25 hover:border-terracotta shadow-warm-xs hover:shadow-warm transition-all duration-400 space-y-4 relative overflow-hidden group">
+          <div class="bg-creme-powder p-8 sm:p-10 border border-terracotta/25 hover:border-terracotta shadow-warm-xs hover:shadow-warm transition-all duration-400 space-y-4 relative overflow-hidden group">
             <!-- Subtle Terracotta Accent Accent Top Bar -->
             <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-terracotta via-ocre to-terracotta-light opacity-80 group-hover:opacity-100 transition-opacity"></div>
 

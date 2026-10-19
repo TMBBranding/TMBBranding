@@ -26,7 +26,7 @@ const {
 } = Astro.props;
 ---
 
-<div class={`relative bg-creme-powder border border-creme-border rounded-luxury-xl p-8 sm:p-12 lg:p-14 shadow-warm ${className}`} id="contact-form-container">
+<div class={`relative bg-creme-powder border border-creme-border p-8 sm:p-12 lg:p-14 shadow-warm ${className}`} id="contact-form-container">
   
   <!-- Success Message State (Hidden by default) -->
   <div id="contact-success" class="hidden transition-all duration-700 ease-out py-8 text-center space-y-6">
@@ -218,7 +218,7 @@ const {
           id="contact-consent"
           name="consent"
           required
-          class="mt-1 accent-terracotta text-terracotta focus:ring-0 rounded-sm"
+          class="mt-1 accent-terracotta text-terracotta focus:ring-0 rounded-none"
         />
         <span class="text-xs text-taupe leading-relaxed font-light">
           I consent to TMB Branding processing my contact information solely for the purpose of this project inquiry in accordance with privacy principles.

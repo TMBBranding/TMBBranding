@@ -58,9 +58,9 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
         <div class="lg:col-span-5">
           <div class="relative group">
             <!-- Subtle warm background glow/halo -->
-            <div class="absolute -inset-3 bg-gradient-to-tr from-ocre-soft/50 via-terracotta-soft/30 to-transparent rounded-luxury-xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <div class="absolute -inset-3 bg-gradient-to-tr from-ocre-soft/50 via-terracotta-soft/30 to-transparent blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-            <div class="relative aspect-[4/5] overflow-hidden rounded-luxury-lg bg-creme-alabaster border border-creme-border shadow-warm-lg">
+            <div class="relative aspect-[4/5] overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm-lg">
               <img
                 src={home.seo.ogImage || "/images/uploads/hero-home.jpg"}
                 alt="TMB Branding Studio — Austin TX"
@@ -123,7 +123,7 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
       <!-- Services Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {services.slice(0, 6).map((service) => (
-          <article class="group bg-creme-powder rounded-luxury border border-creme-border/80 hover:border-terracotta/50 shadow-warm-xs hover:shadow-warm transition-all duration-500 overflow-hidden flex flex-col justify-between">
+          <article class="group bg-creme-powder border border-creme-border/80 hover:border-terracotta/50 shadow-warm-xs hover:shadow-warm transition-all duration-500 overflow-hidden flex flex-col justify-between">
             <div class="space-y-6">
               <!-- Service Image Ratio 16/10 -->
               <div class="relative aspect-[16/10] overflow-hidden bg-creme-alabaster">
@@ -179,7 +179,7 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
         {brands.map((b) => (
           <a
             href="/brands"
-            class="group bg-creme-powder/80 hover:bg-creme-powder border border-creme-border/70 hover:border-terracotta/40 rounded-luxury p-5 flex flex-col items-center justify-center space-y-3 h-28 transition-all duration-300 shadow-warm-xs hover:shadow-warm"
+            class="group bg-creme-powder/80 hover:bg-creme-powder border border-creme-border/70 hover:border-terracotta/40 p-5 flex flex-col items-center justify-center space-y-3 h-28 transition-all duration-300 shadow-warm-xs hover:shadow-warm"
             title={b.data.name}
           >
             <img
@@ -208,7 +208,7 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
         {home.testimonials.map((item) => (
-          <div class="bg-creme-alabaster/70 border border-creme-border rounded-luxury-lg p-8 sm:p-10 flex flex-col justify-between space-y-8 relative shadow-warm-xs hover:shadow-warm transition-shadow duration-300">
+          <div class="bg-creme-alabaster/70 border border-creme-border p-8 sm:p-10 flex flex-col justify-between space-y-8 relative shadow-warm-xs hover:shadow-warm transition-shadow duration-300">
             <!-- Decorative Serif Quote Mark -->
             <span class="font-serif text-6xl text-ocre/35 leading-none select-none absolute top-6 right-6">
               &ldquo;
@@ -252,7 +252,7 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
       <div class="pt-4">
         <a
           href="/contact"
-          class="inline-flex items-center justify-center px-10 py-4 text-xs uppercase tracking-luxury font-medium text-espresso bg-creme-powder hover:bg-white rounded-luxury-sm shadow-warm-lg hover:shadow-warm-xl transition-all duration-300 ease-out"
+          class="inline-flex items-center justify-center px-10 py-4 text-xs uppercase tracking-luxury font-medium text-espresso bg-creme-powder hover:bg-white shadow-warm-lg hover:shadow-warm-xl transition-all duration-300 ease-out"
         >
           <span>Contact Us for More Information</span>
           <span class="ml-2.5">&rarr;</span>

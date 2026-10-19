@@ -68,10 +68,10 @@ export default {
         'warm-xl': '0 25px 60px rgba(92, 58, 46, 0.14)',
       },
       borderRadius: {
-        'luxury-sm': '0.375rem', // 6px
-        'luxury': '0.625rem',    // 10px
-        'luxury-lg': '1rem',     // 16px
-        'luxury-xl': '1.5rem',   // 24px
+        'luxury-sm': '0px',
+        'luxury': '0px',
+        'luxury-lg': '0px',
+        'luxury-xl': '0px',
       },
       transitionDuration: {
         400: '400ms',
