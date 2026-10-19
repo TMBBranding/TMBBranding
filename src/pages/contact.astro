@@ -17,24 +17,21 @@ const contact = contactEntry.data as ContactPageData;
   ogImage={contact.seo.ogImage}
   currentPath="/contact"
 >
-  <!-- HEADER -->
-  <section class="pt-16 pb-10 sm:pt-24 sm:pb-14 lg:pt-28 lg:pb-16">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="max-w-3xl space-y-6">
-        <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial">
-          {contact.title}
-        </h1>
-        <p class="text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans">
-          {contact.subtitle}
-        </p>
-      </div>
-    </div>
-  </section>
+  <!-- VERTICALLY CENTERED CONTACT SECTION -->
+  <section class="min-h-[calc(100dvh-4rem)] flex flex-col justify-center py-12 sm:py-16 lg:py-20">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full my-auto">
+      <div class="max-w-4xl mx-auto space-y-8 sm:space-y-10">
+        <!-- Header -->
+        <div class="space-y-4 sm:space-y-6">
+          <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial">
+            {contact.title}
+          </h1>
+          <p class="text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans max-w-2xl">
+            {contact.subtitle}
+          </p>
+        </div>
 
-  <!-- MAIN CONTACT FORM SECTION -->
-  <section class="pb-20 sm:pb-28 lg:pb-32">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="max-w-4xl">
+        <!-- Form -->
         <ContactForm
           serviceOptions={contact.serviceOptions}
           budgetOptions={contact.budgetOptions}
