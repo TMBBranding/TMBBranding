@@ -14,6 +14,7 @@ const {
     'Email Marketing & Automation',
     'Paid Social Advertising',
     'Events & Activations',
+    'Something else',
   ],
   budgetOptions = [
     '< $5,000',
@@ -85,35 +86,53 @@ const {
       </div>
     </div>
 
-    <!-- 1. Name & Email Row -->
+    <!-- 1. First & Last Name Row -->
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
       <div class="space-y-2">
-        <label for="contact-name" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-          Full Name <span class="text-terracotta">*</span>
+        <label for="contact-first-name" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
+          First Name <span class="text-terracotta">*</span>
         </label>
         <input
           type="text"
-          id="contact-name"
-          name="name"
+          id="contact-first-name"
+          name="first_name"
           required
+          autocomplete="given-name"
           class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-terracotta focus:bg-white transition-colors"
         />
-        <p class="text-[10px] text-terracotta hidden error-hint" id="err-name">Please enter your name.</p>
+        <p class="text-[10px] text-terracotta hidden error-hint" id="err-first-name">Please enter your first name.</p>
       </div>
 
       <div class="space-y-2">
-        <label for="contact-email" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-          Email Address <span class="text-terracotta">*</span>
+        <label for="contact-last-name" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
+          Last Name <span class="text-terracotta">*</span>
         </label>
         <input
-          type="email"
-          id="contact-email"
-          name="email"
+          type="text"
+          id="contact-last-name"
+          name="last_name"
           required
+          autocomplete="family-name"
           class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-terracotta focus:bg-white transition-colors"
         />
-        <p class="text-[10px] text-terracotta hidden error-hint" id="err-email">Please enter a valid email address.</p>
+        <p class="text-[10px] text-terracotta hidden error-hint" id="err-last-name">Please enter your last name.</p>
       </div>
+    </div>
+
+    <!-- 2. Email Address Row -->
+    <div class="space-y-2">
+      <label for="contact-email" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
+        Email Address <span class="text-terracotta">*</span>
+      </label>
+      <input
+        type="email"
+        id="contact-email"
+        name="email"
+        required
+        autocomplete="email"
+        class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-terracotta focus:bg-white transition-colors"
+      />
+      <p class="text-[10px] text-terracotta hidden error-hint" id="err-email">Please enter a valid email address.</p>
     </div>
 
     <!-- 3. Dynamic Service Selection (Dropdown) -->
@@ -242,7 +261,8 @@ const {
       document.querySelectorAll('.error-hint').forEach(el => el.classList.add('hidden'));
 
       // Validate inputs
-      const nameInput = document.getElementById('contact-name');
+      const firstNameInput = document.getElementById('contact-first-name');
+      const lastNameInput = document.getElementById('contact-last-name');
       const emailInput = document.getElementById('contact-email');
       const serviceInput = document.getElementById('contact-service');
       const messageInput = document.getElementById('contact-message');
@@ -250,8 +270,12 @@ const {
 
       let isValid = true;
 
-      if (!nameInput.value.trim()) {
-        document.getElementById('err-name')?.classList.remove('hidden');
+      if (!firstNameInput.value.trim()) {
+        document.getElementById('err-first-name')?.classList.remove('hidden');
+        isValid = false;
+      }
+      if (!lastNameInput.value.trim()) {
+        document.getElementById('err-last-name')?.classList.remove('hidden');
         isValid = false;
       }
       if (!emailInput.value.trim() || !/^\S+@\S+\.\S+$/.test(emailInput.value.trim())) {
@@ -291,6 +315,7 @@ const {
       // Prepare payload
       const formData = new FormData(form);
       const jsonObject = Object.fromEntries(formData.entries());
+      jsonObject.name = `${jsonObject.first_name || ''} ${jsonObject.last_name || ''}`.trim();
 
       try {
         const response = await fetch('https://api.web3forms.com/submit', {
@@ -335,5 +360,88 @@ const {
         form.classList.remove('hidden');
       });
     }
+
+    // Resilient Auto-select for discipline/service if passed via URL parameter (?service=...)
+    const prefillService = () => {
+      const serviceSelect = document.getElementById('contact-service');
+      if (!serviceSelect) return;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const serviceParam = urlParams.get('service');
+      if (!serviceParam) return;
+
+      const trimmedParam = serviceParam.trim();
+      const cleanParam = trimmedParam.toLowerCase();
+
+      // 1. Exact match (case-insensitive)
+      let match = Array.from(serviceSelect.options).find(
+        (opt) => opt.value && opt.value.trim().toLowerCase() === cleanParam
+      );
+
+      // 2. Starts with / prefix match
+      if (!match) {
+        match = Array.from(serviceSelect.options).find(
+          (opt) =>
+            opt.value &&
+            (opt.value.trim().toLowerCase().startsWith(cleanParam) ||
+              cleanParam.startsWith(opt.value.trim().toLowerCase()))
+        );
+      }
+
+      // 3. Substring / includes match
+      if (!match) {
+        match = Array.from(serviceSelect.options).find(
+          (opt) =>
+            opt.value &&
+            (opt.value.trim().toLowerCase().includes(cleanParam) ||
+              cleanParam.includes(opt.value.trim().toLowerCase()))
+        );
+      }
+
+      // 4. Word-level similarity match (e.g. "Email Marketing" vs "Email Marketing & Automation")
+      if (!match) {
+        const paramWords = cleanParam.split(/[^a-z0-9]+/).filter((w) => w.length > 2 && w !== 'and');
+        match = Array.from(serviceSelect.options).find((opt) => {
+          if (!opt.value) return false;
+          const optLower = opt.value.toLowerCase();
+          return paramWords.length > 0 && paramWords.every((w) => optLower.includes(w));
+        });
+      }
+
+      // Reset existing 'selected' attributes to prevent browser form restoration from reverting value
+      Array.from(serviceSelect.options).forEach((opt) => {
+        opt.removeAttribute('selected');
+        opt.selected = false;
+      });
+
+      if (match) {
+        match.setAttribute('selected', 'selected');
+        match.selected = true;
+        serviceSelect.value = match.value;
+      } else {
+        // Dynamic fallback: add the custom requested service if not found in preconfigured list
+        const newOpt = document.createElement('option');
+        newOpt.value = trimmedParam;
+        newOpt.textContent = trimmedParam;
+        newOpt.setAttribute('selected', 'selected');
+        newOpt.selected = true;
+        serviceSelect.appendChild(newOpt);
+        serviceSelect.value = trimmedParam;
+      }
+
+      // Trigger change event to notify any listeners / validators
+      serviceSelect.dispatchEvent(new Event('change', { bubbles: true }));
+    };
+
+    // Run immediately, on DOM ready, and on pageshow (to defeat bfcache & browser form autofill resets)
+    prefillService();
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', prefillService);
+    }
+
+    window.addEventListener('pageshow', () => {
+      setTimeout(prefillService, 20);
+    });
   }
 </script>

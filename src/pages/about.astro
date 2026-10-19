@@ -8,6 +8,14 @@ if (!aboutEntry) {
   throw new Error("Impossible de charger la collection 'pages/about'");
 }
 const about = aboutEntry.data as AboutPageData;
+
+function renderMarkdownLinks(text?: string) {
+  if (!text) return '';
+  return text.replace(
+    /\[([^\]]+)\]\(([^)]+)\)/g,
+    '<a href="$2" class="text-espresso font-medium underline underline-offset-4 decoration-black hover:text-terracotta hover:decoration-black transition-colors">$1</a>'
+  );
+}
 ---
 
 <Layout
@@ -51,35 +59,26 @@ const about = aboutEntry.data as AboutPageData;
 
         <!-- Biography Story Column -->
         <div class="lg:col-span-7 space-y-8 lg:pl-4">
-          <div class="space-y-3">
-            <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-editorial">
-              The founder-led story behind a founder-led agency.
-            </h2>
-          </div>
+          {about.hero.subtitle && (
+            <div class="space-y-3">
+              <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-editorial">
+                {about.hero.subtitle}
+              </h2>
+            </div>
+          )}
 
           <!-- Paragraphs from bioFounder.body -->
           <div class="space-y-6 text-taupe text-base sm:text-lg font-light leading-relaxed whitespace-pre-line">
             {about.bioFounder.body}
           </div>
 
-          <!-- Closing Invitation with Links -->
-          <p class="text-taupe text-base sm:text-lg font-light leading-relaxed">
-            We’d love to work with you.{' '}
-            <a
-              href="/contact"
-              class="text-espresso font-medium underline underline-offset-4 decoration-black hover:text-terracotta hover:decoration-black transition-colors"
-            >
-              Get in touch
-            </a>{' '}
-            or visit our{' '}
-            <a
-              href="/brands"
-              class="text-espresso font-medium underline underline-offset-4 decoration-black hover:text-terracotta hover:decoration-black transition-colors"
-            >
-              Brands
-            </a>{' '}
-            page to explore recent projects.
-          </p>
+          <!-- Closing Invitation with Links from Decap CMS -->
+          {about.closingText && (
+            <p
+              class="text-taupe text-base sm:text-lg font-light leading-relaxed"
+              set:html={renderMarkdownLinks(about.closingText)}
+            />
+          )}
         </div>
 
       </div>

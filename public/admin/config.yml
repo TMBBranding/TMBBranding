@@ -25,11 +25,8 @@ collections:
               - { label: "Kicker / Sur-titre", name: "kicker", widget: "string", required: false }
               - { label: "Titre Principal", name: "title", widget: "string" }
               - { label: "Sous-titre", name: "subtitle", widget: "text" }
-              - { label: "Texte du bouton CTA", name: "ctaText", widget: "string" }
-              - { label: "Lien du bouton CTA", name: "ctaLink", widget: "string" }
-          - label: "Introduction de l'agence"
-            name: "intro"
-            widget: "text"
+          - { label: "Titre de la section Services", name: "servicesSectionTitle", widget: "string", required: false, default: "Comprehensive Digital Marketing" }
+          - { label: "Titre de la section Marques", name: "brandsSectionTitle", widget: "string", required: false, default: "Trusted by Visionary Founders" }
           - label: "Témoignages Clients"
             name: "testimonials"
             widget: "list"
@@ -38,6 +35,37 @@ collections:
               - { label: "Citation / Avis", name: "quote", widget: "text" }
               - { label: "Auteur", name: "author", widget: "string" }
               - { label: "Rôle & Marque", name: "role", widget: "string" }
+          - label: "Référencement (SEO)"
+            name: "seo"
+            widget: "object"
+            fields:
+              - { label: "Meta Titre", name: "metaTitle", widget: "string" }
+              - { label: "Meta Description", name: "metaDescription", widget: "text" }
+              - { label: "Image Open Graph (OG)", name: "ogImage", widget: "image", required: false }
+
+      - name: "services_page"
+        label: "Page Services (En-tête & SEO)"
+        file: "src/content/pages/services.md"
+        format: "frontmatter"
+        fields:
+          - { label: "Titre Principal", name: "title", widget: "string" }
+          - { label: "Sous-titre / Introduction", name: "subtitle", widget: "text" }
+          - { label: "Libellé du bouton de contact", name: "inquiryButtonText", widget: "string", required: false, default: "Inquire About This Service" }
+          - label: "Référencement (SEO)"
+            name: "seo"
+            widget: "object"
+            fields:
+              - { label: "Meta Titre", name: "metaTitle", widget: "string" }
+              - { label: "Meta Description", name: "metaDescription", widget: "text" }
+              - { label: "Image Open Graph (OG)", name: "ogImage", widget: "image", required: false }
+
+      - name: "brands_page"
+        label: "Page Marques Clientes (En-tête & SEO)"
+        file: "src/content/pages/brands.md"
+        format: "frontmatter"
+        fields:
+          - { label: "Titre Principal", name: "title", widget: "string" }
+          - { label: "Sous-titre / Introduction", name: "subtitle", widget: "text" }
           - label: "Référencement (SEO)"
             name: "seo"
             widget: "object"
@@ -56,30 +84,15 @@ collections:
             widget: "object"
             fields:
               - { label: "Titre", name: "title", widget: "string" }
-              - { label: "Sous-titre", name: "subtitle", widget: "text" }
-              - { label: "Image de Couverture", name: "coverImage", widget: "image" }
+              - { label: "Sous-titre / Titre Histoire", name: "subtitle", widget: "text", required: false }
           - label: "Biographie Fondatrice (Tiffany)"
             name: "bioFounder"
             widget: "object"
             fields:
               - { label: "Nom complet", name: "name", widget: "string" }
-              - { label: "Rôle", name: "role", widget: "string" }
               - { label: "Portrait", name: "portraitImage", widget: "image" }
               - { label: "Biographie & Vision", name: "body", widget: "markdown" }
-          - label: "Valeurs de l'Agence"
-            name: "values"
-            widget: "list"
-            summary: "{{fields.title}}"
-            fields:
-              - { label: "Titre de la valeur", name: "title", widget: "string" }
-              - { label: "Description", name: "description", widget: "text" }
-          - label: "Chiffres Clés / Faits Marquants"
-            name: "statsOrHighlights"
-            widget: "list"
-            summary: "{{fields.figure}} - {{fields.label}}"
-            fields:
-              - { label: "Chiffre / Valeur", name: "figure", widget: "string" }
-              - { label: "Libellé", name: "label", widget: "string" }
+          - { label: "Texte d'invitation final avec liens", name: "closingText", widget: "string", required: false, hint: "Exemple: We’d love to work with you. [Get in touch](/contact) or visit our [Brands](/brands) page." }
           - label: "Référencement (SEO)"
             name: "seo"
             widget: "object"
@@ -95,13 +108,17 @@ collections:
         fields:
           - { label: "Titre Principal", name: "title", widget: "string" }
           - { label: "Sous-titre", name: "subtitle", widget: "text" }
-          - { label: "Email affiché (masqué au public)", name: "email", widget: "string", required: false }
-          - { label: "Email destinataire Web3Forms (confidentiel)", name: "contactEmail", widget: "string", required: false, hint: "Adresse recevant les notifications de formulaire Web3Forms" }
-          - { label: "Téléphone", name: "phone", widget: "string" }
-          - { label: "Localisation (ex: Austin, TX)", name: "location", widget: "string" }
           - label: "Options de Services demandés"
             name: "serviceOptions"
             widget: "list"
+            default:
+              - "Social Media Strategy"
+              - "Strategic Partnerships & Influencers"
+              - "Thought Leadership & Founder Branding"
+              - "Email Marketing & Automation"
+              - "Paid Social Advertising"
+              - "Events & Activations"
+              - "Something else"
             field: { label: "Option de Service", name: "option", widget: "string" }
           - label: "Fourchettes de Budget"
             name: "budgetOptions"
@@ -114,6 +131,24 @@ collections:
               - { label: "Meta Titre", name: "metaTitle", widget: "string" }
               - { label: "Meta Description", name: "metaDescription", widget: "text" }
               - { label: "Image Open Graph (OG)", name: "ogImage", widget: "image", required: false }
+
+      - name: "settings"
+        label: "Coordonnées & Pied de Page"
+        file: "src/content/pages/settings.md"
+        format: "frontmatter"
+        fields:
+          - { label: "Titre bloc Projet (Footer)", name: "inquiriesTitle", widget: "string", default: "Initiate a Project" }
+          - { label: "Texte d'introduction (Footer)", name: "inquiriesText", widget: "text" }
+          - { label: "Texte du lien Contact", name: "contactLinkText", widget: "string", default: "Contact us" }
+          - { label: "Téléphone", name: "phone", widget: "string", default: "+1 512 529 1677" }
+          - { label: "Email de contact", name: "email", widget: "string", default: "tiffany@tmbbranding.com" }
+          - { label: "Titre Réseaux Sociaux", name: "socialTitle", widget: "string", default: "Follow Us" }
+          - { label: "Sous-titre Réseaux Sociaux", name: "socialSubtitle", widget: "string", default: "Stories & founder perspectives" }
+          - { label: "Identifiant Instagram", name: "instagramHandle", widget: "string", default: "@tmbbranding" }
+          - { label: "Lien Instagram", name: "instagramUrl", widget: "string", default: "https://www.instagram.com/tmbbranding/" }
+          - { label: "Ville / Siège", name: "location", widget: "string", default: "Austin, Texas" }
+          - { label: "Libellé Siège (Pied de page)", name: "headquartersText", widget: "string", default: "Headquarters: Austin, TX" }
+          - { label: "Libellé International (Pied de page)", name: "worldwideText", widget: "string", default: "Worldwide" }
 
   # ==========================================
   # COLLECTION SERVICES (Fichiers multiples)
@@ -143,10 +178,4 @@ collections:
       - { label: "Ordre d'affichage", name: "order", widget: "number", value_type: "int", default: 1 }
       - { label: "Logo", name: "logoImage", widget: "image" }
       - { label: "Image de Couverture", name: "coverImage", widget: "image" }
-      - { label: "Secteur d'activité", name: "industry", widget: "string" }
-      - label: "Livrables / Tags"
-        name: "deliverableTags"
-        widget: "list"
-        field: { label: "Tag / Livrable", name: "tag", widget: "string" }
-      - { label: "Étude de Cas (Markdown)", name: "caseStudyBody", widget: "markdown", required: false }
-      - { label: "Site Web de la marque", name: "websiteUrl", widget: "string", required: false }
+      - { label: "Présentation / Étude de Cas (Markdown)", name: "body", widget: "markdown" }

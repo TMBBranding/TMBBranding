@@ -3,13 +3,6 @@ name: "OPI"
 order: 6
 logoImage: "/images/uploads/brand-opi-logo.png"
 coverImage: "/images/uploads/brand-opi-cover.png"
-industry: "Global Beauty & Professional Nail Care"
-deliverableTags:
-  - "Consumer & Pro Social Strategy"
-  - "Social Commerce & Conversion"
-  - "Digital Art Direction"
-  - "Cross-Channel Growth"
-websiteUrl: "https://opi.com"
 ---
 
 Managing both consumer and professional audiences required a strategy that could balance education, inspiration, and commerce without losing sight of the brand. Tiffany led social strategy across both channels, rebuilding momentum and strengthening social as a meaningful driver of community and conversion. Within one year, we:

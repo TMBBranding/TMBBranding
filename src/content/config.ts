@@ -11,10 +11,9 @@ export const homeSchema = z.object({
     kicker: z.string().optional(),
     title: z.string(),
     subtitle: z.string(),
-    ctaText: z.string(),
-    ctaLink: z.string(),
   }),
-  intro: z.string(),
+  servicesSectionTitle: z.string().optional(),
+  brandsSectionTitle: z.string().optional(),
   testimonials: z.array(
     z.object({
       quote: z.string(),
@@ -29,39 +28,50 @@ export const aboutSchema = z.object({
   hero: z.object({
     title: z.string(),
     subtitle: z.string().optional(),
-    coverImage: z.string().optional(),
   }),
   bioFounder: z.object({
     name: z.string(),
-    role: z.string(),
     portraitImage: z.string(),
     body: z.string(),
   }),
-  values: z.array(
-    z.object({
-      title: z.string(),
-      description: z.string(),
-    })
-  ),
-  statsOrHighlights: z.array(
-    z.object({
-      figure: z.string(),
-      label: z.string(),
-    })
-  ),
+  closingText: z.string().optional(),
+  seo: seoSchema,
+});
+
+export const servicesPageSchema = z.object({
+  title: z.string(),
+  subtitle: z.string().optional(),
+  inquiryButtonText: z.string().optional(),
+  seo: seoSchema,
+});
+
+export const brandsPageSchema = z.object({
+  title: z.string(),
+  subtitle: z.string().optional(),
   seo: seoSchema,
 });
 
 export const contactSchema = z.object({
   title: z.string(),
   subtitle: z.string(),
-  email: z.string().optional(),
-  contactEmail: z.string().optional(),
-  phone: z.string(),
-  location: z.string(),
   serviceOptions: z.array(z.string()),
   budgetOptions: z.array(z.string()),
   seo: seoSchema,
+});
+
+export const settingsSchema = z.object({
+  inquiriesTitle: z.string().optional(),
+  inquiriesText: z.string().optional(),
+  contactLinkText: z.string().optional(),
+  phone: z.string().optional(),
+  email: z.string().optional(),
+  socialTitle: z.string().optional(),
+  socialSubtitle: z.string().optional(),
+  instagramHandle: z.string().optional(),
+  instagramUrl: z.string().optional(),
+  location: z.string().optional(),
+  headquartersText: z.string().optional(),
+  worldwideText: z.string().optional(),
 });
 
 export const serviceSchema = z.object({
@@ -76,15 +86,18 @@ export const brandSchema = z.object({
   order: z.number().default(0),
   logoImage: z.string(),
   coverImage: z.string(),
-  industry: z.string(),
-  deliverableTags: z.array(z.string()),
-  caseStudyBody: z.string().optional(),
-  websiteUrl: z.string().url().optional(),
 });
 
 const pagesCollection = defineCollection({
   type: 'content',
-  schema: z.union([homeSchema, aboutSchema, contactSchema]),
+  schema: z.union([
+    homeSchema,
+    aboutSchema,
+    servicesPageSchema,
+    brandsPageSchema,
+    contactSchema,
+    settingsSchema,
+  ]),
 });
 
 const servicesCollection = defineCollection({
@@ -106,6 +119,9 @@ export const collections = {
 export type SeoData = z.infer<typeof seoSchema>;
 export type HomePageData = z.infer<typeof homeSchema>;
 export type AboutPageData = z.infer<typeof aboutSchema>;
+export type ServicesPageData = z.infer<typeof servicesPageSchema>;
+export type BrandsPageData = z.infer<typeof brandsPageSchema>;
 export type ContactPageData = z.infer<typeof contactSchema>;
+export type SettingsData = z.infer<typeof settingsSchema>;
 export type ServiceData = z.infer<typeof serviceSchema>;
 export type BrandData = z.infer<typeof brandSchema>;

@@ -3,14 +3,6 @@ name: "Surya by Martha Soffer"
 order: 1
 logoImage: "/images/uploads/brand-surya-logo.png"
 coverImage: "/images/uploads/brand-surya-cover.jpg"
-industry: "Ayurvedic Wellness & Beauty"
-deliverableTags:
-  - "Founder-Led Storytelling"
-  - "Social Strategy"
-  - "Original Content"
-  - "Influencer Partnerships"
-  - "Email Marketing"
-websiteUrl: "https://suryaspa.com"
 ---
 
 Surya is a modern Ayurvedic wellness brand founded by internationally recognized Ayurvedic expert Martha Soffer. Rooted in more than 30 years of Martha’s practice, Surya spans transformative treatments, skincare, body care, and everyday Ayurvedic rituals.

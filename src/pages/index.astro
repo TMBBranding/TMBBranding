@@ -87,7 +87,7 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
       <!-- Section Header (Centered, no button) -->
       <div class="text-center mb-16 max-w-3xl mx-auto">
         <h2 class="font-serif text-4xl sm:text-5xl text-creme">
-          Comprehensive Digital Marketing
+          {home.servicesSectionTitle || "Comprehensive Digital Marketing"}
         </h2>
       </div>
 
@@ -138,7 +138,7 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
       <div class="space-y-12">
         <div class="text-center max-w-2xl mx-auto">
           <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso">
-            Trusted by Visionary Founders
+            {home.brandsSectionTitle || "Trusted by Visionary Founders"}
           </h2>
         </div>
 

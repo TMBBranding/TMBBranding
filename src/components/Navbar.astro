@@ -1,9 +1,16 @@
 ---
+import { getEntry } from 'astro:content';
+
 interface Props {
   currentPath?: string;
 }
 
 const { currentPath = Astro.url.pathname } = Astro.props;
+
+const settingsEntry = await getEntry('pages', 'settings');
+const settings = settingsEntry?.data;
+const phone = settings?.phone || "+1 512 529 1677";
+const location = settings?.location || "Austin, TX";
 
 const navItems = [
   { label: 'Services', href: '/services' },
@@ -18,7 +25,10 @@ const isActive = (href: string) => {
 };
 ---
 
-<header id="site-header" class="sticky top-0 z-50 bg-creme-powder/90 backdrop-blur-md transition-transform duration-300 ease-in-out">
+<header
+  id="site-header"
+  class="sticky top-0 z-50 bg-creme-powder/90 backdrop-blur-md transition-transform duration-300 ease-in-out border-b border-creme-border/50"
+>
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-14 sm:h-16 flex items-center justify-between">
     <!-- Brand Logo -->
     <a href="/" class="inline-flex items-center focus:outline-none" aria-label="TMB Branding">
@@ -49,45 +59,46 @@ const isActive = (href: string) => {
       })}
     </nav>
 
-
-    <!-- Mobile Menu Trigger -->
+    <!-- Mobile Menu Trigger Button -->
     <button
       id="navbar-toggle-btn"
       type="button"
-      class="md:hidden p-2 text-espresso hover:text-terracotta focus:outline-none"
+      class="md:hidden p-2.5 -mr-2 text-espresso hover:text-terracotta focus:outline-none transition-colors"
       aria-label="Ouvrir le menu"
       aria-expanded="false"
+      aria-controls="navbar-mobile-drawer"
     >
-      <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24">
-        <path id="navbar-icon-hamburger" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-        <path id="navbar-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+      <!-- Hamburger Icon -->
+      <svg id="navbar-icon-hamburger" class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+      <!-- Close (X) Icon -->
+      <svg id="navbar-icon-close" class="hidden w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
   </div>
+</header>
 
-  <!-- Fullscreen / Drawer Lookbook Mobile Menu -->
-  <div
-    id="navbar-mobile-drawer"
-    class="hidden md:hidden fixed inset-x-0 top-[56px] sm:top-[64px] bottom-0 bg-creme-powder/98 backdrop-blur-xl border-t border-creme-border px-8 py-12 flex flex-col justify-between overflow-y-auto"
-  >
-    <div class="space-y-6 pt-4">
-      <p class="text-[10px] uppercase tracking-kicker text-ocre font-sans font-semibold">
-        Navigation Studio
-      </p>
-      <nav class="flex flex-col space-y-4">
-        {navItems.map((item, idx) => (
+<!-- Mobile Navigation Drawer: Placed outside <header> so backdrop-filter / transform does not trap or crush fixed positioning -->
+<div
+  id="navbar-mobile-drawer"
+  class="hidden md:hidden fixed inset-x-0 top-14 sm:top-16 bottom-0 z-40 bg-creme-powder/98 backdrop-blur-xl border-t border-creme-border overflow-y-auto overscroll-contain animate-mobile-drawer"
+  style="-webkit-overflow-scrolling: touch;"
+>
+  <div class="min-h-full max-w-7xl mx-auto px-6 sm:px-8 py-8 sm:py-10 flex flex-col justify-between">
+    <div class="pt-2">
+      <nav class="flex flex-col space-y-4 sm:space-y-5">
+        {navItems.map((item) => (
           <a
             href={item.href}
-            class={`font-serif text-3xl sm:text-4xl transition-colors duration-300 flex items-baseline justify-between border-b border-creme-border/50 pb-3 ${
+            class={`font-serif text-3xl sm:text-4xl transition-colors duration-300 ${
               isActive(item.href)
                 ? 'text-terracotta italic font-normal'
                 : 'text-espresso hover:text-terracotta'
             }`}
           >
-            <span>{item.label}</span>
-            <span class="font-sans text-[10px] tracking-widest text-taupe-muted uppercase">
-              0{idx + 1}
-            </span>
+            {item.label}
           </a>
         ))}
       </nav>
@@ -95,18 +106,34 @@ const isActive = (href: string) => {
 
     <div class="pt-8 pb-6 border-t border-creme-border/70 space-y-4">
       <div class="text-xs text-taupe space-y-1">
-        <p class="font-serif text-base text-espresso">TMB Branding &mdash; Austin, TX</p>
-        <p>Available for commissions worldwide &bull; +1 512 529 1677</p>
+        <p class="font-serif text-base text-espresso">TMB Branding &mdash; {location}</p>
+        <p>Available for commissions worldwide &bull; {phone}</p>
       </div>
       <a
         href="/contact"
-        class="block w-full text-center py-4 text-xs uppercase tracking-luxury font-medium text-creme bg-espresso hover:bg-terracotta shadow-warm transition-colors"
+        class="block w-full text-center py-3.5 sm:py-4 text-xs uppercase tracking-luxury font-medium text-creme bg-espresso hover:bg-terracotta shadow-warm transition-colors"
       >
         Start a Project &rarr;
       </a>
     </div>
   </div>
-</header>
+</div>
+
+<style>
+  @keyframes mobileDrawerFadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-mobile-drawer {
+    animation: mobileDrawerFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+</style>
 
 <script is:inline>
   const navBtn = document.getElementById('navbar-toggle-btn');
@@ -115,34 +142,63 @@ const isActive = (href: string) => {
   const iconClose = document.getElementById('navbar-icon-close');
   const header = document.getElementById('site-header');
 
+  const openMobileMenu = () => {
+    if (!navBtn || !navDrawer) return;
+    navBtn.setAttribute('aria-expanded', 'true');
+    navBtn.setAttribute('aria-label', 'Fermer le menu');
+    navDrawer.classList.remove('hidden');
+    iconHamb?.classList.add('hidden');
+    iconClose?.classList.remove('hidden');
+    // Ensure header is fully visible and not shifted offscreen
+    header?.classList.remove('-translate-y-full');
+    // Lock background scroll on document and body
+    document.documentElement.classList.add('overflow-hidden');
+    document.body.classList.add('overflow-hidden');
+  };
+
+  const closeMobileMenu = () => {
+    if (!navBtn || !navDrawer) return;
+    navBtn.setAttribute('aria-expanded', 'false');
+    navBtn.setAttribute('aria-label', 'Ouvrir le menu');
+    navDrawer.classList.add('hidden');
+    iconHamb?.classList.remove('hidden');
+    iconClose?.classList.add('hidden');
+    // Restore background scroll
+    document.documentElement.classList.remove('overflow-hidden');
+    document.body.classList.remove('overflow-hidden');
+  };
+
   if (navBtn && navDrawer) {
-    navBtn.addEventListener('click', () => {
+    navBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       const isExpanded = navBtn.getAttribute('aria-expanded') === 'true';
-      navBtn.setAttribute('aria-expanded', String(!isExpanded));
-      navDrawer.classList.toggle('hidden');
-      if (iconHamb && iconClose) {
-        iconHamb.classList.toggle('hidden');
-        iconClose.classList.toggle('hidden');
-      }
-      // Lock background scroll when drawer is open
-      if (!isExpanded) {
-        document.body.style.overflow = 'hidden';
+      if (isExpanded) {
+        closeMobileMenu();
       } else {
-        document.body.style.overflow = '';
+        openMobileMenu();
       }
     });
 
     // Close menu when clicking any nav link
     navDrawer.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
-        navDrawer.classList.add('hidden');
-        navBtn.setAttribute('aria-expanded', 'false');
-        if (iconHamb && iconClose) {
-          iconHamb.classList.remove('hidden');
-          iconClose.classList.add('hidden');
-        }
-        document.body.style.overflow = '';
+        closeMobileMenu();
       });
+    });
+
+    // Close on Escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navBtn.getAttribute('aria-expanded') === 'true') {
+        closeMobileMenu();
+        navBtn.focus();
+      }
+    });
+
+    // Auto-close on resize to desktop breakpoint (>= 768px)
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768 && navBtn.getAttribute('aria-expanded') === 'true') {
+        closeMobileMenu();
+      }
     });
   }
 
@@ -153,7 +209,7 @@ const isActive = (href: string) => {
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
 
-    // Do not hide if mobile drawer menu is open
+    // Never hide header when mobile menu is open
     const isMobileMenuOpen = navBtn && navBtn.getAttribute('aria-expanded') === 'true';
     if (isMobileMenuOpen) {
       header?.classList.remove('-translate-y-full');

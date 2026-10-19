@@ -2,10 +2,8 @@
 hero:
   title: "Building TMB"
   subtitle: "The founder-led story behind a founder-led agency."
-  coverImage: "/images/uploads/about-studio.jpg"
 bioFounder:
   name: "Tiffany"
-  role: "Founder & Creative Director"
   portraitImage: "/images/uploads/founder-tiffany.png"
   body: |
     TMB Branding was born out of a deep love for storytelling, brand building, and helping founders bring their visions to life.
@@ -17,24 +15,7 @@ bioFounder:
     Then a transition into beauty. At OPI, Tiffany led social innovation and digital art direction for one of the most iconic brands in the industry - until the 2020 pandemic brought the industry to a halt. As brands tightened budgets, Tiffany's reputation spoke for itself. Former colleagues and mentors began reaching out - asking her to step in and help on everything from brand positioning to marketing strategy. By 2022, it was clear: it was time to launch TMB Branding.
 
     Since then, Tiffany has built a collective of creatives with deep expertise in fashion, beauty, wellness, and lifestyle. What makes TMB different is the approach: we layer strategic storytelling with visual identity, we work with influential people who move culture - not just those who monetize it - and we build brands that grow not just in numbers, but in depth.
-values:
-  - title: "Strategic Storytelling"
-    description: "We layer strategic storytelling with visual identity to create memorable cultural connection that endures."
-  - title: "Cultural Influence"
-    description: "We collaborate with influential people who move culture — not just those who monetize it."
-  - title: "Depth & Sustainable Growth"
-    description: "We build brands that grow not just in follower numbers, but in emotional depth, equity, and loyalty."
-  - title: "True Atelier Partnership"
-    description: "Tiffany works hand-in-hand with founders as an embedded extension of the client team, supported by senior creatives."
-statsOrHighlights:
-  - figure: "15+"
-    label: "Years in High Fashion, Beauty & Culture"
-  - figure: "2022"
-    label: "Agency Founded in Austin, TX"
-  - figure: "200K+"
-    label: "Single-Month Account Reach Generated"
-  - figure: "500%"
-    label: "Max Client Engagement Growth Rate"
+closingText: "We’d love to work with you. [Get in touch](/contact) or visit our [Brands](/brands) page to explore recent projects."
 seo:
   metaTitle: "About TMB Branding | Founder Tiffany | Austin, TX"
   metaDescription: "Founded by Tiffany in Austin, TX, TMB Branding shapes compelling founder-led narratives and strategic creative direction for culture-defining brands."

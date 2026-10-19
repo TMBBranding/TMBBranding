@@ -3,13 +3,6 @@ name: "L’Une Cosmetics"
 order: 5
 logoImage: "/images/uploads/brand-lune-logo.png"
 coverImage: "/images/uploads/brand-lune-cover.jpg"
-industry: "Luxury European Cosmetics"
-deliverableTags:
-  - "Organic Social Strategy"
-  - "Low-Boost Advertising"
-  - "Editorial Creative Direction"
-  - "European Retail Positioning"
-websiteUrl: "https://lunecosmetics.com"
 ---
 
 A cosmetics brand based in Italy with retail in France + Germany.

@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, getEntry } from 'astro:content';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -43,11 +43,16 @@ const parsedServices = services.map((service) => {
     ...parsed,
   };
 });
+
+const servicesPageEntry = await getEntry('pages', 'services');
+const servicesPage = servicesPageEntry?.data;
+const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This Service";
 ---
 
 <Layout
-  title="Digital Marketing Services — TMB Branding | Austin, TX"
-  description="Explore our 6 core capabilities: Social Media Strategy, Strategic Partnerships, Thought Leadership, Email Marketing, Paid Social, and Events & Activations."
+  title={servicesPage?.seo?.metaTitle || "Digital Marketing Services — TMB Branding | Austin, TX"}
+  description={servicesPage?.seo?.metaDescription || "Explore our 6 core capabilities: Social Media Strategy, Strategic Partnerships, Thought Leadership, Email Marketing, Paid Social, and Events & Activations."}
+  ogImage={servicesPage?.seo?.ogImage}
   currentPath="/services"
 >
   <!-- HERO HEADER (NO BOTTOM BORDER) -->
@@ -55,11 +60,13 @@ const parsedServices = services.map((service) => {
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="max-w-3xl space-y-6">
         <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial">
-          Digital Marketing Services
+          {servicesPage?.title || "Digital Marketing Services"}
         </h1>
-        <p class="text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans">
-          At TMB Branding, we partner with founder-led brands to bring visionary ideas to life. Through strategic storytelling, community building, and digital-first marketing, we craft campaigns and experiences that spark connection and drive growth.
-        </p>
+        {servicesPage?.subtitle && (
+          <p class="text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans">
+            {servicesPage.subtitle}
+          </p>
+        )}
       </div>
     </div>
   </section>
@@ -73,14 +80,14 @@ const parsedServices = services.map((service) => {
       return (
         <section
           id={service.id.replace(/\.md$/, '')}
-          class={`py-20 sm:py-28 lg:py-32 scroll-mt-24 transition-colors duration-500 ${
+          class={`pt-8 sm:pt-10 lg:pt-12 pb-16 sm:pb-20 lg:pb-24 scroll-mt-14 sm:scroll-mt-16 transition-colors duration-500 ${
             isTerracotta
               ? 'bg-terracotta text-creme-powder'
               : 'bg-creme-powder text-espresso'
           }`}
         >
           <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
               
               <!-- Visual Column (No Hover Effects) -->
               <div class={`lg:col-span-6 ${isVisualRight ? 'lg:order-2' : 'lg:order-1'}`}>
@@ -155,7 +162,7 @@ const parsedServices = services.map((service) => {
                       href={`/contact?service=${encodeURIComponent(service.data.title)}`}
                       class="inline-flex items-center justify-center group font-sans px-7 py-3.5 text-xs tracking-luxury uppercase bg-transparent text-creme-powder border border-white/60 hover:bg-white hover:text-espresso hover:border-white transition-all duration-400 ease-out font-medium"
                     >
-                      <span class="relative z-10">Inquire About This Service</span>
+                      <span class="relative z-10">{inquiryButtonText}</span>
                       <span class="ml-2.5 transform group-hover:translate-x-1 transition-transform duration-300 ease-out inline-block">
                         &rarr;
                       </span>
@@ -166,7 +173,7 @@ const parsedServices = services.map((service) => {
                       variant="secondary"
                       size="md"
                     >
-                      Inquire About This Service
+                      {inquiryButtonText}
                     </Button>
                   )}
                 </div>
@@ -180,3 +187,26 @@ const parsedServices = services.map((service) => {
     })}
   </div>
 </Layout>
+
+<script is:inline>
+  const alignServiceHash = () => {
+    if (!window.location.hash) return;
+    const target = document.querySelector(window.location.hash);
+    if (!target) return;
+    const header = document.getElementById('site-header');
+    const headerHeight = header ? header.offsetHeight : 64;
+    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({
+      top: Math.max(0, targetTop - headerHeight),
+      behavior: 'smooth'
+    });
+  };
+
+  if (window.location.hash) {
+    alignServiceHash();
+    window.addEventListener('load', () => {
+      setTimeout(alignServiceHash, 50);
+    });
+  }
+  window.addEventListener('hashchange', alignServiceHash);
+</script>
