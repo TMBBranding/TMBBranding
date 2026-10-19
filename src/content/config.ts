@@ -28,8 +28,8 @@ export const homeSchema = z.object({
 export const aboutSchema = z.object({
   hero: z.object({
     title: z.string(),
-    subtitle: z.string(),
-    coverImage: z.string(),
+    subtitle: z.string().optional(),
+    coverImage: z.string().optional(),
   }),
   bioFounder: z.object({
     name: z.string(),

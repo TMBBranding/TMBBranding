@@ -17,31 +17,18 @@ const about = aboutEntry.data as AboutPageData;
   currentPath="/about"
 >
   <!-- 1. HERO HEADER -->
-  <section class="pt-16 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24 border-b border-creme-border/60">
+  <section class="pt-16 pb-8 sm:pt-20 sm:pb-10 lg:pt-24 lg:pb-12">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="max-w-3xl space-y-6">
+      <div class="max-w-3xl">
         <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial">
           {about.hero.title}
         </h1>
-        <p class="text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans">
-          {about.hero.subtitle}
-        </p>
-      </div>
-
-      <!-- Studio Cover Banner -->
-      <div class="mt-12 sm:mt-16 relative aspect-[16/9] sm:aspect-[21/9] overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm">
-        <img
-          src={about.hero.coverImage}
-          alt="TMB Branding Studio — Austin TX"
-          class="w-full h-full object-cover object-center"
-          loading="eager"
-        />
       </div>
     </div>
   </section>
 
   <!-- 2. BIO FOUNDER SECTION (TIFFANY) -->
-  <section class="py-24 sm:py-32">
+  <section class="pb-24 sm:pb-32">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
         
@@ -74,6 +61,25 @@ const about = aboutEntry.data as AboutPageData;
           <div class="space-y-6 text-taupe text-base sm:text-lg font-light leading-relaxed whitespace-pre-line">
             {about.bioFounder.body}
           </div>
+
+          <!-- Closing Invitation with Links -->
+          <p class="text-taupe text-base sm:text-lg font-light leading-relaxed">
+            We’d love to work with you.{' '}
+            <a
+              href="/contact"
+              class="text-espresso font-medium underline underline-offset-4 decoration-ocre hover:text-terracotta hover:decoration-terracotta transition-colors"
+            >
+              Get in touch
+            </a>{' '}
+            or visit our{' '}
+            <a
+              href="/brands"
+              class="text-espresso font-medium underline underline-offset-4 decoration-ocre hover:text-terracotta hover:decoration-terracotta transition-colors"
+            >
+              Brands
+            </a>{' '}
+            page to explore recent projects.
+          </p>
         </div>
 
       </div>
