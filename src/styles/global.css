@@ -91,4 +91,26 @@
   .group:hover .slow-zoom {
     transform: scale(1.05);
   }
+
+  /* Brand Editorial Copy Spacing & Lists */
+  .brand-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.75;
+  }
+  .brand-content p:last-child {
+    margin-bottom: 0;
+  }
+  .brand-content ul {
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+    padding-left: 1.25rem;
+    list-style-type: disc;
+  }
+  .brand-content li {
+    margin-bottom: 0.5rem;
+  }
+  .brand-content li::marker {
+    color: #C86D51;
+  }
 }
+
