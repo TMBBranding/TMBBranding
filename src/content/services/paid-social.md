@@ -7,7 +7,7 @@ coverImage: "/images/uploads/service-paid-social.png"
 
 We amplify your organic efforts through intentional, data-driven advertising that increases reach and conversion. From strategy to reporting, we manage campaigns that perform.
 
-### Services Include:
+### **Services Include:**
 - Campaign Strategy & Management
 - Audience Targeting & Optimization
 - Performance Analytics

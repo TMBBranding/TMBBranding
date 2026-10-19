@@ -7,7 +7,7 @@ coverImage: "/images/uploads/service-social-media.jpg"
 
 Strategic, community-driven storytelling designed to elevate your brand across platforms. We craft organic content that aligns with your brand vision, drive engagement through thoughtful community management, and optimize platform performance for sustainable growth.
 
-### Services Include:
+### **Services Include:**
 - Brand Narrative Development
 - Content Creation & Art Direction
 - Community Management

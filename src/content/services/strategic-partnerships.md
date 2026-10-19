@@ -7,7 +7,7 @@ coverImage: "/images/uploads/service-strategic-partnerships.png"
 
 Connect brands with aligned voices, purposes, platforms, and opportunities to build long-term brand equity. From influencers to ambassadors, experts and charities, we create authentic relationships that enhance visibility, deepen brand affinity, and generate content that can be leveraged across channels.
 
-### Services Include:
+### **Partnership types:**
 - Influencer & Ambassador Programs
 - Brand Collaborations & Sponsorships
 - Affiliate & Gifting Strategies
