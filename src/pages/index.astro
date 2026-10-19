@@ -51,15 +51,6 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
             {home.hero.subtitle}
           </p>
 
-          <!-- CTAs -->
-          <div class="pt-4 flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <Button href={home.hero.ctaLink} variant="primary" size="lg">
-              {home.hero.ctaText}
-            </Button>
-            <Button href="/about" variant="secondary" size="lg">
-              About the Studio
-            </Button>
-          </div>
 
           <!-- Subtle Trust Metrics -->
           <div class="pt-8 border-t border-creme-border/60 flex items-center space-x-8 text-xs tracking-wider text-taupe font-sans">
