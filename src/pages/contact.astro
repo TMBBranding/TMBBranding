@@ -9,10 +9,6 @@ if (!contactEntry) {
   throw new Error("Impossible de charger la collection 'pages/contact'");
 }
 const contact = contactEntry.data as ContactPageData;
-
-// Base64 Obfuscation for public email against scrapers
-const publicEmail = contact.email || 'tiffany@tmbbranding.com';
-const obfuscatedEmailPayload = Buffer.from(publicEmail).toString('base64');
 ---
 
 <Layout
@@ -22,15 +18,9 @@ const obfuscatedEmailPayload = Buffer.from(publicEmail).toString('base64');
   currentPath="/contact"
 >
   <!-- HEADER -->
-  <section class="pt-16 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24 border-b border-creme-border/60">
+  <section class="pt-16 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="max-w-3xl space-y-6">
-        <div class="inline-flex items-center space-x-3.5">
-          <span class="w-8 h-[1px] bg-ocre"></span>
-          <span class="text-[11px] uppercase tracking-kicker text-ocre font-sans font-semibold">
-            Inquiries &amp; Commissions
-          </span>
-        </div>
         <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial">
           {contact.title}
         </h1>
@@ -46,9 +36,8 @@ const obfuscatedEmailPayload = Buffer.from(publicEmail).toString('base64');
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-20 items-start">
         
-        <!-- Coordinates & Studio Office Sidebar -->
-        <div class="lg:col-span-4 space-y-10">
-          <!-- Visual Studio Card -->
+        <!-- Visual Studio Sidebar -->
+        <div class="lg:col-span-4 lg:sticky lg:top-24">
           <div class="relative aspect-[4/3] overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm">
             <img
               src={contact.seo.ogImage || "/images/uploads/hero-contact.jpg"}
@@ -56,62 +45,6 @@ const obfuscatedEmailPayload = Buffer.from(publicEmail).toString('base64');
               class="w-full h-full object-cover object-center"
               loading="lazy"
             />
-          </div>
-
-          <!-- Studio Location -->
-          <div class="space-y-3 pb-8 border-b border-creme-border">
-            <span class="text-[10px] uppercase tracking-kicker text-terracotta font-sans font-semibold block">
-              Location
-            </span>
-            <h3 class="font-serif text-2xl text-espresso">
-              {contact.location}
-            </h3>
-            <p class="text-sm text-taupe font-light leading-relaxed">
-              Based in Austin, Texas. Available for commissions and strategic partnerships worldwide.
-            </p>
-          </div>
-
-          <!-- Direct Communication with Anti-Scraping Obfuscation -->
-          <div class="space-y-4 pb-8 border-b border-creme-border">
-            <span class="text-[10px] uppercase tracking-kicker text-terracotta font-sans font-semibold block">
-              Direct Contact
-            </span>
-            <div class="space-y-4">
-              <div>
-                <span class="text-[10px] uppercase tracking-widest text-taupe block">Email Inquiries</span>
-                <!-- Client-Side Obfuscated Element (Never exposes email in raw HTML) -->
-                <div id="email-obf-container" data-payload={obfuscatedEmailPayload} class="pt-1">
-                  <a
-                    id="email-obf-link"
-                    href="#contact-form-container"
-                    class="font-serif text-xl text-espresso hover:text-terracotta transition-colors underline underline-offset-4 decoration-creme-border inline-flex items-center space-x-2"
-                  >
-                    <span>Click to reveal email</span>
-                    <span class="text-sm font-sans">&rarr;</span>
-                  </a>
-                </div>
-              </div>
-
-              <div class="pt-2">
-                <span class="text-[10px] uppercase tracking-widest text-taupe block">Telephone</span>
-                <a
-                  href={`tel:${contact.phone.replace(/\s+/g, '')}`}
-                  class="font-sans text-sm text-espresso hover:text-terracotta transition-colors"
-                >
-                  {contact.phone}
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <!-- Response Commitment -->
-          <div class="p-6 bg-creme-alabaster border border-creme-border space-y-2">
-            <span class="text-[10px] uppercase tracking-widest text-espresso font-semibold block">
-              What to Expect
-            </span>
-            <p class="text-xs text-taupe leading-relaxed font-light">
-              We respond to all project inquiries within 24 to 48 business hours with preliminary discovery questions and studio availability.
-            </p>
           </div>
         </div>
 
@@ -127,23 +60,3 @@ const obfuscatedEmailPayload = Buffer.from(publicEmail).toString('base64');
     </div>
   </section>
 </Layout>
-
-<!-- Client-side email de-obfuscation script -->
-<script is:inline>
-  document.addEventListener('DOMContentLoaded', () => {
-    const obfContainer = document.getElementById('email-obf-container');
-    const obfLink = document.getElementById('email-obf-link');
-    if (obfContainer && obfLink) {
-      const payload = obfContainer.getAttribute('data-payload');
-      if (payload) {
-        try {
-          const decoded = atob(payload);
-          obfLink.href = 'mailto:' + decoded;
-          obfLink.innerHTML = decoded;
-        } catch (e) {
-          console.error('Error decoding contact email:', e);
-        }
-      }
-    }
-  });
-</script>
