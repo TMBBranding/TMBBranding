@@ -34,15 +34,15 @@ const about = aboutEntry.data as AboutPageData;
         
         <!-- Portrait Column with Studio Framing -->
         <div class="lg:col-span-5">
-          <div class="relative group">
+          <div class="relative">
             <!-- Warm Ambient Shadow -->
-            <div class="absolute -inset-2 bg-gradient-to-tr from-ocre-soft/50 via-terracotta-soft/30 to-transparent blur-lg opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
+            <div class="absolute -inset-2 bg-gradient-to-tr from-ocre-soft/50 via-terracotta-soft/30 to-transparent blur-lg opacity-60"></div>
 
             <div class="relative aspect-[3/4] overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm-lg">
               <img
                 src={about.bioFounder.portraitImage}
                 alt={`Portrait of ${about.bioFounder.name}`}
-                class="w-full h-full object-cover object-top slow-zoom"
+                class="w-full h-full object-cover object-top"
                 loading="lazy"
               />
             </div>
