@@ -96,7 +96,7 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
         {services.slice(0, 6).map((service) => {
           const serviceAnchor = `/services#${service.id.replace(/\.md$/, '')}`;
           return (
-            <article class="group bg-creme-powder shadow-warm-xs hover:shadow-warm-lg transition-all duration-500 overflow-hidden flex flex-col justify-between">
+            <article class="group bg-creme-powder border border-white shadow-warm-xs hover:shadow-warm-lg transition-all duration-500 overflow-hidden flex flex-col justify-between">
               <div class="space-y-6">
                 <!-- Service Image Ratio 16/10 -->
                 <a href={serviceAnchor} class="block relative aspect-[16/10] overflow-hidden bg-creme-alabaster">
@@ -110,9 +110,13 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
 
                 <!-- Content -->
                 <div class="px-7 pt-1 pb-8 space-y-3">
-                  <h3 class="font-serif text-2xl text-espresso group-hover:text-terracotta transition-colors duration-300">
-                    <a href={serviceAnchor} class="focus:outline-none hover:underline underline-offset-4 decoration-terracotta/40">
-                      {service.data.title}
+                  <h3 class="font-serif text-2xl text-espresso inline-block">
+                    <a
+                      href={serviceAnchor}
+                      class="group/title relative inline-block py-0.5 focus:outline-none transition-colors duration-300 text-espresso group-hover:text-terracotta"
+                    >
+                      <span>{service.data.title}</span>
+                      <span class="absolute bottom-0 left-0 w-full h-[1.5px] bg-terracotta transition-transform duration-300 origin-left scale-x-0 group-hover:scale-x-100"></span>
                     </a>
                   </h3>
                   <p class="text-taupe text-sm leading-relaxed font-light line-clamp-3">
