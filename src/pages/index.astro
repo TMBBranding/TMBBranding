@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Button from '../components/Button.astro';
 import { getEntry, getCollection } from 'astro:content';
 import type { HomePageData } from '../content/config';
 
@@ -83,24 +82,28 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
   </section>
 
   <!-- 2. GRILLE DE SERVICES -->
-  <section class="py-24 sm:py-32 border-b border-creme-border/60">
+  <section class="py-24 sm:py-32 bg-terracotta text-creme-powder border-b border-terracotta-dark/30">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <!-- Section Header -->
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 space-y-4 md:space-y-0">
         <div>
-          <h2 class="font-serif text-4xl sm:text-5xl text-espresso">
+          <h2 class="font-serif text-4xl sm:text-5xl text-creme">
             Comprehensive Digital Marketing
           </h2>
         </div>
-        <Button href="/services" variant="tertiary">
-          View All 6 Disciplines
-        </Button>
+        <a
+          href="/services"
+          class="inline-flex items-center text-xs uppercase tracking-luxury text-creme/90 hover:text-white font-medium underline underline-offset-8 decoration-creme/50 hover:decoration-white transition-colors"
+        >
+          <span>View All 6 Disciplines</span>
+          <span class="ml-2">&rarr;</span>
+        </a>
       </div>
 
       <!-- Services Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {services.slice(0, 6).map((service) => (
-          <article class="group bg-creme-powder border border-creme-border/80 hover:border-terracotta/50 shadow-warm-xs hover:shadow-warm transition-all duration-500 overflow-hidden flex flex-col justify-between">
+          <article class="group bg-creme-powder border border-white/20 hover:border-white/50 shadow-warm-xs hover:shadow-warm-lg transition-all duration-500 overflow-hidden flex flex-col justify-between">
             <div class="space-y-6">
               <!-- Service Image Ratio 16/10 -->
               <div class="relative aspect-[16/10] overflow-hidden bg-creme-alabaster">
