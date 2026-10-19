@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import SEO from '../components/SEO.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  currentPath?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = 'TMB Branding | Founder-Led Branding Agency Austin TX',
+  description = 'Boutique branding and digital agency in Austin, TX elevating visionary founder-led fashion, beauty, and lifestyle brands to cultural authority.',
+  ogImage = '/images/uploads/hero-home.jpg',
+  currentPath = Astro.url.pathname,
+  noindex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://tmbbranding.com');
+---
+
+<!doctype html>
+<html lang="en" class="bg-creme-powder text-espresso antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- SEO, Open Graph, Twitter & JSON-LD Structured Data -->
+    <SEO
+      title={title}
+      description={description}
+      ogImage={ogImage}
+      canonicalURL={canonicalURL}
+      noindex={noindex}
+    />
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Netlify Identity Widget -->
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+    <!-- Netlify Identity Login Listener: Automatic redirect to /admin/ upon login -->
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", function(user) {
+          if (!user) {
+            window.netlifyIdentity.on("login", function() {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col bg-creme-powder text-espresso selection:bg-terracotta selection:text-white">
+    <!-- Main Global Navbar -->
+    <Navbar currentPath={currentPath} />
+
+    <!-- Page Content Slot -->
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <!-- Global Footer -->
+    <Footer />
+  </body>
+</html>

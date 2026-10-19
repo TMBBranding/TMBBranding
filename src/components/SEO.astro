@@ -1,0 +1,108 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalURL?: string | URL;
+  ogImage?: string;
+  ogType?: 'website' | 'article' | 'profile';
+  noindex?: boolean;
+}
+
+const {
+  title = 'TMB Branding | Founder-Led Branding Agency Austin TX',
+  description = 'Boutique branding and digital agency in Austin, TX elevating visionary founder-led fashion, beauty, and lifestyle brands to cultural authority.',
+  canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://tmbbranding.com'),
+  ogImage = '/images/uploads/hero-home.jpg',
+  ogType = 'website',
+  noindex = false,
+} = Astro.props;
+
+const siteUrl = Astro.site ?? 'https://tmbbranding.com';
+const resolvedCanonical = typeof canonicalURL === 'string' ? new URL(canonicalURL, siteUrl).href : canonicalURL.href;
+const resolvedOgImage = new URL(ogImage, siteUrl).href;
+
+// JSON-LD Schema.org Structured Data for ProfessionalService
+const schemaOrgData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'TMB Branding',
+  alternateName: 'TMB Creative Direction & Brand Architecture',
+  url: siteUrl.toString(),
+  description: description,
+  image: resolvedOgImage,
+  logo: new URL('/favicon.svg', siteUrl).href,
+  telephone: '+1-512-529-1677',
+  priceRange: '$$$$',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Austin',
+    addressRegion: 'TX',
+    addressCountry: 'US',
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 30.2672,
+    longitude: -97.7431,
+  },
+  founder: {
+    '@type': 'Person',
+    name: 'Tiffany',
+    jobTitle: 'Founder & Creative Director',
+    image: new URL('/images/uploads/founder-tiffany.png', siteUrl).href,
+  },
+  areaServed: [
+    {
+      '@type': 'AdministrativeArea',
+      name: 'Austin, Texas',
+    },
+    {
+      '@type': 'Country',
+      name: 'United States',
+    },
+    {
+      '@type': 'AdministrativeArea',
+      name: 'Global / Worldwide',
+    },
+  ],
+  knowsAbout: [
+    'Brand Architecture',
+    'Founder-Led Branding',
+    'Creative Direction',
+    'Social Media Strategy',
+    'Thought Leadership',
+    'Luxury Lifestyle & Fashion Branding',
+  ],
+};
+---
+
+<!-- Primary Meta Tags -->
+<title>{title}</title>
+<meta name="title" content={title} />
+<meta name="description" content={description} />
+<link rel="canonical" href={resolvedCanonical} />
+
+<!-- Crawl Directives -->
+{noindex ? (
+  <meta name="robots" content="noindex, nofollow" />
+) : (
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+)}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:site_name" content="TMB Branding" />
+<meta property="og:type" content={ogType} />
+<meta property="og:url" content={resolvedCanonical} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={resolvedOgImage} />
+<meta property="og:locale" content="en_US" />
+
+<!-- Twitter Card -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={resolvedCanonical} />
+<meta property="twitter:title" content={title} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={resolvedOgImage} />
+
+<!-- Schema.org JSON-LD Structured Data -->
+<script type="application/ld+json" is:inline set:html={JSON.stringify(schemaOrgData)} />

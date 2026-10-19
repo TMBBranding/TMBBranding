@@ -1,0 +1,161 @@
+---
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+const navItems = [
+  { label: 'Accueil', href: '/' },
+  { label: 'Services', href: '/services' },
+  { label: 'Brands', href: '/brands' },
+  { label: 'About', href: '/about' },
+  { label: 'Contact', href: '/contact' },
+];
+
+const isActive = (href: string) => {
+  if (href === '/') return currentPath === '/' || currentPath === '';
+  return currentPath.startsWith(href);
+};
+---
+
+<header class="sticky top-0 z-50 bg-creme-powder/90 backdrop-blur-md border-b border-creme-border/60 transition-colors duration-400">
+  <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-20 sm:h-24 flex items-center justify-between">
+    <!-- Brand Logo -->
+    <a href="/" class="group flex flex-col items-start focus:outline-none" aria-label="TMB Branding - Accueil">
+      <span class="font-serif text-2xl sm:text-3xl tracking-editorial font-normal text-espresso group-hover:text-terracotta transition-colors duration-400">
+        TMB BRANDING
+      </span>
+      <span class="text-[9px] tracking-kicker uppercase text-taupe font-sans font-medium -mt-0.5">
+        Austin, TX &bull; Founder-Led Studio
+      </span>
+    </a>
+
+    <!-- Desktop Navigation -->
+    <nav class="hidden md:flex items-center space-x-9 lg:space-x-11" aria-label="Navigation Principale">
+      {navItems.map((item) => {
+        const active = isActive(item.href);
+        return (
+          <a
+            href={item.href}
+            class={`text-[11px] uppercase tracking-luxury font-medium transition-all duration-300 relative py-1.5 ${
+              active
+                ? 'text-terracotta-dark font-semibold'
+                : 'text-taupe hover:text-espresso'
+            }`}
+          >
+            {item.label}
+            {active && (
+              <span class="absolute bottom-0 left-0 w-full h-[1.5px] bg-terracotta"></span>
+            )}
+          </a>
+        );
+      })}
+    </nav>
+
+    <!-- Header Action Button -->
+    <div class="hidden md:flex items-center space-x-6">
+      <a
+        href="/contact"
+        class="inline-flex items-center justify-center px-6 py-2.5 text-[10px] uppercase tracking-luxury font-medium text-creme bg-espresso hover:bg-terracotta border border-espresso/20 rounded-luxury-sm shadow-warm-xs hover:shadow-warm transition-all duration-400 ease-out"
+      >
+        <span>Let’s Connect</span>
+        <span class="ml-2 transition-transform duration-300 group-hover:translate-x-0.5">&rarr;</span>
+      </a>
+    </div>
+
+    <!-- Mobile Menu Trigger -->
+    <button
+      id="navbar-toggle-btn"
+      type="button"
+      class="md:hidden p-2 text-espresso hover:text-terracotta focus:outline-none"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+    >
+      <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24">
+        <path id="navbar-icon-hamburger" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+        <path id="navbar-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Fullscreen / Drawer Lookbook Mobile Menu -->
+  <div
+    id="navbar-mobile-drawer"
+    class="hidden md:hidden fixed inset-x-0 top-[80px] sm:top-[96px] bottom-0 bg-creme-powder/98 backdrop-blur-xl border-t border-creme-border px-8 py-12 flex flex-col justify-between overflow-y-auto"
+  >
+    <div class="space-y-6 pt-4">
+      <p class="text-[10px] uppercase tracking-kicker text-ocre font-sans font-semibold">
+        Navigation Studio
+      </p>
+      <nav class="flex flex-col space-y-4">
+        {navItems.map((item, idx) => (
+          <a
+            href={item.href}
+            class={`font-serif text-3xl sm:text-4xl transition-colors duration-300 flex items-baseline justify-between border-b border-creme-border/50 pb-3 ${
+              isActive(item.href)
+                ? 'text-terracotta italic font-normal'
+                : 'text-espresso hover:text-terracotta'
+            }`}
+          >
+            <span>{item.label}</span>
+            <span class="font-sans text-[10px] tracking-widest text-taupe-muted uppercase">
+              0{idx + 1}
+            </span>
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <div class="pt-8 pb-6 border-t border-creme-border/70 space-y-4">
+      <div class="text-xs text-taupe space-y-1">
+        <p class="font-serif text-base text-espresso">TMB Branding &mdash; Austin, TX</p>
+        <p>Available for commissions worldwide &bull; +1 512 529 1677</p>
+      </div>
+      <a
+        href="/contact"
+        class="block w-full text-center py-4 text-xs uppercase tracking-luxury font-medium text-creme bg-espresso hover:bg-terracotta rounded-luxury-sm shadow-warm transition-colors"
+      >
+        Start a Project &rarr;
+      </a>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  const navBtn = document.getElementById('navbar-toggle-btn');
+  const navDrawer = document.getElementById('navbar-mobile-drawer');
+  const iconHamb = document.getElementById('navbar-icon-hamburger');
+  const iconClose = document.getElementById('navbar-icon-close');
+
+  if (navBtn && navDrawer) {
+    navBtn.addEventListener('click', () => {
+      const isExpanded = navBtn.getAttribute('aria-expanded') === 'true';
+      navBtn.setAttribute('aria-expanded', String(!isExpanded));
+      navDrawer.classList.toggle('hidden');
+      if (iconHamb && iconClose) {
+        iconHamb.classList.toggle('hidden');
+        iconClose.classList.toggle('hidden');
+      }
+      // Lock background scroll when drawer is open
+      if (!isExpanded) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Close menu when clicking any nav link
+    navDrawer.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navDrawer.classList.add('hidden');
+        navBtn.setAttribute('aria-expanded', 'false');
+        if (iconHamb && iconClose) {
+          iconHamb.classList.remove('hidden');
+          iconClose.classList.add('hidden');
+        }
+        document.body.style.overflow = '';
+      });
+    });
+  }
+</script>

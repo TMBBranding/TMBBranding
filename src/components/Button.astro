@@ -1,0 +1,63 @@
+---
+interface Props {
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  variant?: 'primary' | 'secondary' | 'tertiary';
+  size?: 'sm' | 'md' | 'lg';
+  arrow?: boolean;
+  class?: string;
+  target?: string;
+  rel?: string;
+  [key: string]: any;
+}
+
+const {
+  href,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  arrow = true,
+  class: className = '',
+  target,
+  rel,
+  ...rest
+} = Astro.props;
+
+// Size Styles
+const sizeClasses = {
+  sm: 'px-5 py-2.5 text-[10px] tracking-luxury uppercase',
+  md: 'px-7 py-3.5 text-xs tracking-luxury uppercase',
+  lg: 'px-9 py-4 text-xs tracking-luxury uppercase',
+};
+
+// Variant Styles
+const variantClasses = {
+  primary:
+    'bg-amber-dark text-creme-powder hover:bg-terracotta active:bg-terracotta-dark shadow-warm hover:shadow-warm-lg hover:-translate-y-0.5 border border-amber-dark/20 transition-all duration-400 ease-out font-medium',
+  secondary:
+    'bg-transparent text-espresso border border-espresso/25 hover:border-terracotta hover:text-terracotta hover:bg-creme-alabaster/40 active:border-terracotta-dark transition-all duration-400 ease-out font-medium',
+  tertiary:
+    'bg-transparent p-0 text-espresso hover:text-terracotta font-medium tracking-luxury uppercase underline-reveal transition-colors duration-300',
+};
+
+const Tag = href ? 'a' : 'button';
+const combinedClasses = variant === 'tertiary'
+  ? `inline-flex items-center group font-sans ${variantClasses[variant]} ${className}`
+  : `inline-flex items-center justify-center group font-sans rounded-luxury-sm ${sizeClasses[size]} ${variantClasses[variant]} ${className}`;
+---
+
+<Tag
+  href={href}
+  type={!href ? type : undefined}
+  target={target}
+  rel={rel || (target === '_blank' ? 'noopener noreferrer' : undefined)}
+  class={combinedClasses}
+  {...rest}
+>
+  <span class="relative z-10"><slot /></span>
+  {arrow && (
+    <span class="ml-2.5 transform group-hover:translate-x-1 transition-transform duration-300 ease-out inline-block">
+      &rarr;
+    </span>
+  )}
+</Tag>

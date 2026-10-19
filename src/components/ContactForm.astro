@@ -1,0 +1,364 @@
+---
+interface Props {
+  serviceOptions?: string[];
+  budgetOptions?: string[];
+  accessKey?: string;
+  class?: string;
+}
+
+const {
+  serviceOptions = [
+    'Social Media Strategy',
+    'Strategic Partnerships & Influencers',
+    'Thought Leadership & Founder Branding',
+    'Email Marketing & Automation',
+    'Paid Social Advertising',
+    'Events & Activations',
+  ],
+  budgetOptions = [
+    '< $5,000 / month',
+    '$5,000 – $10,000 / month',
+    '$10,000 – $20,000 / month',
+    '$20,000+ / Custom Project',
+  ],
+  accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HERE',
+  class: className = '',
+} = Astro.props;
+---
+
+<div class={`relative bg-creme-powder border border-creme-border rounded-luxury-xl p-8 sm:p-12 lg:p-14 shadow-warm ${className}`} id="contact-form-container">
+  
+  <!-- Success Message State (Hidden by default) -->
+  <div id="contact-success" class="hidden transition-all duration-700 ease-out py-8 text-center space-y-6">
+    <div class="w-16 h-16 mx-auto rounded-full bg-ocre-soft/60 border border-ocre/40 flex items-center justify-center text-terracotta">
+      <svg class="w-8 h-8 stroke-current" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.5 12.75l6 6 9-13.5" />
+      </svg>
+    </div>
+    
+    <div class="space-y-3 max-w-lg mx-auto">
+      <span class="text-[10px] uppercase tracking-kicker text-ocre font-sans font-semibold block">
+        Inquiry Transmitted
+      </span>
+      <h3 class="font-serif text-3xl sm:text-4xl text-espresso font-normal">
+        Thank you for sharing your vision.
+      </h3>
+      <p class="text-taupe text-sm sm:text-base font-light leading-relaxed">
+        Your brief has been received with confidentiality. Tiffany and the TMB team will review your objectives and respond within 24 to 48 business hours.
+      </p>
+    </div>
+
+    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <button
+        type="button"
+        id="contact-reset-btn"
+        class="inline-flex items-center justify-center px-7 py-3 text-xs uppercase tracking-luxury font-medium text-espresso border border-creme-border hover:border-terracotta rounded-luxury-sm transition-colors"
+      >
+        Send Another Message
+      </button>
+      <a
+        href="/brands"
+        class="inline-flex items-center justify-center px-7 py-3 text-xs uppercase tracking-luxury font-medium text-creme-powder bg-espresso hover:bg-terracotta rounded-luxury-sm shadow-warm transition-colors"
+      >
+        Explore Recent Works &rarr;
+      </a>
+    </div>
+  </div>
+
+  <!-- Interactive Form -->
+  <form id="contact-form" class="space-y-8" novalidate>
+    <!-- Web3Forms Access Key & Config -->
+    <input type="hidden" name="access_key" value={accessKey} />
+    <input type="hidden" name="subject" value="New Project Inquiry — TMB Branding" />
+    <input type="hidden" name="from_name" value="TMB Branding Inquiries" />
+
+    <!-- Anti-Spam Honeypot (Invisible for humans) -->
+    <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
+
+    <!-- Error Alert Banner -->
+    <div id="contact-error" class="hidden p-4 rounded-luxury bg-terracotta-soft/50 border border-terracotta/40 text-espresso text-xs font-light leading-relaxed flex items-start space-x-3">
+      <svg class="w-5 h-5 text-terracotta flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+      </svg>
+      <div id="contact-error-text">
+        Unable to submit inquiry. Please verify your details or email us directly at tiffany@tmbbranding.com.
+      </div>
+    </div>
+
+    <!-- 1. Name & Email Row -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div class="space-y-2">
+        <label for="contact-name" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
+          Full Name <span class="text-terracotta">*</span>
+        </label>
+        <input
+          type="text"
+          id="contact-name"
+          name="name"
+          required
+          placeholder="e.g. Martha Soffer"
+          class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm placeholder:text-taupe-light focus:outline-none focus:border-terracotta focus:bg-white transition-colors"
+        />
+        <p class="text-[10px] text-terracotta hidden error-hint" id="err-name">Please enter your name.</p>
+      </div>
+
+      <div class="space-y-2">
+        <label for="contact-email" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
+          Email Address <span class="text-terracotta">*</span>
+        </label>
+        <input
+          type="email"
+          id="contact-email"
+          name="email"
+          required
+          placeholder="e.g. martha@suryaspa.com"
+          class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm placeholder:text-taupe-light focus:outline-none focus:border-terracotta focus:bg-white transition-colors"
+        />
+        <p class="text-[10px] text-terracotta hidden error-hint" id="err-email">Please enter a valid email address.</p>
+      </div>
+    </div>
+
+    <!-- 2. Phone & Company / Brand -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div class="space-y-2">
+        <label for="contact-phone" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
+          Phone Number <span class="text-taupe-light font-normal text-[10px]">(Optional)</span>
+        </label>
+        <input
+          type="tel"
+          id="contact-phone"
+          name="phone"
+          placeholder="+1 (512) 000-0000"
+          class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm placeholder:text-taupe-light focus:outline-none focus:border-terracotta focus:bg-white transition-colors"
+        />
+      </div>
+
+      <div class="space-y-2">
+        <label for="contact-brand" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
+          Brand or Venture Name
+        </label>
+        <input
+          type="text"
+          id="contact-brand"
+          name="brand_name"
+          placeholder="e.g. Surya Ayurvedic"
+          class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm placeholder:text-taupe-light focus:outline-none focus:border-terracotta focus:bg-white transition-colors"
+        />
+      </div>
+    </div>
+
+    <!-- 3. Dynamic Service Selection (Dropdown) -->
+    <div class="space-y-2">
+      <label for="contact-service" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
+        Primary Discipline of Interest
+      </label>
+      <div class="relative">
+        <select
+          id="contact-service"
+          name="service"
+          class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-terracotta focus:bg-white transition-colors appearance-none cursor-pointer"
+        >
+          <option value="General Inquiry">Select a discipline or scope...</option>
+          {serviceOptions.map((opt) => (
+            <option value={opt}>{opt}</option>
+          ))}
+        </select>
+        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-taupe">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Budget Selector (Interactive Radios) -->
+    <div class="space-y-3">
+      <label class="block text-xs uppercase tracking-luxury text-espresso font-medium">
+        Anticipated Investment Framework
+      </label>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {budgetOptions.map((budget, i) => (
+          <label class="relative flex items-center p-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm cursor-pointer hover:border-terracotta transition-colors group">
+            <input
+              type="radio"
+              name="budget"
+              value={budget}
+              checked={i === 0}
+              class="accent-terracotta text-terracotta focus:ring-0 mr-3"
+            />
+            <span class="text-xs text-espresso font-light group-hover:text-terracotta transition-colors">
+              {budget}
+            </span>
+          </label>
+        ))}
+      </div>
+    </div>
+
+    <!-- 5. Message Textarea -->
+    <div class="space-y-2">
+      <label for="contact-message" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
+        Project Details &amp; Ambition <span class="text-terracotta">*</span>
+      </label>
+      <textarea
+        id="contact-message"
+        name="message"
+        rows="5"
+        required
+        placeholder="Tell us about your brand story, upcoming milestones, and what you hope to achieve together..."
+        class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm placeholder:text-taupe-light focus:outline-none focus:border-terracotta focus:bg-white transition-colors"
+      ></textarea>
+      <p class="text-[10px] text-terracotta hidden error-hint" id="err-message">Please include a brief description of your project.</p>
+    </div>
+
+    <!-- 6. RGPD / Privacy Policy Consent -->
+    <div class="pt-1">
+      <label class="flex items-start space-x-3 cursor-pointer group">
+        <input
+          type="checkbox"
+          id="contact-consent"
+          name="consent"
+          required
+          class="mt-1 accent-terracotta text-terracotta focus:ring-0 rounded-sm"
+        />
+        <span class="text-xs text-taupe leading-relaxed font-light">
+          I consent to TMB Branding processing my contact information solely for the purpose of this project inquiry in accordance with privacy principles.
+        </span>
+      </label>
+      <p class="text-[10px] text-terracotta hidden error-hint" id="err-consent">Consent is required to submit your inquiry.</p>
+    </div>
+
+    <!-- Submit Button with Dynamic UX States -->
+    <div class="pt-4">
+      <button
+        type="submit"
+        id="contact-submit-btn"
+        class="w-full sm:w-auto inline-flex items-center justify-center px-10 py-4 text-xs uppercase tracking-luxury font-medium text-creme-powder bg-espresso hover:bg-terracotta rounded-luxury-sm shadow-warm hover:shadow-warm-lg transition-all duration-300 ease-out disabled:opacity-60 disabled:cursor-not-allowed group"
+      >
+        <!-- Normal state text -->
+        <span id="btn-text" class="inline-flex items-center">
+          <span>Transmit Project Brief</span>
+          <span class="ml-2.5 transform group-hover:translate-x-1 transition-transform duration-300">&rarr;</span>
+        </span>
+        
+        <!-- Loading Spinner -->
+        <span id="btn-spinner" class="hidden items-center space-x-2">
+          <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <span>Transmitting Brief...</span>
+        </span>
+      </button>
+    </div>
+  </form>
+</div>
+
+<script is:inline>
+  const form = document.getElementById('contact-form');
+  const successContainer = document.getElementById('contact-success');
+  const errorContainer = document.getElementById('contact-error');
+  const errorText = document.getElementById('contact-error-text');
+  const submitBtn = document.getElementById('contact-submit-btn');
+  const btnText = document.getElementById('btn-text');
+  const btnSpinner = document.getElementById('btn-spinner');
+  const resetBtn = document.getElementById('contact-reset-btn');
+
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Reset errors
+      if (errorContainer) errorContainer.classList.add('hidden');
+      document.querySelectorAll('.error-hint').forEach(el => el.classList.add('hidden'));
+
+      // Validate inputs
+      const nameInput = document.getElementById('contact-name');
+      const emailInput = document.getElementById('contact-email');
+      const messageInput = document.getElementById('contact-message');
+      const consentInput = document.getElementById('contact-consent');
+
+      let isValid = true;
+
+      if (!nameInput.value.trim()) {
+        document.getElementById('err-name')?.classList.remove('hidden');
+        isValid = false;
+      }
+      if (!emailInput.value.trim() || !/^\S+@\S+\.\S+$/.test(emailInput.value.trim())) {
+        document.getElementById('err-email')?.classList.remove('hidden');
+        isValid = false;
+      }
+      if (!messageInput.value.trim()) {
+        document.getElementById('err-message')?.classList.remove('hidden');
+        isValid = false;
+      }
+      if (!consentInput.checked) {
+        document.getElementById('err-consent')?.classList.remove('hidden');
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      // Check botcheck honeypot
+      const botcheck = form.querySelector('input[name="botcheck"]');
+      if (botcheck && botcheck.checked) {
+        // Silently drop bot submissions
+        form.classList.add('hidden');
+        successContainer.classList.remove('hidden');
+        return;
+      }
+
+      // Enter Loading State
+      submitBtn.disabled = true;
+      btnText.classList.add('hidden');
+      btnSpinner.classList.remove('hidden');
+      btnSpinner.classList.add('inline-flex');
+
+      // Prepare payload
+      const formData = new FormData(form);
+      const jsonObject = Object.fromEntries(formData.entries());
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(jsonObject),
+        });
+
+        const result = await response.json();
+
+        if (response.status === 200 && (result.success || result.message)) {
+          // Enter Success State
+          form.classList.add('hidden');
+          successContainer.classList.remove('hidden');
+          form.reset();
+        } else {
+          // Web3Forms API error or invalid key warning
+          throw new Error(result.message || 'Transmission failed.');
+        }
+      } catch (err) {
+        console.warn('Web3Forms Notice:', err);
+        // Display polite user feedback
+        if (errorContainer && errorText) {
+          errorText.textContent = err.message || 'Submission failed. Please verify your details or email concierge@tmbbranding.com directly.';
+          errorContainer.classList.remove('hidden');
+        }
+      } finally {
+        // Reset button state
+        submitBtn.disabled = false;
+        btnText.classList.remove('hidden');
+        btnSpinner.classList.add('hidden');
+        btnSpinner.classList.remove('inline-flex');
+      }
+    });
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        successContainer.classList.add('hidden');
+        form.classList.remove('hidden');
+      });
+    }
+  }
+</script>

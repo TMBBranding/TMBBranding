@@ -1,0 +1,131 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import { getCollection, render } from 'astro:content';
+
+const allServices = await getCollection('services');
+const services = allServices.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+// Pre-render markdown content for each of the 6 services
+const renderedServices = await Promise.all(
+  services.map(async (service) => {
+    const { Content } = await render(service);
+    return {
+      service,
+      Content,
+    };
+  })
+);
+---
+
+<Layout
+  title="Digital Marketing Services — TMB Branding | Austin, TX"
+  description="Explore our 6 core capabilities: Social Media Strategy, Strategic Partnerships, Thought Leadership, Email Marketing, Paid Social, and Events & Activations."
+  currentPath="/services"
+>
+  <!-- HERO HEADER -->
+  <section class="pt-16 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24 border-b border-creme-border/60">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div class="max-w-3xl space-y-6">
+        <div class="inline-flex items-center space-x-3.5">
+          <span class="w-8 h-[1px] bg-ocre"></span>
+          <span class="text-[11px] uppercase tracking-kicker text-ocre font-sans font-semibold">
+            Capabilities &amp; Craft
+          </span>
+        </div>
+        <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial">
+          Digital Marketing Services
+        </h1>
+        <p class="text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans">
+          At TMB Branding, we partner with founder-led brands to bring visionary ideas to life. Through strategic storytelling, community building, and digital-first marketing, we craft campaigns and experiences that spark connection and drive growth.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 SERVICES LISTING WITH ALTERNATING LAYOUT -->
+  <section class="py-20 sm:py-28 lg:py-32">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-28 sm:space-y-36">
+      {renderedServices.map(({ service, Content }, index) => {
+        const isEven = index % 2 === 1;
+        return (
+          <article class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center pb-24 sm:pb-32 border-b border-creme-border/60 last:border-b-0 last:pb-0">
+            <!-- Visual Column -->
+            <div class={`lg:col-span-6 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
+              <div class="relative group">
+                <!-- Warm Glow Ambient -->
+                <div class="absolute -inset-2 bg-gradient-to-tr from-ocre-soft/40 via-terracotta-soft/20 to-transparent rounded-luxury-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+                <div class="relative aspect-[4/3] sm:aspect-[16/11] overflow-hidden rounded-luxury-lg bg-creme-alabaster border border-creme-border shadow-warm group-hover:shadow-warm-lg transition-shadow duration-500">
+                  <img
+                    src={service.data.coverImage}
+                    alt={service.data.title}
+                    class="w-full h-full object-cover object-center slow-zoom"
+                    loading="lazy"
+                  />
+                  <!-- Discipline Number Tag -->
+                  <div class="absolute top-4 left-4 bg-creme-powder/95 backdrop-blur-md px-3.5 py-1 rounded-luxury-sm text-[10px] uppercase tracking-luxury text-espresso font-semibold border border-creme-border/60 shadow-warm-xs">
+                    Discipline 0{service.data.order}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Content Column -->
+            <div class={`lg:col-span-6 space-y-6 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
+              <div class="space-y-2">
+                <span class="text-[10px] font-mono text-terracotta uppercase tracking-luxury font-medium block">
+                  Service 0{service.data.order}
+                </span>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-tight">
+                  {service.data.title}
+                </h2>
+              </div>
+
+              <!-- Short Description Highlight -->
+              <p class="text-base text-espresso/90 font-light leading-relaxed bg-creme-alabaster p-5 rounded-luxury border-l-2 border-ocre">
+                {service.data.shortDescription}
+              </p>
+
+              <!-- Markdown Body with Key Points & Deliverables -->
+              <div class="prose prose-stone max-w-none text-taupe leading-relaxed font-light text-sm sm:text-base prose-headings:font-serif prose-headings:text-espresso prose-headings:font-normal prose-h3:text-xl prose-h3:mt-4 prose-h3:mb-2 prose-ul:my-2 prose-li:my-1 prose-li:marker:text-terracotta prose-strong:text-espresso prose-strong:font-medium">
+                <Content />
+              </div>
+
+              <!-- Direct Inquiry Button -->
+              <div class="pt-4">
+                <Button
+                  href={`/contact?service=${encodeURIComponent(service.data.title)}`}
+                  variant="secondary"
+                  size="md"
+                >
+                  Inquire About This Service
+                </Button>
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="py-20 sm:py-28 bg-creme-alabaster border-t border-creme-border/60">
+    <div class="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 text-center space-y-6">
+      <span class="text-[10px] uppercase tracking-kicker text-ocre font-sans font-semibold block">
+        Start a Project
+      </span>
+      <h2 class="font-serif text-4xl sm:text-5xl text-espresso leading-tight">
+        Interested in starting a project?
+      </h2>
+      <p class="text-taupe text-base sm:text-lg max-w-xl mx-auto font-light leading-relaxed">
+        Contact us for more information on our tailored scopes, quarterly retainers, and launch campaigns.
+      </p>
+      <div class="pt-4">
+        <Button href="/contact" variant="primary" size="lg">
+          Get in Touch with TMB
+        </Button>
+      </div>
+    </div>
+  </section>
+</Layout>

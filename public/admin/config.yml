@@ -1,0 +1,152 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  # ==========================================
+  # PAGES UNIQUES (Accueil, À Propos, Contact)
+  # ==========================================
+  - name: "pages"
+    label: "Pages"
+    delete: false
+    files:
+      - name: "home"
+        label: "Page d'Accueil"
+        file: "src/content/pages/home.md"
+        format: "frontmatter"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Kicker / Sur-titre", name: "kicker", widget: "string" }
+              - { label: "Titre Principal", name: "title", widget: "string" }
+              - { label: "Sous-titre", name: "subtitle", widget: "text" }
+              - { label: "Texte du bouton CTA", name: "ctaText", widget: "string" }
+              - { label: "Lien du bouton CTA", name: "ctaLink", widget: "string" }
+          - label: "Introduction de l'agence"
+            name: "intro"
+            widget: "text"
+          - label: "Témoignages Clients"
+            name: "testimonials"
+            widget: "list"
+            summary: "{{fields.author}} — {{fields.role}}"
+            fields:
+              - { label: "Citation / Avis", name: "quote", widget: "text" }
+              - { label: "Auteur", name: "author", widget: "string" }
+              - { label: "Rôle & Marque", name: "role", widget: "string" }
+          - label: "Référencement (SEO)"
+            name: "seo"
+            widget: "object"
+            fields:
+              - { label: "Meta Titre", name: "metaTitle", widget: "string" }
+              - { label: "Meta Description", name: "metaDescription", widget: "text" }
+              - { label: "Image Open Graph (OG)", name: "ogImage", widget: "image", required: false }
+
+      - name: "about"
+        label: "Page À Propos"
+        file: "src/content/pages/about.md"
+        format: "frontmatter"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Titre", name: "title", widget: "string" }
+              - { label: "Sous-titre", name: "subtitle", widget: "text" }
+              - { label: "Image de Couverture", name: "coverImage", widget: "image" }
+          - label: "Biographie Fondatrice (Tiffany)"
+            name: "bioFounder"
+            widget: "object"
+            fields:
+              - { label: "Nom complet", name: "name", widget: "string" }
+              - { label: "Rôle", name: "role", widget: "string" }
+              - { label: "Portrait", name: "portraitImage", widget: "image" }
+              - { label: "Biographie & Vision", name: "body", widget: "markdown" }
+          - label: "Valeurs de l'Agence"
+            name: "values"
+            widget: "list"
+            summary: "{{fields.title}}"
+            fields:
+              - { label: "Titre de la valeur", name: "title", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+          - label: "Chiffres Clés / Faits Marquants"
+            name: "statsOrHighlights"
+            widget: "list"
+            summary: "{{fields.figure}} - {{fields.label}}"
+            fields:
+              - { label: "Chiffre / Valeur", name: "figure", widget: "string" }
+              - { label: "Libellé", name: "label", widget: "string" }
+          - label: "Référencement (SEO)"
+            name: "seo"
+            widget: "object"
+            fields:
+              - { label: "Meta Titre", name: "metaTitle", widget: "string" }
+              - { label: "Meta Description", name: "metaDescription", widget: "text" }
+              - { label: "Image Open Graph (OG)", name: "ogImage", widget: "image", required: false }
+
+      - name: "contact"
+        label: "Page Contact"
+        file: "src/content/pages/contact.md"
+        format: "frontmatter"
+        fields:
+          - { label: "Titre Principal", name: "title", widget: "string" }
+          - { label: "Sous-titre", name: "subtitle", widget: "text" }
+          - { label: "Email affiché (masqué au public)", name: "email", widget: "string", required: false }
+          - { label: "Email destinataire Web3Forms (confidentiel)", name: "contactEmail", widget: "string", required: false, hint: "Adresse recevant les notifications de formulaire Web3Forms" }
+          - { label: "Téléphone", name: "phone", widget: "string" }
+          - { label: "Localisation (ex: Austin, TX)", name: "location", widget: "string" }
+          - label: "Options de Services demandés"
+            name: "serviceOptions"
+            widget: "list"
+            field: { label: "Option de Service", name: "option", widget: "string" }
+          - label: "Fourchettes de Budget"
+            name: "budgetOptions"
+            widget: "list"
+            field: { label: "Fourchette de budget", name: "budget", widget: "string" }
+          - label: "Référencement (SEO)"
+            name: "seo"
+            widget: "object"
+            fields:
+              - { label: "Meta Titre", name: "metaTitle", widget: "string" }
+              - { label: "Meta Description", name: "metaDescription", widget: "text" }
+              - { label: "Image Open Graph (OG)", name: "ogImage", widget: "image", required: false }
+
+  # ==========================================
+  # COLLECTION SERVICES (Fichiers multiples)
+  # ==========================================
+  - name: "services"
+    label: "Services"
+    folder: "src/content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Titre du Service", name: "title", widget: "string" }
+      - { label: "Ordre d'affichage", name: "order", widget: "number", value_type: "int", default: 1 }
+      - { label: "Description courte", name: "shortDescription", widget: "text" }
+      - { label: "Image de Couverture", name: "coverImage", widget: "image" }
+      - { label: "Description Détaillée (Markdown)", name: "body", widget: "markdown" }
+
+  # ==========================================
+  # COLLECTION BRANDS (Portfolio clients)
+  # ==========================================
+  - name: "brands"
+    label: "Marques Clientes"
+    folder: "src/content/brands"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Nom de la Marque", name: "name", widget: "string" }
+      - { label: "Ordre d'affichage", name: "order", widget: "number", value_type: "int", default: 1 }
+      - { label: "Logo", name: "logoImage", widget: "image" }
+      - { label: "Image de Couverture", name: "coverImage", widget: "image" }
+      - { label: "Secteur d'activité", name: "industry", widget: "string" }
+      - label: "Livrables / Tags"
+        name: "deliverableTags"
+        widget: "list"
+        field: { label: "Tag / Livrable", name: "tag", widget: "string" }
+      - { label: "Étude de Cas (Markdown)", name: "caseStudyBody", widget: "markdown", required: false }
+      - { label: "Site Web de la marque", name: "websiteUrl", widget: "string", required: false }

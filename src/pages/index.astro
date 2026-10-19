@@ -1,0 +1,310 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import { getEntry, getCollection, render } from 'astro:content';
+import type { HomePageData } from '../content/config';
+
+const homeEntry = await getEntry('pages', 'home');
+if (!homeEntry) {
+  throw new Error("Impossible de charger la collection 'pages/home'");
+}
+const home = homeEntry.data as HomePageData;
+const { Content: HomeContent } = await render(homeEntry);
+
+const allServices = await getCollection('services');
+const services = allServices.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+const allBrands = await getCollection('brands');
+const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+---
+
+<Layout
+  title={home.seo.metaTitle}
+  description={home.seo.metaDescription}
+  ogImage={home.seo.ogImage}
+  currentPath="/"
+>
+  <!-- 1. HERO SECTION -->
+  <section class="relative pt-12 pb-20 sm:pt-20 sm:pb-28 lg:pt-28 lg:pb-36 overflow-hidden border-b border-creme-border/60">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        
+        <!-- Left Editorial Copy -->
+        <div class="lg:col-span-7 space-y-8">
+          <!-- Kicker -->
+          <div class="inline-flex items-center space-x-3.5">
+            <span class="w-8 h-[1px] bg-ocre"></span>
+            <span class="text-[11px] uppercase tracking-kicker text-ocre font-sans font-semibold">
+              {home.hero.kicker}
+            </span>
+          </div>
+
+          <!-- Main Title -->
+          <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-normal leading-[1.05] tracking-tight text-espresso text-balance">
+            {home.hero.title}
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="text-base sm:text-lg md:text-xl text-taupe font-light leading-relaxed max-w-2xl font-sans">
+            {home.hero.subtitle}
+          </p>
+
+          <!-- CTAs -->
+          <div class="pt-4 flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-6">
+            <Button href={home.hero.ctaLink} variant="primary" size="lg">
+              {home.hero.ctaText}
+            </Button>
+            <Button href="/about" variant="secondary" size="lg">
+              About the Studio
+            </Button>
+          </div>
+
+          <!-- Subtle Trust Metrics -->
+          <div class="pt-8 border-t border-creme-border/60 flex items-center space-x-8 text-xs tracking-wider text-taupe font-sans">
+            <div>
+              <span class="font-serif text-2xl text-espresso block font-normal">15+</span>
+              <span class="text-[10px] uppercase text-taupe-light">Years Experience</span>
+            </div>
+            <div class="w-[1px] h-8 bg-creme-border"></div>
+            <div>
+              <span class="font-serif text-2xl text-espresso block font-normal">2022</span>
+              <span class="text-[10px] uppercase text-taupe-light">Founded in Austin, TX</span>
+            </div>
+            <div class="w-[1px] h-8 bg-creme-border"></div>
+            <div>
+              <span class="font-serif text-2xl text-espresso block font-normal">100%</span>
+              <span class="text-[10px] uppercase text-taupe-light">Founder-Led Focus</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Hero Visual -->
+        <div class="lg:col-span-5">
+          <div class="relative group">
+            <!-- Subtle warm background glow/halo -->
+            <div class="absolute -inset-3 bg-gradient-to-tr from-ocre-soft/50 via-terracotta-soft/30 to-transparent rounded-luxury-xl blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+            <div class="relative aspect-[4/5] overflow-hidden rounded-luxury-lg bg-creme-alabaster border border-creme-border shadow-warm-lg">
+              <img
+                src={home.seo.ogImage || "/images/uploads/hero-home.jpg"}
+                alt="TMB Branding Studio — Austin TX"
+                class="w-full h-full object-cover object-center slow-zoom"
+                loading="eager"
+              />
+              <div class="absolute bottom-5 left-5 right-5 bg-creme-powder/95 backdrop-blur-md p-4 rounded-luxury-sm border border-creme-border/80 flex items-center justify-between">
+                <div>
+                  <span class="block text-[9px] uppercase tracking-kicker text-ocre font-semibold">TMB Atelier</span>
+                  <span class="font-serif text-sm text-espresso">Austin, Texas &mdash; Worldwide</span>
+                </div>
+                <span class="w-2 h-2 rounded-full bg-terracotta animate-pulse"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. SECTION MISSION / MANIFESTE -->
+  <section class="py-24 sm:py-32 bg-creme-alabaster border-b border-creme-border/60">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        
+        <div class="lg:col-span-5 space-y-4">
+          <span class="text-[10px] uppercase tracking-kicker text-terracotta font-sans font-semibold block">
+            01 / Studio Manifesto
+          </span>
+          <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-editorial">
+            Moving culture, not just monetizing it.
+          </h2>
+          <div class="w-12 h-[1px] bg-terracotta pt-1"></div>
+        </div>
+
+        <div class="lg:col-span-7 space-y-8">
+          <p class="font-serif text-2xl sm:text-3xl text-espresso leading-relaxed font-light italic">
+            "{home.intro}"
+          </p>
+          <div class="prose prose-stone text-taupe leading-relaxed font-light text-base sm:text-lg border-l-2 border-ocre pl-6">
+            <HomeContent />
+          </div>
+          <div class="pt-2">
+            <Button href="/about" variant="tertiary">
+              Discover Tiffany's Journey &rarr;
+            </Button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. GRILLE DE SERVICES -->
+  <section class="py-24 sm:py-32 border-b border-creme-border/60">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 space-y-4 md:space-y-0">
+        <div class="space-y-2">
+          <span class="text-[10px] uppercase tracking-kicker text-ocre font-sans font-semibold block">
+            02 / Capabilities &amp; Disciplines
+          </span>
+          <h2 class="font-serif text-4xl sm:text-5xl text-espresso">
+            Comprehensive Digital Marketing
+          </h2>
+        </div>
+        <Button href="/services" variant="tertiary">
+          View All 6 Disciplines
+        </Button>
+      </div>
+
+      <!-- Services Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {services.slice(0, 6).map((service) => (
+          <article class="group bg-creme-powder rounded-luxury border border-creme-border/80 hover:border-terracotta/50 shadow-warm-xs hover:shadow-warm transition-all duration-500 overflow-hidden flex flex-col justify-between">
+            <div class="space-y-6">
+              <!-- Service Image Ratio 16/10 -->
+              <div class="relative aspect-[16/10] overflow-hidden bg-creme-alabaster">
+                <img
+                  src={service.data.coverImage}
+                  alt={service.data.title}
+                  class="w-full h-full object-cover object-center slow-zoom"
+                  loading="lazy"
+                />
+                <div class="absolute top-3 right-3 bg-creme-powder/90 backdrop-blur-sm px-2.5 py-0.5 rounded-luxury-sm text-[10px] font-mono text-espresso font-medium">
+                  0{service.data.order}
+                </div>
+              </div>
+
+              <!-- Content -->
+              <div class="px-7 pt-1 pb-4 space-y-3">
+                <h3 class="font-serif text-2xl text-espresso group-hover:text-terracotta transition-colors duration-300">
+                  {service.data.title}
+                </h3>
+                <p class="text-taupe text-sm leading-relaxed font-light line-clamp-3">
+                  {service.data.shortDescription}
+                </p>
+              </div>
+            </div>
+
+            <!-- Footer Action -->
+            <div class="px-7 pb-7 pt-2 border-t border-creme-border/50">
+              <a
+                href="/services"
+                class="inline-flex items-center text-[10px] uppercase tracking-luxury text-espresso group-hover:text-terracotta font-medium transition-colors"
+              >
+                <span>Learn Details</span>
+                <span class="ml-2 transform group-hover:translate-x-1 transition-transform">&rarr;</span>
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. BANDEAU MARQUES / PARTENAIRES -->
+  <section class="py-20 sm:py-24 bg-creme-alabaster border-b border-creme-border/60">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div class="text-center max-w-2xl mx-auto mb-14 space-y-2">
+        <span class="text-[10px] uppercase tracking-kicker text-ocre font-sans font-semibold block">
+          03 / Client Collaborations
+        </span>
+        <h2 class="font-serif text-3xl sm:text-4xl text-espresso">
+          Trusted by Visionary Founders
+        </h2>
+        <p class="text-xs sm:text-sm text-taupe font-light">
+          From seed-stage disruptors to household names across fashion, beauty, wellness, and lifestyle.
+        </p>
+      </div>
+
+      <!-- Monochrome / Warm Logos Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 items-center">
+        {brands.map((b) => (
+          <a
+            href="/brands"
+            class="group bg-creme-powder/80 hover:bg-creme-powder border border-creme-border/70 hover:border-terracotta/40 rounded-luxury p-5 flex flex-col items-center justify-center space-y-3 h-28 transition-all duration-300 shadow-warm-xs hover:shadow-warm"
+            title={b.data.name}
+          >
+            <img
+              src={b.data.logoImage}
+              alt={`${b.data.name} logo`}
+              class="max-h-10 w-auto object-contain opacity-75 group-hover:opacity-100 transition-opacity duration-300"
+              loading="lazy"
+            />
+            <span class="text-[9px] uppercase tracking-wider text-taupe-light font-medium truncate max-w-full">
+              {b.data.name.split(' by ')[0]}
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SECTION TÉMOIGNAGES (LAURIE PAYTON, DALLAS MORENO, REESE PLATT) -->
+  <section class="py-24 sm:py-32 border-b border-creme-border/60">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div class="text-center max-w-xl mx-auto mb-16 space-y-2">
+        <span class="text-[10px] uppercase tracking-kicker text-terracotta font-sans font-semibold block">
+          04 / Endorsements
+        </span>
+        <h2 class="font-serif text-4xl sm:text-5xl text-espresso">
+          What Founders Say
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-10">
+        {home.testimonials.map((item, index) => (
+          <div class="bg-creme-alabaster/70 border border-creme-border rounded-luxury-lg p-8 sm:p-10 flex flex-col justify-between space-y-8 relative shadow-warm-xs hover:shadow-warm transition-shadow duration-300">
+            <!-- Decorative Serif Quote Mark -->
+            <span class="font-serif text-6xl text-ocre/35 leading-none select-none absolute top-6 right-6">
+              &ldquo;
+            </span>
+
+            <p class="font-serif text-lg sm:text-xl text-espresso leading-relaxed font-light italic relative z-10">
+              "{item.quote}"
+            </p>
+
+            <div class="pt-6 border-t border-creme-border/80 flex items-center justify-between">
+              <div>
+                <h3 class="font-sans text-xs uppercase tracking-luxury font-semibold text-espresso">
+                  {item.author}
+                </h3>
+                <p class="text-[10px] text-taupe uppercase tracking-wider mt-0.5">
+                  {item.role}
+                </p>
+              </div>
+              <span class="font-mono text-xs text-ocre font-medium">0{index + 1}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. FINAL INVITATION CTA -->
+  <section class="py-24 sm:py-32 bg-espresso text-creme-powder text-center relative overflow-hidden">
+    <div class="absolute -top-24 -left-24 w-96 h-96 bg-terracotta/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-ocre/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative max-w-3xl mx-auto px-6 sm:px-8 lg:px-12 space-y-8">
+      <span class="text-[10px] uppercase tracking-kicker text-ocre font-sans font-semibold block">
+        Start a Project
+      </span>
+      <h2 class="font-serif text-4xl sm:text-5xl lg:text-6xl text-creme font-normal leading-tight">
+        Ready to tell your brand story with intention?
+      </h2>
+      <p class="text-taupe-light text-base sm:text-lg max-w-xl mx-auto font-light leading-relaxed">
+        We partner with founder-led ventures who value craftsmanship and authentic connection. Let's create something memorable together.
+      </p>
+      <div class="pt-4">
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center px-10 py-4 text-xs uppercase tracking-luxury font-medium text-espresso bg-creme-powder hover:bg-white rounded-luxury-sm shadow-warm-lg hover:shadow-warm-xl transition-all duration-300 ease-out"
+        >
+          <span>Contact Us for More Information</span>
+          <span class="ml-2.5">&rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

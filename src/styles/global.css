@@ -1,0 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Italiana&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-creme: #FAF7F2;
+    --color-alabaster: #F3EFEA;
+    --color-terracotta: #C86D51;
+    --color-ocre: #D99B59;
+    --color-amber: #82533D;
+    --color-espresso: #241B18;
+    --color-taupe: #6B5C55;
+    --color-border: #E4DDD4;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: #FAF7F2;
+    color: #241B18;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    background-color: #FAF7F2;
+    color: #241B18;
+  }
+
+  ::selection {
+    background-color: #C86D51;
+    color: #FFFFFF;
+  }
+
+  /* Custom Warm Mineral Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #FAF7F2;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #D8CEC3;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #C86D51;
+  }
+}
+
+@layer utilities {
+  .font-serif-luxury {
+    font-family: 'Cormorant Garamond', 'Italiana', 'Playfair Display', Georgia, serif;
+  }
+  .font-sans-airy {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+
+  /* Underline Reveal Animation */
+  .underline-reveal {
+    position: relative;
+    display: inline-block;
+  }
+  .underline-reveal::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: currentColor;
+    transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .underline-reveal:hover::after,
+  .group:hover .underline-reveal::after {
+    width: 100%;
+  }
+
+  /* Image Shimmer & Slow Zoom */
+  .slow-zoom {
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+  .group:hover .slow-zoom {
+    transform: scale(1.05);
+  }
+}

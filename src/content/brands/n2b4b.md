@@ -1,0 +1,24 @@
+---
+name: "N2B4B by Francelys Infante"
+order: 2
+logoImage: "/images/uploads/brand-n2b4b-logo.png"
+coverImage: "/images/uploads/brand-n2b4b-cover.jpg"
+industry: "Fashion & Lifestyle / D2C"
+deliverableTags:
+  - "Pre-Launch Strategy"
+  - "Founder Storytelling"
+  - "Retail Launches"
+  - "REVOLVE & FWRD"
+  - "Community Content"
+caseStudyBody: "A case study in turning founder influence into lasting brand momentum, N2B4B launched with more than 17K followers in its first month — entirely organically. TMB partnered with Francelys from pre-launch to build anticipation, shape the brand story, and create a lasting community."
+websiteUrl: "https://n2b4b.com"
+---
+
+A case study in turning founder influence into lasting brand momentum, N2B4B launched with more than 17K followers in its first month — entirely organically. TMB partnered with Francelys from pre-launch to build anticipation, shape the brand story, and create a community that extends beyond the founder herself.
+
+Since launch, we’ve supported N2B4B through product and retail launches, founder storytelling, education, UGC, events, and community-driven content.
+
+### Impact & Milestones
+- **Reached Nearly 200K Accounts** in a single month.
+- **Scaled Organic Community Beyond 20K Instagram Followers**.
+- **Secured Retail Placement on REVOLVE and FWRD**, with brand-led content consistently standing among its strongest conversion drivers.
