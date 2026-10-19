@@ -41,8 +41,16 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
           )}
 
           <!-- Main Title -->
-          <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-normal leading-[1.05] tracking-tight text-espresso text-balance">
-            {home.hero.title}
+          <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-normal leading-[1.05] tracking-tight text-espresso">
+            {home.hero.title.includes('Founder-Led') ? (
+              <>
+                {home.hero.title.split('Founder-Led')[0]}
+                <span class="italic whitespace-nowrap">Founder-Led</span>
+                {home.hero.title.split('Founder-Led')[1]}
+              </>
+            ) : (
+              home.hero.title
+            )}
           </h1>
 
           <!-- Subtitle -->
