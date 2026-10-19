@@ -1,7 +1,7 @@
 ---
 name: "Recess by Amy Kiska & Molly Morse"
 order: 4
-logoImage: "/images/uploads/brand-recess-cover.png"
+logoImage: "/images/uploads/brand-recess-logo.png"
 coverImage: "/images/uploads/brand-recess-cover.png"
 industry: "Family, Kids & Lifestyle Tech"
 deliverableTags:
