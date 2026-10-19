@@ -6,7 +6,6 @@ interface Props {
 const { currentPath = Astro.url.pathname } = Astro.props;
 
 const navItems = [
-  { label: 'Accueil', href: '/' },
   { label: 'Services', href: '/services' },
   { label: 'Brands', href: '/brands' },
   { label: 'About', href: '/about' },
@@ -22,12 +21,9 @@ const isActive = (href: string) => {
 <header class="sticky top-0 z-50 bg-creme-powder/90 backdrop-blur-md border-b border-creme-border/60 transition-colors duration-400">
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-20 sm:h-24 flex items-center justify-between">
     <!-- Brand Logo -->
-    <a href="/" class="group flex flex-col items-start focus:outline-none" aria-label="TMB Branding - Accueil">
+    <a href="/" class="group inline-flex items-center focus:outline-none" aria-label="TMB Branding">
       <span class="font-serif text-2xl sm:text-3xl tracking-editorial font-normal text-espresso group-hover:text-terracotta transition-colors duration-400">
         TMB BRANDING
-      </span>
-      <span class="text-[9px] tracking-kicker uppercase text-taupe font-sans font-medium -mt-0.5">
-        Austin, TX &bull; Founder-Led Studio
       </span>
     </a>
 
