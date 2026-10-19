@@ -24,12 +24,12 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
   currentPath="/"
 >
   <!-- 1. HERO SECTION -->
-  <section class="relative pt-12 pb-20 sm:pt-20 sm:pb-28 lg:pt-28 lg:pb-36 overflow-hidden border-b border-creme-border/60">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+  <section class="relative min-h-[calc(100dvh-4rem)] sm:min-h-[calc(100dvh-5rem)] flex items-center py-8 sm:py-12 lg:py-14 overflow-hidden border-b border-creme-border/60">
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         
         <!-- Left Editorial Copy -->
-        <div class="lg:col-span-7 space-y-8">
+        <div class="lg:col-span-7 space-y-6 sm:space-y-8">
           <!-- Kicker (Optional) -->
           {home.hero.kicker && (
             <div class="inline-flex items-center space-x-3.5">
@@ -54,12 +54,12 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
         </div>
 
         <!-- Right Hero Visual -->
-        <div class="lg:col-span-5">
-          <div class="relative group">
+        <div class="lg:col-span-5 flex justify-center lg:justify-end">
+          <div class="relative group w-full max-w-md lg:max-w-none">
             <!-- Subtle warm background glow/halo -->
             <div class="absolute -inset-3 bg-gradient-to-tr from-ocre-soft/50 via-terracotta-soft/30 to-transparent blur-xl opacity-70 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-            <div class="relative aspect-[4/5] overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm-lg">
+            <div class="relative aspect-[4/5] max-h-[65vh] overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm-lg">
               <img
                 src={home.seo.ogImage || "/images/uploads/hero-home.jpg"}
                 alt="TMB Branding Studio — Austin TX"
