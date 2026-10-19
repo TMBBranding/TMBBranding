@@ -185,7 +185,7 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
             <button
               type="button"
               class={`testimonial-dot h-1.5 transition-all duration-300 ${
-                idx === 0 ? 'w-8 bg-terracotta' : 'w-2 bg-creme-border hover:bg-taupe'
+                idx === 0 ? 'w-8 bg-taupe' : 'w-2 bg-creme-border hover:bg-taupe'
               }`}
               data-target={idx}
               aria-label={`Aller au témoignage ${idx + 1}`}
@@ -245,9 +245,9 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
     testimonialDots.forEach((dot, i) => {
       if (i === index) {
         dot.classList.remove('w-2', 'bg-creme-border');
-        dot.classList.add('w-8', 'bg-terracotta');
+        dot.classList.add('w-8', 'bg-taupe');
       } else {
-        dot.classList.remove('w-8', 'bg-terracotta');
+        dot.classList.remove('w-8', 'bg-taupe');
         dot.classList.add('w-2', 'bg-creme-border');
       }
     });
