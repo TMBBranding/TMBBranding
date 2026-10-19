@@ -12,7 +12,9 @@ deliverableTags:
 websiteUrl: "https://opi.com"
 ---
 
-Managing both consumer and professional audiences required a strategy that could balance education, inspiration, and commerce without losing sight of the brand. Tiffany led social strategy across both channels, rebuilding momentum and strengthening social as a meaningful driver of community and conversion. Within one year, we:
+Managing both consumer and professional audiences required a strategy that could balance education, inspiration, and commerce without losing sight of the brand.
+
+Tiffany led social strategy across both channels, rebuilding momentum and strengthening social as a meaningful driver of community and conversion. Within one year, we:
 
 - Grew the brand’s Instagram communities by 170K+ followers
 - Increased Instagram-driven sales by 115% MoM
