@@ -27,12 +27,6 @@ const renderedServices = await Promise.all(
   <section class="pt-16 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24 border-b border-creme-border/60">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="max-w-3xl space-y-6">
-        <div class="inline-flex items-center space-x-3.5">
-          <span class="w-8 h-[1px] bg-ocre"></span>
-          <span class="text-[11px] uppercase tracking-kicker text-ocre font-sans font-semibold">
-            Capabilities &amp; Craft
-          </span>
-        </div>
         <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial">
           Digital Marketing Services
         </h1>
@@ -69,22 +63,12 @@ const renderedServices = await Promise.all(
 
             <!-- Content Column -->
             <div class={`lg:col-span-6 space-y-6 ${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
-              <div class="space-y-2">
-                <span class="text-[10px] font-mono text-terracotta uppercase tracking-luxury font-medium block">
-                  Service 0{service.data.order}
-                </span>
-                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-tight">
-                  {service.data.title}
-                </h2>
-              </div>
-
-              <!-- Short Description Highlight -->
-              <p class="text-base text-espresso/90 font-light leading-relaxed bg-creme-alabaster p-5 border-l-2 border-ocre">
-                {service.data.shortDescription}
-              </p>
+              <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-tight">
+                {service.data.title}
+              </h2>
 
               <!-- Markdown Body with Key Points & Deliverables -->
-              <div class="prose prose-stone max-w-none text-taupe leading-relaxed font-light text-sm sm:text-base prose-headings:font-serif prose-headings:text-espresso prose-headings:font-normal prose-h3:text-xl prose-h3:mt-4 prose-h3:mb-2 prose-ul:my-2 prose-li:my-1 prose-li:marker:text-terracotta prose-strong:text-espresso prose-strong:font-medium">
+              <div class="prose prose-stone max-w-none text-taupe leading-relaxed font-light text-base sm:text-lg prose-headings:font-serif prose-headings:text-espresso prose-headings:font-normal prose-h3:text-xl sm:prose-h3:text-2xl prose-h3:mt-6 prose-h3:mb-3 prose-ul:my-3 prose-li:my-1.5 prose-li:marker:text-terracotta prose-strong:text-espresso prose-strong:font-medium">
                 <Content />
               </div>
 
