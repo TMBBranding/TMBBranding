@@ -162,22 +162,19 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
       </div>
 
       <!-- Bottom: Testimonials Auto-Carousel -->
-      <div class="max-w-3xl mx-auto pt-8 border-t border-creme-border/70">
-        <div id="testimonials-carousel" class="relative overflow-hidden min-h-[220px] sm:min-h-[190px] flex items-center justify-center">
+      <div class="max-w-3xl mx-auto">
+        <div id="testimonials-carousel" class="grid grid-cols-1 items-center">
           {home.testimonials.map((item, idx) => (
             <div
-              class={`testimonial-slide transition-opacity duration-700 ease-in-out text-center px-4 absolute inset-0 flex flex-col justify-center items-center ${
+              class={`testimonial-slide col-start-1 row-start-1 w-full text-center px-4 flex flex-col justify-center items-center transition-opacity duration-700 ease-in-out ${
                 idx === 0 ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
               data-index={idx}
             >
-              <span class="font-serif text-5xl sm:text-6xl text-ocre/40 leading-none select-none mb-3">
-                &ldquo;
-              </span>
               <p class="font-serif text-xl sm:text-2xl lg:text-3xl text-espresso leading-relaxed font-light italic">
                 "{item.quote}"
               </p>
-              <h3 class="font-sans text-xs uppercase tracking-luxury font-semibold text-terracotta mt-6">
+              <h3 class="font-sans text-xs sm:text-sm uppercase tracking-luxury font-semibold text-terracotta mt-6">
                 {item.author}
               </h3>
             </div>
