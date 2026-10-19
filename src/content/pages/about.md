@@ -40,7 +40,3 @@ seo:
   metaDescription: "Founded by Tiffany in Austin, TX, TMB Branding shapes compelling founder-led narratives and strategic creative direction for culture-defining brands."
   ogImage: "/images/uploads/founder-tiffany.png"
 ---
-
-Tiffany still works hand-in-hand with our clients, treating herself as an extension of the team. But she’s also built a trusted circle of senior designers, copywriters, editors, and managers who help bring your brand to life every day.
-
-We’d love to work with you. Get in touch or visit our Brands page to explore recent projects.

@@ -82,32 +82,21 @@ const parsedServices = services.map((service) => {
           <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               
-              <!-- Visual Column -->
+              <!-- Visual Column (No Hover Effects) -->
               <div class={`lg:col-span-6 ${isVisualRight ? 'lg:order-2' : 'lg:order-1'}`}>
-                <div class="relative group">
-                  <!-- Ambient Glow -->
-                  <div
-                    class={`absolute -inset-2 blur-xl transition-opacity duration-700 opacity-0 group-hover:opacity-100 ${
-                      isTerracotta
-                        ? 'bg-gradient-to-tr from-white/20 via-ocre-soft/20 to-transparent'
-                        : 'bg-gradient-to-tr from-ocre-soft/40 via-terracotta-soft/20 to-transparent'
-                    }`}
-                  ></div>
-
-                  <div
-                    class={`relative aspect-[4/3] sm:aspect-[16/11] overflow-hidden shadow-warm group-hover:shadow-warm-lg transition-all duration-500 ${
-                      isTerracotta
-                        ? 'bg-terracotta-dark border border-white/25'
-                        : 'bg-creme-alabaster border border-creme-border'
-                    }`}
-                  >
-                    <img
-                      src={service.data.coverImage}
-                      alt={service.data.title}
-                      class="w-full h-full object-cover object-center slow-zoom"
-                      loading="lazy"
-                    />
-                  </div>
+                <div
+                  class={`relative aspect-[4/3] sm:aspect-[16/11] overflow-hidden shadow-warm ${
+                    isTerracotta
+                      ? 'bg-terracotta-dark border border-white/25'
+                      : 'bg-creme-alabaster border border-creme-border'
+                  }`}
+                >
+                  <img
+                    src={service.data.coverImage}
+                    alt={service.data.title}
+                    class="w-full h-full object-cover object-center"
+                    loading="lazy"
+                  />
                 </div>
               </div>
 
@@ -131,42 +120,31 @@ const parsedServices = services.map((service) => {
                   {description}
                 </p>
 
-                <!-- Deliverables Presentation Block with Generous Spacing -->
-                <div
-                  class={`mt-10 sm:mt-12 pt-7 border-t ${
-                    isTerracotta ? 'border-white/20' : 'border-creme-border/80'
-                  }`}
-                >
+                <!-- Deliverables Presentation Block (No Line, No Bar, Original Font in Bold) -->
+                <div class="mt-8 sm:mt-10">
                   <!-- Label / Heading -->
-                  <div class="flex items-center space-x-3 mb-5">
-                    <span
-                      class={`w-4 h-[1.5px] ${
-                        isTerracotta ? 'bg-ocre' : 'bg-terracotta'
-                      }`}
-                    ></span>
-                    <h3
-                      class={`font-serif font-bold text-xl sm:text-2xl tracking-normal ${
-                        isTerracotta ? 'text-white' : 'text-espresso'
-                      }`}
-                    >
-                      {deliverablesHeading}
-                    </h3>
-                  </div>
+                  <h3
+                    class={`font-sans font-bold text-base sm:text-lg mb-3 sm:mb-4 ${
+                      isTerracotta ? 'text-white' : 'text-espresso'
+                    }`}
+                  >
+                    {deliverablesHeading}
+                  </h3>
 
                   <!-- Deliverables List -->
-                  <ul class="space-y-3.5">
+                  <ul class="space-y-2.5 sm:space-y-3">
                     {deliverables.map((item) => (
-                      <li class="flex items-center space-x-3.5 group/item">
+                      <li class="flex items-center space-x-3">
                         <span
-                          class={`w-1.5 h-1.5 rotate-45 flex-shrink-0 transition-transform duration-300 group-hover/item:scale-125 ${
+                          class={`w-1.5 h-1.5 rotate-45 flex-shrink-0 ${
                             isTerracotta ? 'bg-ocre' : 'bg-terracotta'
                           }`}
                         ></span>
                         <span
-                          class={`text-sm sm:text-base font-light tracking-wide transition-colors duration-300 ${
+                          class={`text-sm sm:text-base font-light ${
                             isTerracotta
-                              ? 'text-creme-powder group-hover/item:text-white'
-                              : 'text-espresso/90 group-hover/item:text-espresso'
+                              ? 'text-creme-powder'
+                              : 'text-espresso/90'
                           }`}
                         >
                           {item}
