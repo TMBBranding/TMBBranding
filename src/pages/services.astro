@@ -134,21 +134,15 @@ const parsedServices = services.map((service) => {
                   <!-- Deliverables List -->
                   <ul class="space-y-2.5 sm:space-y-3">
                     {deliverables.map((item) => (
-                      <li class="flex items-center space-x-3">
-                        <span
-                          class={`w-1.5 h-1.5 rotate-45 flex-shrink-0 ${
-                            isTerracotta ? 'bg-ocre' : 'bg-terracotta'
-                          }`}
-                        ></span>
-                        <span
-                          class={`text-sm sm:text-base font-light ${
-                            isTerracotta
-                              ? 'text-creme-powder'
-                              : 'text-espresso/90'
-                          }`}
-                        >
-                          {item}
-                        </span>
+                      <li
+                        class={`flex items-center space-x-3 text-sm sm:text-base font-light ${
+                          isTerracotta
+                            ? 'text-creme-powder'
+                            : 'text-espresso/90'
+                        }`}
+                      >
+                        <span class="w-1.5 h-1.5 rounded-full bg-current flex-shrink-0"></span>
+                        <span>{item}</span>
                       </li>
                     ))}
                   </ul>
