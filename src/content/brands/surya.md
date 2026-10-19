@@ -10,7 +10,6 @@ deliverableTags:
   - "Original Content"
   - "Influencer Partnerships"
   - "Email Marketing"
-caseStudyBody: "Surya is a modern Ayurvedic wellness brand founded by internationally recognized Ayurvedic expert Martha Soffer. Rooted in more than 30 years of Martha’s practice, TMB helped translate Martha’s deeply personal world into a growing digital brand."
 websiteUrl: "https://suryaspa.com"
 ---
 
@@ -18,7 +17,4 @@ Surya is a modern Ayurvedic wellness brand founded by internationally recognized
 
 TMB has helped translate Martha’s deeply personal, experiential world into a growing digital brand through founder-led storytelling, social strategy, original content, influencer and brand partnerships, UGC, and email marketing—all while preserving the authenticity at the heart of Surya.
 
-### Measurable Results
-- **Nearly 500% Social Engagement Growth** since 2024.
-- **Profile Traffic Increased by Up to 200%**.
-- **Launched and Scaled Surya’s TikTok and YouTube Presence**, expanding Martha's wisdom to an entirely new international demographic.
+Since 2024, social engagement has grown nearly 500%, with profile traffic increasing by as much as 200%. We’ve also launched and grown Surya’s TikTok and YouTube presence, helping Martha’s knowledge—and the world of Surya—reach an entirely new audience.

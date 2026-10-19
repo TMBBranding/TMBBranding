@@ -59,13 +59,13 @@ const renderedBrands = await Promise.all(
             </div>
 
             <!-- Editorial Copy Column -->
-            <div class={`lg:col-span-5 space-y-6 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
+            <div class={`lg:col-span-5 space-y-6 sm:space-y-8 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
               <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-tight">
                 {brand.data.name}
               </h2>
 
               <!-- Rendered Markdown Details -->
-              <div class="prose prose-stone text-taupe text-sm leading-relaxed font-light prose-headings:font-serif prose-headings:text-espresso prose-headings:font-normal prose-h3:text-lg prose-h3:mt-4 prose-h3:mb-2 prose-ul:my-2 prose-li:my-1 prose-li:marker:text-terracotta prose-strong:text-espresso prose-strong:font-medium">
+              <div class="prose prose-stone max-w-none text-taupe text-base sm:text-lg leading-relaxed font-light prose-p:my-4 sm:prose-p:my-5 prose-p:leading-relaxed prose-ul:my-4 prose-li:my-1.5 prose-li:marker:text-terracotta prose-strong:text-espresso prose-strong:font-medium">
                 <Content />
               </div>
             </div>
