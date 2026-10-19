@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
-import { getEntry, getCollection, render } from 'astro:content';
+import { getEntry, getCollection } from 'astro:content';
 import type { HomePageData } from '../content/config';
 
 const homeEntry = await getEntry('pages', 'home');
@@ -9,7 +9,6 @@ if (!homeEntry) {
   throw new Error("Impossible de charger la collection 'pages/home'");
 }
 const home = homeEntry.data as HomePageData;
-const { Content: HomeContent } = await render(homeEntry);
 
 const allServices = await getCollection('services');
 const services = allServices.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
@@ -75,37 +74,7 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
     </div>
   </section>
 
-  <!-- 2. SECTION MISSION / MANIFESTE -->
-  <section class="py-24 sm:py-32 bg-creme-alabaster border-b border-creme-border/60">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-        
-        <div class="lg:col-span-5 space-y-4">
-          <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-editorial">
-            Moving culture, not just monetizing it.
-          </h2>
-          <div class="w-12 h-[1px] bg-terracotta pt-1"></div>
-        </div>
-
-        <div class="lg:col-span-7 space-y-8">
-          <p class="font-serif text-2xl sm:text-3xl text-espresso leading-relaxed font-light italic">
-            "{home.intro}"
-          </p>
-          <div class="prose prose-stone text-taupe leading-relaxed font-light text-base sm:text-lg border-l-2 border-ocre pl-6">
-            <HomeContent />
-          </div>
-          <div class="pt-2">
-            <Button href="/about" variant="tertiary">
-              Discover Tiffany's Journey &rarr;
-            </Button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. GRILLE DE SERVICES -->
+  <!-- 2. GRILLE DE SERVICES -->
   <section class="py-24 sm:py-32 border-b border-creme-border/60">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <!-- Section Header -->
