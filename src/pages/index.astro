@@ -110,13 +110,12 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
 
                 <!-- Content -->
                 <div class="px-7 pt-1 pb-8 space-y-3">
-                  <h3 class="font-serif text-2xl text-espresso inline-block">
+                  <h3 class="font-serif text-2xl text-espresso">
                     <a
                       href={serviceAnchor}
-                      class="group/title relative inline-block py-0.5 focus:outline-none transition-colors duration-300 text-espresso group-hover:text-terracotta"
+                      class="focus:outline-none transition-colors duration-300 text-espresso group-hover:text-terracotta hover:text-terracotta"
                     >
-                      <span>{service.data.title}</span>
-                      <span class="absolute bottom-0 left-0 w-full h-[1.5px] bg-terracotta transition-transform duration-300 origin-left scale-x-0 group-hover:scale-x-100"></span>
+                      {service.data.title}
                     </a>
                   </h3>
                   <p class="text-taupe text-sm leading-relaxed font-light line-clamp-3">
