@@ -49,7 +49,7 @@ const renderedBrands = await Promise.all(
       {renderedBrands.map(({ brand, Content }, index) => {
         const isReversed = index % 2 === 1;
         return (
-          <article class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center pb-24 sm:pb-32 border-b border-creme-border/60 last:border-b-0 last:pb-0">
+          <article id={brand.id.replace(/\.md$/, '')} class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center pb-24 sm:pb-32 border-b border-creme-border/60 last:border-b-0 last:pb-0 scroll-mt-24 sm:scroll-mt-28">
             <!-- Imagery & Logo Container -->
             <div class={`lg:col-span-7 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
               <div class="space-y-4">
