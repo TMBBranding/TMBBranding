@@ -6,9 +6,6 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://tmbbranding.com',
   output: 'static',
-  redirects: {
-    '/admin': '/admin/index.html',
-  },
   integrations: [
     tailwind({
       applyBaseStyles: false,
