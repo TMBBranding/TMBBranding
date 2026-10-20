@@ -139,36 +139,37 @@
     color: var(--color-espresso, #382820);
   }
 
-  /* Poetic Elevating Letter "E" Animation */
-  @keyframes elevateLetter {
+  /* Letter "E" Progressive Reveal from Bottom to Top (Drawn like a pen) */
+  @keyframes drawLetterFromBottom {
     0% {
-      opacity: 0;
-      transform: translateY(75%) scale(0.92);
-      filter: blur(4px);
+      clip-path: inset(100% 0 0 0);
+      -webkit-clip-path: inset(100% 0 0 0);
+      opacity: 0.2;
     }
-    35% {
-      opacity: 0.6;
-      filter: blur(1.5px);
+    15% {
+      opacity: 1;
     }
     100% {
+      clip-path: inset(0 0 0 0);
+      -webkit-clip-path: inset(0 0 0 0);
       opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: blur(0px);
     }
   }
 
   .animate-elevate-letter {
     display: inline-block;
-    animation: elevateLetter 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
-    will-change: transform, opacity, filter;
+    clip-path: inset(100% 0 0 0);
+    -webkit-clip-path: inset(100% 0 0 0);
+    animation: drawLetterFromBottom 1.25s cubic-bezier(0.25, 1, 0.4, 1) 0.35s forwards;
+    will-change: clip-path, -webkit-clip-path;
   }
 
   @media (prefers-reduced-motion: reduce) {
     .animate-elevate-letter {
       animation: none !important;
+      clip-path: none !important;
+      -webkit-clip-path: none !important;
       opacity: 1 !important;
-      transform: none !important;
-      filter: none !important;
     }
   }
 }
