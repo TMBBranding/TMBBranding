@@ -1,6 +1,6 @@
 ---
 hero:
-  title: Elevating Founder-Led Brands LOL
+  title: Elevating Founder-Led Brands
   subtitle: Bringing visionary ideas to life through strategic storytelling,
     thoughtful partnerships, and digital-first marketing.
   video: /videos/hero-workspace.mp4
