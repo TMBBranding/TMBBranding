@@ -13,7 +13,7 @@ function renderMarkdownLinks(text?: string) {
   if (!text) return '';
   return text.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" class="text-espresso font-medium underline underline-offset-4 decoration-espresso/40 hover:text-taupe hover:decoration-espresso transition-colors">$1</a>'
+    '<a href="$2" class="text-espresso font-medium underline underline-offset-4 decoration-espresso/35 hover:decoration-black transition-colors duration-200">$1</a>'
   );
 }
 

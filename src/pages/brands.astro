@@ -1,55 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getCollection, getEntry, render } from 'astro:content';
-import fs from 'node:fs';
-import path from 'node:path';
-
-function getImageDimensions(imagePath: string): { width: number; height: number } | null {
-  try {
-    const fullPath = path.join(process.cwd(), 'public', imagePath.replace(/^\//, ''));
-    if (!fs.existsSync(fullPath)) return null;
-    const buffer = fs.readFileSync(fullPath);
-
-    // PNG
-    if (buffer[0] === 0x89 && buffer[1] === 0x50 && buffer[2] === 0x4E && buffer[3] === 0x47) {
-      return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
-    }
-
-    // JPEG
-    if (buffer[0] === 0xFF && buffer[1] === 0xD8) {
-      let offset = 2;
-      while (offset < buffer.length) {
-        if (buffer[offset] !== 0xFF) break;
-        const marker = buffer[offset + 1];
-        if (marker === 0xC0 || marker === 0xC2) {
-          return {
-            height: buffer.readUInt16BE(offset + 5),
-            width: buffer.readUInt16BE(offset + 7),
-          };
-        }
-        offset += 2 + buffer.readUInt16BE(offset + 2);
-      }
-    }
-
-    // WebP
-    if (buffer.toString('ascii', 0, 4) === 'RIFF' && buffer.toString('ascii', 8, 12) === 'WEBP') {
-      const vp8 = buffer.toString('ascii', 12, 16);
-      if (vp8 === 'VP8 ') {
-        return { width: buffer.readUInt16LE(26) & 0x3fff, height: buffer.readUInt16LE(28) & 0x3fff };
-      }
-      if (vp8 === 'VP8L') {
-        const b1 = buffer[21], b2 = buffer[22], b3 = buffer[23], b4 = buffer[24];
-        return { width: 1 + (((b2 & 0x3f) << 8) | b1), height: 1 + (((b4 & 0xf) << 10) | (b3 << 2) | ((b2 & 0xc0) >> 6)) };
-      }
-      if (vp8 === 'VP8X') {
-        return { width: 1 + buffer.readUIntLE(24, 3), height: 1 + buffer.readUIntLE(27, 3) };
-      }
-    }
-  } catch {
-    return null;
-  }
-  return null;
-}
 
 const allBrands = await getCollection('brands');
 const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
@@ -58,13 +9,9 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
 const renderedBrands = await Promise.all(
   brands.map(async (brand) => {
     const { Content } = await render(brand);
-    const dimensions = getImageDimensions(brand.data.coverImage);
-    const isPortrait = dimensions ? dimensions.height > dimensions.width : false;
     return {
       brand,
       Content,
-      dimensions,
-      isPortrait,
     };
   })
 );
@@ -79,8 +26,8 @@ const brandsPage = brandsPageEntry?.data;
   ogImage={brandsPage?.seo?.ogImage}
   currentPath="/brands"
 >
-  <!-- HEADER SECTION -->
-  <section class="pt-16 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24">
+  <!-- HERO HEADER (MATCHES SERVICES PAGE) -->
+  <section class="pt-16 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="max-w-3xl space-y-6">
         <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial">
@@ -95,43 +42,53 @@ const brandsPage = brandsPageEntry?.data;
     </div>
   </section>
 
-  <!-- MAGAZINE-STYLE BRANDS GALLERY -->
-  <section class="py-12 sm:py-16 lg:py-20">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-24 sm:space-y-32">
-      {renderedBrands.map(({ brand, Content, dimensions, isPortrait }, index) => {
-        const isReversed = index % 2 === 1;
-        return (
-          <article id={brand.id.replace(/\.md$/, '')} class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start scroll-mt-14 sm:scroll-mt-16">
-            <!-- Imagery Container -->
-            <div class={`${isPortrait ? 'lg:col-span-5' : 'lg:col-span-7'} ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
-              <div class={`relative overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm ${isPortrait ? 'max-w-md mx-auto' : ''}`}>
-                <img
-                  src={brand.data.coverImage}
-                  alt={brand.data.name}
-                  width={dimensions?.width}
-                  height={dimensions?.height}
-                  class="w-full h-auto block"
-                  loading="lazy"
-                />
-              </div>
-            </div>
+  <!-- BRANDS LISTING: FULL VIEWPORT HEIGHT PER SECTION -->
+  <div class="flex flex-col">
+    {renderedBrands.map(({ brand, Content }, index) => {
+      const isVisualRight = index % 2 === 1;
 
-            <!-- Editorial Copy Column -->
-            <div class={`${isPortrait ? 'lg:col-span-7' : 'lg:col-span-5'} space-y-6 sm:space-y-8 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
-              <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-tight">
-                {brand.data.name}
-              </h2>
-
-              <!-- Rendered Markdown Details (Spaced identical to About page) -->
-              <div class="brand-content space-y-6 text-taupe text-base sm:text-lg font-light leading-relaxed">
-                <Content />
+      return (
+        <section
+          id={brand.id.replace(/\.md$/, '')}
+          class="relative w-full min-h-[100dvh] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-0 transition-colors duration-500 bg-creme-powder text-espresso"
+        >
+          <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full my-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 xl:gap-16 items-center">
+              
+              <!-- Visual Column (Matches height of title + text, borderless) -->
+              <div class={`lg:col-span-6 ${isVisualRight ? 'lg:order-2' : 'lg:order-1'}`}>
+                <div
+                  class="relative aspect-[16/10] sm:aspect-[16/10] lg:aspect-[4/3] max-h-[28vh] sm:max-h-[34vh] lg:max-h-[52vh] overflow-hidden shadow-warm w-full mx-auto bg-creme-alabaster"
+                >
+                  <img
+                    src={brand.data.coverImage}
+                    alt={brand.data.name}
+                    width={2000}
+                    height={1500}
+                    class="w-full h-full object-cover object-center"
+                    loading="lazy"
+                  />
+                </div>
               </div>
+
+              <!-- Editorial Content Column -->
+              <div class={`lg:col-span-6 space-y-4 sm:space-y-5 lg:space-y-6 ${isVisualRight ? 'lg:order-1' : 'lg:order-2'}`}>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-tight">
+                  {brand.data.name}
+                </h2>
+
+                <!-- Rendered Markdown Details -->
+                <div class="brand-content space-y-4 sm:space-y-5 text-taupe text-sm sm:text-base lg:text-lg font-light leading-relaxed">
+                  <Content />
+                </div>
+              </div>
+
             </div>
-          </article>
-        );
-      })}
-    </div>
-  </section>
+          </div>
+        </section>
+      );
+    })}
+  </div>
 </Layout>
 
 <script is:inline>
@@ -139,11 +96,9 @@ const brandsPage = brandsPageEntry?.data;
     if (!window.location.hash) return;
     const target = document.querySelector(window.location.hash);
     if (!target) return;
-    const header = document.getElementById('site-header');
-    const headerHeight = header ? header.offsetHeight : 64;
     const targetTop = target.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({
-      top: Math.max(0, targetTop - headerHeight - 16),
+      top: Math.max(0, targetTop),
       behavior: 'smooth'
     });
   };

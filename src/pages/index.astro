@@ -33,7 +33,7 @@ function getFirstSentence(text?: string): string {
   currentPath="/"
 >
   <!-- 1. HERO VIDEO SECTION -->
-  <section class="relative w-full h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] min-h-[540px] flex items-center justify-center overflow-hidden border-b border-creme-border/40">
+  <section class="relative w-full h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] min-h-[540px] flex items-center justify-center overflow-hidden">
     <!-- Background Video with AutoPlay, Loop, Muted, Playsinline -->
     <video
       id="hero-video"
@@ -132,7 +132,7 @@ function getFirstSentence(text?: string): string {
         {services.slice(0, 6).map((service) => {
           const serviceAnchor = `/services#${service.id.replace(/\.md$/, '')}`;
           return (
-            <article class="group bg-creme-powder border border-white shadow-warm-xs hover:shadow-warm-lg transition-all duration-500 overflow-hidden flex flex-col justify-between">
+            <article class="group bg-creme-powder border-[0.5px] border-white/60 shadow-warm-xs hover:shadow-warm-lg transition-all duration-500 overflow-hidden flex flex-col justify-between">
               <div class="space-y-6">
                 <!-- Service Image Ratio 16/10 -->
                 <a href={serviceAnchor} class="block relative aspect-[16/10] overflow-hidden bg-creme-alabaster">
@@ -149,7 +149,7 @@ function getFirstSentence(text?: string): string {
                   <h3 class="font-serif text-2xl text-espresso">
                     <a
                       href={serviceAnchor}
-                      class="focus:outline-none transition-colors duration-300 text-espresso group-hover:text-taupe hover:text-taupe"
+                      class="focus:outline-none transition-colors duration-300 text-espresso group-hover:text-black hover:text-black"
                     >
                       {service.data.title}
                     </a>
