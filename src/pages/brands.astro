@@ -95,35 +95,33 @@ const brandsPage = brandsPageEntry?.data;
     </div>
   </section>
 
-  <!-- MAGAZINE-STYLE BRANDS GALLERY -->
+  <!-- MAGAZINE-STYLE BRANDS GALLERY (SOLUTION 1: CARRE EDITORIAL 1:1) -->
   <section class="py-12 sm:py-16 lg:py-20">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-24 sm:space-y-32">
       {renderedBrands.map(({ brand, Content, dimensions, isPortrait }, index) => {
         const isReversed = index % 2 === 1;
         return (
-          <article id={brand.id.replace(/\.md$/, '')} class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start scroll-mt-14 sm:scroll-mt-16">
-            <!-- Imagery Container -->
-            <div class={`${isPortrait ? 'lg:col-span-5' : 'lg:col-span-7'} ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
-              <div class={`relative overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm ${isPortrait ? 'max-w-md mx-auto' : ''}`}>
+          <article id={brand.id.replace(/\.md$/, '')} class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-stretch scroll-mt-20">
+            <!-- Imagery Container (Square 1:1 Ratio, No White Frame, object-top for portrait) -->
+            <div class={`lg:col-span-6 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
+              <div class="relative w-full aspect-square overflow-hidden shadow-warm bg-creme-alabaster">
                 <img
                   src={brand.data.coverImage}
                   alt={brand.data.name}
-                  width={dimensions?.width}
-                  height={dimensions?.height}
-                  class="w-full h-auto block"
+                  class={`w-full h-full object-cover ${isPortrait ? 'object-top' : 'object-center'}`}
                   loading="lazy"
                 />
               </div>
             </div>
 
-            <!-- Editorial Copy Column -->
-            <div class={`${isPortrait ? 'lg:col-span-7' : 'lg:col-span-5'} space-y-6 sm:space-y-8 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
+            <!-- Editorial Copy Column (Takes exact same height as the photo) -->
+            <div class={`lg:col-span-6 flex flex-col justify-between py-1 sm:py-2 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
               <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-tight">
                 {brand.data.name}
               </h2>
 
-              <!-- Rendered Markdown Details (Spaced identical to About page) -->
-              <div class="brand-content space-y-6 text-taupe text-base sm:text-lg font-light leading-relaxed">
+              <!-- Rendered Markdown Details -->
+              <div class="brand-content space-y-5 sm:space-y-6 text-taupe text-base sm:text-lg font-light leading-relaxed">
                 <Content />
               </div>
             </div>

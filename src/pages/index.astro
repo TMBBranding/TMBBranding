@@ -132,7 +132,7 @@ function getFirstSentence(text?: string): string {
         {services.slice(0, 6).map((service) => {
           const serviceAnchor = `/services#${service.id.replace(/\.md$/, '')}`;
           return (
-            <article class="group bg-creme-powder border-[0.5px] border-white/60 shadow-warm-xs hover:shadow-warm-lg transition-all duration-500 overflow-hidden flex flex-col justify-between">
+            <article class="group bg-creme-powder border border-creme-powder shadow-warm-xs hover:shadow-warm-lg transition-all duration-500 overflow-hidden flex flex-col justify-between">
               <div class="space-y-6">
                 <!-- Service Image Ratio 16/10 -->
                 <a href={serviceAnchor} class="block relative aspect-[16/10] overflow-hidden bg-creme-alabaster">
@@ -145,11 +145,11 @@ function getFirstSentence(text?: string): string {
                 </a>
 
                 <!-- Content -->
-                <div class="px-7 pt-1 pb-8 space-y-3">
-                  <h3 class="font-serif text-2xl text-espresso">
+                <div class="px-7 pt-1 pb-8 space-y-3 bg-creme-powder">
+                  <h3 class="font-serif text-2xl text-taupe">
                     <a
                       href={serviceAnchor}
-                      class="focus:outline-none transition-colors duration-300 text-espresso group-hover:text-black hover:text-black"
+                      class="focus:outline-none transition-colors duration-300 text-taupe group-hover:text-espresso hover:text-espresso"
                     >
                       {service.data.title}
                     </a>
