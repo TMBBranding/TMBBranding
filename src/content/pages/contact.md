@@ -1,12 +1,13 @@
 ---
 title: "Let’s Tell Your Brand Story"
 subtitle: "Ready to start a project? Contact us for more information."
+servicePlaceholder: "Select an option"
 serviceOptions:
   - "Social Media Strategy"
-  - "Strategic Partnerships & Influencers"
-  - "Thought Leadership & Founder Branding"
-  - "Email Marketing & Automation"
-  - "Paid Social Advertising"
+  - "Strategic Partnerships"
+  - "Thought Leadership & Branding"
+  - "Email Marketing"
+  - "Paid Social"
   - "Events & Activations"
   - "Something else"
 budgetOptions:

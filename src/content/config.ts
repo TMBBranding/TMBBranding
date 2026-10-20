@@ -56,6 +56,7 @@ export const brandsPageSchema = z.object({
 export const contactSchema = z.object({
   title: z.string(),
   subtitle: z.string(),
+  servicePlaceholder: z.string().optional(),
   serviceOptions: z.array(z.string()),
   budgetOptions: z.array(z.string()),
   submitButtonText: z.string().optional(),

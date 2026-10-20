@@ -110,15 +110,16 @@ collections:
         fields:
           - { label: "Titre Principal", name: "title", widget: "string" }
           - { label: "Sous-titre", name: "subtitle", widget: "text" }
+          - { label: "Texte par défaut du sélecteur (Placeholder)", name: "servicePlaceholder", widget: "string", default: "Select an option", required: false }
           - label: "Options de Services demandés"
             name: "serviceOptions"
             widget: "list"
             default:
               - "Social Media Strategy"
-              - "Strategic Partnerships & Influencers"
-              - "Thought Leadership & Founder Branding"
-              - "Email Marketing & Automation"
-              - "Paid Social Advertising"
+              - "Strategic Partnerships"
+              - "Thought Leadership & Branding"
+              - "Email Marketing"
+              - "Paid Social"
               - "Events & Activations"
               - "Something else"
             field: { label: "Option de Service", name: "option", widget: "string" }
