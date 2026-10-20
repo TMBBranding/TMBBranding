@@ -8,7 +8,7 @@ terracotta:
   dark: "#B85C42"
   light: "#D97E63"
 espresso:
-  default: "#241B18"
+  default: "#382820"
   deep: "#1C1513"
 taupe:
   default: "#6B5C55"

@@ -74,15 +74,15 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
   <!-- 6 SERVICES LISTING WITH ALTERNATING BACKGROUND & LAYOUT -->
   <div class="flex flex-col">
     {parsedServices.map(({ service, description, deliverablesHeading, deliverables }, index) => {
-      const isTerracotta = index % 2 === 1;
+      const isEspresso = index % 2 === 1;
       const isVisualRight = index % 2 === 1;
 
       return (
         <section
           id={service.id.replace(/\.md$/, '')}
           class={`relative w-full min-h-[100dvh] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-0 transition-colors duration-500 ${
-            isTerracotta
-              ? 'bg-terracotta text-creme-powder'
+            isEspresso
+              ? 'bg-espresso text-creme-powder'
               : 'bg-creme-powder text-espresso'
           }`}
         >
@@ -93,8 +93,8 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
               <div class={`lg:col-span-6 ${isVisualRight ? 'lg:order-2' : 'lg:order-1'}`}>
                 <div
                   class={`relative aspect-[16/10] sm:aspect-[16/10] lg:aspect-[4/3] max-h-[26vh] sm:max-h-[30vh] lg:max-h-[52vh] overflow-hidden shadow-warm w-full mx-auto ${
-                    isTerracotta
-                      ? 'bg-terracotta-dark border border-white/25'
+                    isEspresso
+                      ? 'bg-espresso-deep border border-white/20'
                       : 'bg-creme-alabaster border border-creme-border'
                   }`}
                 >
@@ -112,7 +112,7 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
                 <!-- Title -->
                 <h2
                   class={`font-serif text-3xl sm:text-4xl lg:text-5xl leading-tight ${
-                    isTerracotta ? 'text-white' : 'text-espresso'
+                    isEspresso ? 'text-white' : 'text-espresso'
                   }`}
                 >
                   {service.data.title}
@@ -121,7 +121,7 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
                 <!-- Main Description -->
                 <p
                   class={`leading-relaxed font-light text-sm sm:text-base lg:text-lg ${
-                    isTerracotta ? 'text-creme/90' : 'text-taupe'
+                    isEspresso ? 'text-creme/90' : 'text-taupe'
                   }`}
                 >
                   {description}
@@ -132,7 +132,7 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
                   <!-- Label / Heading -->
                   <h3
                     class={`font-sans font-bold text-sm sm:text-base mb-2.5 sm:mb-3.5 ${
-                      isTerracotta ? 'text-white' : 'text-espresso'
+                      isEspresso ? 'text-white' : 'text-espresso'
                     }`}
                   >
                     {deliverablesHeading}
@@ -143,7 +143,7 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
                     {deliverables.map((item) => (
                       <li
                         class={`flex items-center space-x-2.5 sm:space-x-3 text-xs sm:text-sm lg:text-base font-light ${
-                          isTerracotta
+                          isEspresso
                             ? 'text-creme-powder'
                             : 'text-espresso/90'
                         }`}
@@ -157,7 +157,7 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
 
                 <!-- Direct Inquiry Button -->
                 <div class="pt-4 sm:pt-6">
-                  {isTerracotta ? (
+                  {isEspresso ? (
                     <a
                       href={`/contact?service=${encodeURIComponent(service.data.title)}`}
                       class="inline-flex items-center justify-center group font-sans px-7 py-3 text-xs tracking-luxury uppercase bg-transparent text-creme-powder border border-white/60 hover:bg-white hover:text-espresso hover:border-white transition-all duration-400 ease-out font-medium"

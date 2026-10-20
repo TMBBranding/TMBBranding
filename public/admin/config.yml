@@ -176,7 +176,7 @@ collections:
             name: "espresso"
             widget: "object"
             fields:
-              - { label: "Espresso Principal (Titres & Boutons)", name: "default", widget: "color", default: "#241B18" }
+              - { label: "Espresso Principal (Titres & Boutons)", name: "default", widget: "color", default: "#382820" }
               - { label: "Espresso Foncé (Voile Vidéo / Ombres)", name: "deep", widget: "color", default: "#1C1513" }
 
           - label: "Textes Secondaires (Taupe)"

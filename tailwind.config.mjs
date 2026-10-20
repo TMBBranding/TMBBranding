@@ -8,23 +8,23 @@ export default {
       colors: {
         // Bases neutres minérales
         creme: {
-          DEFAULT: '#FAF7F2',
+          DEFAULT: 'rgb(var(--color-creme-powder-rgb, 250 247 242) / <alpha-value>)',
           light: '#FFFFFF',
-          powder: '#FAF7F2',
-          alabaster: '#F3EFEA',
+          powder: 'rgb(var(--color-creme-powder-rgb, 250 247 242) / <alpha-value>)',
+          alabaster: 'rgb(var(--color-creme-alabaster-rgb, 243 239 234) / <alpha-value>)',
           linen: '#EBE5DD',
-          border: '#E4DDD4',
+          border: 'rgb(var(--color-creme-border-rgb, 228 221 212) / <alpha-value>)',
         },
         // Teintes chaudes principales
         terracotta: {
-          light: '#D97E63',
-          DEFAULT: '#C86D51',
-          dark: '#B85C42',
+          light: 'rgb(var(--color-terracotta-light-rgb, 217 126 99) / <alpha-value>)',
+          DEFAULT: 'rgb(var(--color-terracotta-rgb, 200 109 81) / <alpha-value>)',
+          dark: 'rgb(var(--color-terracotta-dark-rgb, 184 92 66) / <alpha-value>)',
           soft: '#EAD7CF',
         },
         ocre: {
-          light: '#E6AE6E',
-          DEFAULT: '#D99B59',
+          light: 'rgb(var(--color-ocre-light-rgb, 230 174 110) / <alpha-value>)',
+          DEFAULT: 'rgb(var(--color-ocre-rgb, 217 155 89) / <alpha-value>)',
           dark: '#C58643',
           soft: '#F4E5D3',
         },
@@ -36,14 +36,14 @@ export default {
         },
         // Typographie & Contrastes raffinés
         espresso: {
-          DEFAULT: '#241B18',
-          deep: '#1C1513',
+          DEFAULT: 'rgb(var(--color-espresso-rgb, 56 40 32) / <alpha-value>)',
+          deep: 'rgb(var(--color-espresso-deep-rgb, 28 21 19) / <alpha-value>)',
           light: '#352925',
         },
         taupe: {
-          DEFAULT: '#6B5C55',
+          DEFAULT: 'rgb(var(--color-taupe-rgb, 107 92 85) / <alpha-value>)',
           dark: '#544741',
-          light: '#94847D',
+          light: 'rgb(var(--color-taupe-light-rgb, 148 132 125) / <alpha-value>)',
           muted: '#B0A39C',
         },
       },
