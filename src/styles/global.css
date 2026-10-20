@@ -160,7 +160,7 @@
     display: inline-block;
     clip-path: inset(100% 0 0 0);
     -webkit-clip-path: inset(100% 0 0 0);
-    animation: drawLetterFromBottom 1.25s cubic-bezier(0.25, 1, 0.4, 1) 0.35s forwards;
+    animation: drawLetterFromBottom 2s cubic-bezier(0.25, 1, 0.4, 1) 0.4s forwards;
     will-change: clip-path, -webkit-clip-path;
   }
 
