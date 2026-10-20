@@ -2,7 +2,9 @@
 hero:
   title: "Elevating Founder-Led Brands"
   subtitle: "Bringing visionary ideas to life through strategic storytelling, thoughtful partnerships, and digital-first marketing."
-servicesSectionTitle: "Comprehensive Digital Marketing"
+  video: "/videos/hero-workspace.mp4"
+  posterImage: "/videos/preview-frame.jpg"
+servicesSectionTitle: "Boutique Brand & Digital Marketing"
 brandsSectionTitle: "Trusted by Visionary Founders"
 testimonials:
   - quote: "Tiffany's creative vision, personalized approach, and exceptional experience resulted in channels that perfectly encapsulated our brand."

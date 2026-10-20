@@ -80,42 +80,47 @@ const isActive = (href: string) => {
   </div>
 </header>
 
-<!-- Mobile Navigation Drawer: Placed outside <header> so backdrop-filter / transform does not trap or crush fixed positioning -->
+<!-- Mobile Navigation Drawer (Full-Screen Overlay with its own fixed top bar & close button) -->
 <div
   id="navbar-mobile-drawer"
-  class="hidden md:hidden fixed inset-x-0 top-14 sm:top-16 bottom-0 z-40 bg-creme-powder/98 backdrop-blur-xl border-t border-creme-border overflow-y-auto overscroll-contain animate-mobile-drawer"
-  style="-webkit-overflow-scrolling: touch;"
+  class="hidden md:hidden fixed inset-0 z-50 bg-creme-powder flex flex-col animate-mobile-drawer"
 >
-  <div class="min-h-full max-w-7xl mx-auto px-6 sm:px-8 py-8 sm:py-10 flex flex-col justify-between">
-    <div class="pt-2">
-      <nav class="flex flex-col space-y-4 sm:space-y-5">
-        {navItems.map((item) => (
-          <a
-            href={item.href}
-            class={`font-serif text-3xl sm:text-4xl transition-colors duration-300 ${
-              isActive(item.href)
-                ? 'text-terracotta italic font-normal'
-                : 'text-espresso hover:text-terracotta'
-            }`}
-          >
-            {item.label}
-          </a>
-        ))}
-      </nav>
-    </div>
+  <!-- Dedicated Drawer Top Bar with Brand Logo & Close (X) Button -->
+  <div class="h-14 sm:h-16 px-6 sm:px-8 flex items-center justify-between border-b border-creme-border/60 flex-shrink-0 bg-creme-powder">
+    <a href="/" class="inline-flex items-center focus:outline-none" aria-label="TMB Branding">
+      <span class="font-sans text-[11px] uppercase tracking-luxury font-medium text-espresso">
+        TMB BRANDING
+      </span>
+    </a>
 
-    <div class="pt-8 pb-6 border-t border-creme-border/70 space-y-4">
-      <div class="text-xs text-taupe space-y-1">
-        <p class="font-serif text-base text-espresso">TMB Branding &mdash; {location}</p>
-        <p>Available for commissions worldwide &bull; {phone}</p>
-      </div>
-      <a
-        href="/contact"
-        class="block w-full text-center py-3.5 sm:py-4 text-xs uppercase tracking-luxury font-medium text-creme bg-espresso hover:bg-terracotta shadow-warm transition-colors"
-      >
-        Start a Project &rarr;
-      </a>
-    </div>
+    <button
+      id="navbar-drawer-close-btn"
+      type="button"
+      class="p-2.5 -mr-2 text-espresso hover:text-terracotta focus:outline-none transition-colors"
+      aria-label="Fermer le menu"
+    >
+      <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Navigation Links Only (Clean, Minimalist & Focused) -->
+  <div class="px-6 sm:px-8 py-10 sm:py-12 flex flex-col flex-grow justify-start overflow-y-auto">
+    <nav class="flex flex-col space-y-6 sm:space-y-7" aria-label="Navigation Mobile">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`font-serif text-3xl sm:text-4xl transition-colors duration-300 ${
+            isActive(item.href)
+              ? 'text-terracotta italic font-normal'
+              : 'text-espresso hover:text-terracotta'
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
   </div>
 </div>
 
@@ -138,6 +143,7 @@ const isActive = (href: string) => {
 <script is:inline>
   const navBtn = document.getElementById('navbar-toggle-btn');
   const navDrawer = document.getElementById('navbar-mobile-drawer');
+  const drawerCloseBtn = document.getElementById('navbar-drawer-close-btn');
   const iconHamb = document.getElementById('navbar-icon-hamburger');
   const iconClose = document.getElementById('navbar-icon-close');
   const header = document.getElementById('site-header');
@@ -149,8 +155,6 @@ const isActive = (href: string) => {
     navDrawer.classList.remove('hidden');
     iconHamb?.classList.add('hidden');
     iconClose?.classList.remove('hidden');
-    // Ensure header is fully visible and not shifted offscreen
-    header?.classList.remove('-translate-y-full');
     // Lock background scroll on document and body
     document.documentElement.classList.add('overflow-hidden');
     document.body.classList.add('overflow-hidden');
@@ -166,7 +170,16 @@ const isActive = (href: string) => {
     // Restore background scroll
     document.documentElement.classList.remove('overflow-hidden');
     document.body.classList.remove('overflow-hidden');
+    // Ensure header is visible when menu closes
+    header?.classList.remove('-translate-y-full');
   };
+
+  if (drawerCloseBtn) {
+    drawerCloseBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      closeMobileMenu();
+    });
+  }
 
   if (navBtn && navDrawer) {
     navBtn.addEventListener('click', (e) => {

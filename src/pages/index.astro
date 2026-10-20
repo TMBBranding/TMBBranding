@@ -14,6 +14,16 @@ const services = allServices.sort((a, b) => (a.data.order ?? 0) - (b.data.order 
 
 const allBrands = await getCollection('brands');
 const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
+
+const heroVideoUrl = home.hero.video || "/videos/hero-workspace.mp4";
+const heroPosterUrl = home.hero.posterImage || "/videos/preview-frame.jpg";
+
+function getFirstSentence(text?: string): string {
+  if (!text) return '';
+  const trimmed = text.trim();
+  const match = trimmed.match(/^.*?[.!?](?:\s|$)/);
+  return match ? match[0].trim() : trimmed;
+}
 ---
 
 <Layout
@@ -22,62 +32,88 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
   ogImage={home.seo.ogImage}
   currentPath="/"
 >
-  <!-- 1. HERO SECTION -->
-  <section class="relative min-h-[calc(100dvh-3.5rem)] sm:min-h-[calc(100dvh-4rem)] flex items-center py-8 sm:py-12 lg:py-14 overflow-hidden border-b border-creme-border/60">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
-        
-        <!-- Left Editorial Copy -->
-        <div class="lg:col-span-7 space-y-6 sm:space-y-8">
-          <!-- Kicker (Optional) -->
-          {home.hero.kicker && (
-            <div class="inline-flex items-center space-x-3.5">
-              <span class="w-8 h-[1px] bg-ocre"></span>
-              <span class="text-[11px] uppercase tracking-kicker text-ocre font-sans font-semibold">
-                {home.hero.kicker}
-              </span>
-            </div>
-          )}
+  <!-- 1. HERO VIDEO SECTION -->
+  <section class="relative w-full h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] min-h-[540px] flex items-center justify-center overflow-hidden border-b border-creme-border/40">
+    <!-- Background Video with AutoPlay, Loop, Muted, Playsinline -->
+    <video
+      id="hero-video"
+      autoplay
+      loop
+      muted
+      playsinline
+      poster={heroPosterUrl}
+      class="absolute inset-0 w-full h-full object-cover object-center pointer-events-none"
+    >
+      <source src={heroVideoUrl} type={heroVideoUrl.endsWith('.mov') ? 'video/quicktime' : 'video/mp4'} />
+      {heroVideoUrl !== "/videos/hero-workspace.mp4" && (
+        <source src="/videos/hero-workspace.mp4" type="video/mp4" />
+      )}
+      Votre navigateur ne supporte pas la lecture de vidéos.
+    </video>
 
-          <!-- Main Title -->
-          <h1 class="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-normal leading-[1.05] tracking-tight text-espresso">
-            {home.hero.title.includes('Founder-Led') ? (
-              <>
-                {home.hero.title.split('Founder-Led')[0]}
-                <span class="italic whitespace-nowrap">Founder-Led</span>
-                {home.hero.title.split('Founder-Led')[1]}
-              </>
-            ) : (
-              home.hero.title
-            )}
-          </h1>
+    <!-- Warm Cinematic Overlay for Contrast & Editorial Legibility -->
+    <div class="absolute inset-0 bg-espresso/40 backdrop-contrast-[1.05]" aria-hidden="true"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-espresso/70 via-black/25 to-espresso/35" aria-hidden="true"></div>
 
-          <!-- Subtitle -->
-          <p class="text-base sm:text-lg md:text-xl text-taupe font-light leading-relaxed max-w-2xl font-sans">
-            {home.hero.subtitle}
-          </p>
-
-
+    <!-- Centered Editorial Content (Title & Subtitle) -->
+    <div class="relative z-20 max-w-5xl mx-auto px-6 sm:px-8 lg:px-12 w-full text-center flex flex-col items-center justify-center space-y-6 sm:space-y-8">
+      <!-- Optional Kicker -->
+      {home.hero.kicker && (
+        <div class="inline-flex items-center space-x-3.5">
+          <span class="w-8 h-[1px] bg-ocre"></span>
+          <span class="text-[11px] uppercase tracking-kicker text-ocre-light font-sans font-semibold drop-shadow-sm">
+            {home.hero.kicker}
+          </span>
+          <span class="w-8 h-[1px] bg-ocre"></span>
         </div>
+      )}
 
-        <!-- Right Hero Visual -->
-        <div class="lg:col-span-5 flex justify-center lg:justify-end">
-          <div class="relative w-full max-w-md lg:max-w-none">
-            <!-- Subtle warm background glow/halo -->
-            <div class="absolute -inset-3 bg-gradient-to-tr from-ocre-soft/50 via-terracotta-soft/30 to-transparent blur-xl opacity-70"></div>
+      <!-- Main Title -->
+      <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal leading-[1.08] tracking-tight text-white drop-shadow-md max-w-4xl mx-auto">
+        {home.hero.title.includes('Founder-Led') ? (
+          <>
+            {home.hero.title.split('Founder-Led')[0]}
+            <span class="italic whitespace-nowrap">Founder-Led</span>
+            {home.hero.title.split('Founder-Led')[1]}
+          </>
+        ) : (
+          home.hero.title
+        )}
+      </h1>
 
-            <div class="relative aspect-[4/5] max-h-[65vh] overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm-lg">
-              <img
-                src={home.seo.ogImage || "/images/uploads/hero-home.jpg"}
-                alt="TMB Branding Studio — Austin TX"
-                class="w-full h-full object-cover object-center"
-                loading="eager"
-              />
-            </div>
-          </div>
-        </div>
+      <!-- Subtitle -->
+      <p class="text-base sm:text-lg md:text-xl text-creme-powder/90 font-light leading-relaxed max-w-2xl mx-auto font-sans drop-shadow-sm">
+        {home.hero.subtitle}
+      </p>
+    </div>
 
-      </div>
+    <!-- Play / Pause Ultra-Discreet White Button (Bottom Right) -->
+    <div class="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 z-30">
+      <button
+        id="hero-video-toggle"
+        type="button"
+        class="group w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/70 hover:bg-white text-espresso/80 hover:text-espresso backdrop-blur-xs shadow-xs flex items-center justify-center transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-white/80 cursor-pointer"
+        aria-label="Mettre en pause la vidéo"
+        title="Mettre en pause"
+      >
+        <!-- Pause Icon (shown when playing) -->
+        <svg
+          id="hero-video-pause-icon"
+          class="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current transition-transform duration-200 group-hover:scale-110"
+          viewBox="0 0 24 24"
+        >
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" />
+        </svg>
+
+        <!-- Play Icon (shown when paused) -->
+        <svg
+          id="hero-video-play-icon"
+          class="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current hidden ml-0.5 transition-transform duration-200 group-hover:scale-110"
+          viewBox="0 0 24 24"
+        >
+          <path d="M8 5v14l11-7z" />
+        </svg>
+      </button>
     </div>
   </section>
 
@@ -87,7 +123,7 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
       <!-- Section Header (Centered, no button) -->
       <div class="text-center mb-16 max-w-3xl mx-auto">
         <h2 class="font-serif text-4xl sm:text-5xl text-creme">
-          {home.servicesSectionTitle || "Comprehensive Digital Marketing"}
+          {home.servicesSectionTitle || "Boutique Brand & Digital Marketing"}
         </h2>
       </div>
 
@@ -119,7 +155,7 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
                     </a>
                   </h3>
                   <p class="text-taupe text-sm leading-relaxed font-light line-clamp-3">
-                    {service.data.shortDescription}
+                    {getFirstSentence(service.data.shortDescription)}
                   </p>
                 </div>
               </div>
@@ -202,6 +238,52 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
 </Layout>
 
 <script is:inline>
+  // --- 1. HERO VIDEO CONTROLLER (AutoPlay & Pause/Play Button) ---
+  const heroVideo = document.getElementById('hero-video');
+  const heroVideoToggle = document.getElementById('hero-video-toggle');
+  const heroPauseIcon = document.getElementById('hero-video-pause-icon');
+  const heroPlayIcon = document.getElementById('hero-video-play-icon');
+
+  if (heroVideo && heroVideoToggle && heroPauseIcon && heroPlayIcon) {
+    const updatePlayPauseUI = (isPaused) => {
+      if (isPaused) {
+        heroPauseIcon.classList.add('hidden');
+        heroPlayIcon.classList.remove('hidden');
+        heroVideoToggle.setAttribute('aria-label', 'Lire la vidéo');
+        heroVideoToggle.setAttribute('title', 'Lecture');
+      } else {
+        heroPlayIcon.classList.add('hidden');
+        heroPauseIcon.classList.remove('hidden');
+        heroVideoToggle.setAttribute('aria-label', 'Mettre en pause la vidéo');
+        heroVideoToggle.setAttribute('title', 'Mettre en pause');
+      }
+    };
+
+    heroVideoToggle.addEventListener('click', () => {
+      if (heroVideo.paused) {
+        heroVideo.play().catch(() => {});
+      } else {
+        heroVideo.pause();
+      }
+    });
+
+    heroVideo.addEventListener('play', () => updatePlayPauseUI(false));
+    heroVideo.addEventListener('pause', () => updatePlayPauseUI(true));
+
+    // Force muted & start autoplay
+    heroVideo.muted = true;
+    const playPromise = heroVideo.play();
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => updatePlayPauseUI(false))
+        .catch(() => {
+          // In case browser policy blocked autoplay, update UI accordingly
+          updatePlayPauseUI(true);
+        });
+    }
+  }
+
+  // --- 2. TESTIMONIALS CAROUSEL ---
   const testimonialSlides = document.querySelectorAll('.testimonial-slide');
   const testimonialDots = document.querySelectorAll('.testimonial-dot');
   let currentTestimonialIdx = 0;

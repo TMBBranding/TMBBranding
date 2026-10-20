@@ -25,7 +25,9 @@ collections:
               - { label: "Kicker / Sur-titre", name: "kicker", widget: "string", required: false }
               - { label: "Titre Principal", name: "title", widget: "string" }
               - { label: "Sous-titre", name: "subtitle", widget: "text" }
-          - { label: "Titre de la section Services", name: "servicesSectionTitle", widget: "string", required: false, default: "Comprehensive Digital Marketing" }
+              - { label: "Vidéo d'arrière-plan (Hero)", name: "video", widget: "file", required: false, default: "/videos/hero-workspace.mp4", hint: "Fichier vidéo (MP4, WebM, etc.) affiché en fond plein écran" }
+              - { label: "Image de prévisualisation (Poster)", name: "posterImage", widget: "image", required: false, default: "/videos/preview-frame.jpg", hint: "Image affichée pendant le chargement de la vidéo" }
+          - { label: "Titre de la section Services", name: "servicesSectionTitle", widget: "string", required: false, default: "Boutique Brand & Digital Marketing" }
           - { label: "Titre de la section Marques", name: "brandsSectionTitle", widget: "string", required: false, default: "Trusted by Visionary Founders" }
           - label: "Témoignages Clients"
             name: "testimonials"
@@ -91,7 +93,7 @@ collections:
             fields:
               - { label: "Nom complet", name: "name", widget: "string" }
               - { label: "Portrait", name: "portraitImage", widget: "image" }
-              - { label: "Biographie & Vision", name: "body", widget: "markdown" }
+              - { label: "Biographie & Vision", name: "body", widget: "markdown", hint: "Les premiers paragraphes s'affichent à côté du portrait. Le paragraphe débutant par 'Then a transition into beauty' et les suivants s'étendent sur toute la largeur sous la photo." }
           - { label: "Texte d'invitation final avec liens", name: "closingText", widget: "string", required: false, hint: "Exemple: We’d love to work with you. [Get in touch](/contact) or visit our [Brands](/brands) page." }
           - label: "Référencement (SEO)"
             name: "seo"
@@ -137,7 +139,8 @@ collections:
         file: "src/content/pages/settings.md"
         format: "frontmatter"
         fields:
-          - { label: "Titre bloc Projet (Footer)", name: "inquiriesTitle", widget: "string", default: "Get in touch" }
+          - { label: "Titre bloc Projet (Footer)", name: "inquiriesTitle", widget: "string", default: "WORK WITH TMB" }
+          - { label: "Texte d'accroche (Footer)", name: "inquiriesSubtitle", widget: "text", default: "New beginnings. Next chapters. Meaningful growth. Let's build what's next." }
           - { label: "Texte du lien Contact", name: "contactLinkText", widget: "string", default: "Contact us" }
           - { label: "Téléphone", name: "phone", widget: "string", default: "+1 512 529 1677" }
           - { label: "Email de contact", name: "email", widget: "string", default: "tiffany@tmbbranding.com" }
@@ -145,6 +148,7 @@ collections:
           - { label: "Identifiant Instagram", name: "instagramHandle", widget: "string", default: "@tmbbranding" }
           - { label: "Lien Instagram", name: "instagramUrl", widget: "string", default: "https://www.instagram.com/tmbbranding/" }
           - { label: "Ville / Siège", name: "location", widget: "string", default: "Austin, Texas" }
+          - { label: "Texte de Copyright (Bas de page)", name: "copyrightText", widget: "string", default: "© 2026 TMB Branding. All rights reserved." }
 
   # ==========================================
   # COLLECTION SERVICES (Fichiers multiples)

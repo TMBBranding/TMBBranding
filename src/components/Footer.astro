@@ -9,10 +9,12 @@ const phone = settings?.phone || "+1 512 529 1677";
 const email = settings?.email || "tiffany@tmbbranding.com";
 const instagramHandle = settings?.instagramHandle || "@tmbbranding";
 const instagramUrl = settings?.instagramUrl || "https://www.instagram.com/tmbbranding/";
-const inquiriesTitle = settings?.inquiriesTitle || "Get in touch";
+const inquiriesTitle = settings?.inquiriesTitle || "WORK WITH TMB";
+const inquiriesSubtitle = settings?.inquiriesSubtitle || settings?.inquiriesText || "New beginnings. Next chapters. Meaningful growth. Let's build what's next.";
 const contactLinkText = settings?.contactLinkText || "Contact us";
 const socialTitle = settings?.socialTitle || "Follow Us";
 const location = settings?.location || "Austin, Texas";
+const copyrightText = settings?.copyrightText || `© ${currentYear} TMB Branding. All rights reserved.`;
 ---
 
 <footer class="bg-creme-powder text-espresso mt-auto border-t border-creme-border/60">
@@ -25,6 +27,11 @@ const location = settings?.location || "Austin, Texas";
         <h3 class="text-xs uppercase tracking-luxury text-taupe font-sans font-semibold">
           {inquiriesTitle}
         </h3>
+        {inquiriesSubtitle && (
+          <p class="text-sm sm:text-base text-taupe font-light leading-relaxed max-w-lg">
+            {inquiriesSubtitle}
+          </p>
+        )}
         <div class="flex flex-wrap items-center gap-y-2 gap-x-8 pt-2">
           <a
             href="/contact"
@@ -82,7 +89,7 @@ const location = settings?.location || "Austin, Texas";
     <!-- Bottom Credits & Legal -->
     <div class="pt-8 text-center text-xs text-taupe">
       <p>
-        &copy; {currentYear} TMB Branding. All rights reserved. {location}.
+        {copyrightText}
       </p>
     </div>
   </div>

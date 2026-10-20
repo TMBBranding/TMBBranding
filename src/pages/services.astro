@@ -16,8 +16,8 @@ function parseServiceContent(rawBody: string, fallbackDesc: string) {
   const description = descriptionPart || fallbackDesc;
   const deliverables = body
     .split('\n')
-    .filter((line) => line.trim().startsWith('- ') || line.trim().startsWith('* '))
-    .map((line) => line.trim().replace(/^[-*]\s+/, '').trim())
+    .filter((line) => /^[-*•]\s+/.test(line.trim()))
+    .map((line) => line.trim().replace(/^[-*•]\s+/, '').trim())
     .filter(Boolean);
 
   return {
@@ -80,19 +80,19 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
       return (
         <section
           id={service.id.replace(/\.md$/, '')}
-          class={`pt-8 sm:pt-10 lg:pt-12 pb-16 sm:pb-20 lg:pb-24 scroll-mt-14 sm:scroll-mt-16 transition-colors duration-500 ${
+          class={`relative w-full min-h-[100dvh] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-0 transition-colors duration-500 ${
             isTerracotta
               ? 'bg-terracotta text-creme-powder'
               : 'bg-creme-powder text-espresso'
           }`}
         >
-          <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+          <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full my-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 xl:gap-16 items-center">
               
               <!-- Visual Column (No Hover Effects) -->
               <div class={`lg:col-span-6 ${isVisualRight ? 'lg:order-2' : 'lg:order-1'}`}>
                 <div
-                  class={`relative aspect-[4/3] sm:aspect-[16/11] overflow-hidden shadow-warm ${
+                  class={`relative aspect-[16/10] sm:aspect-[16/10] lg:aspect-[4/3] max-h-[26vh] sm:max-h-[30vh] lg:max-h-[52vh] overflow-hidden shadow-warm w-full mx-auto ${
                     isTerracotta
                       ? 'bg-terracotta-dark border border-white/25'
                       : 'bg-creme-alabaster border border-creme-border'
@@ -108,7 +108,7 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
               </div>
 
               <!-- Content Column -->
-              <div class={`lg:col-span-6 space-y-6 ${isVisualRight ? 'lg:order-1' : 'lg:order-2'}`}>
+              <div class={`lg:col-span-6 space-y-4 sm:space-y-5 lg:space-y-6 ${isVisualRight ? 'lg:order-1' : 'lg:order-2'}`}>
                 <!-- Title -->
                 <h2
                   class={`font-serif text-3xl sm:text-4xl lg:text-5xl leading-tight ${
@@ -120,7 +120,7 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
 
                 <!-- Main Description -->
                 <p
-                  class={`leading-relaxed font-light text-base sm:text-lg ${
+                  class={`leading-relaxed font-light text-sm sm:text-base lg:text-lg ${
                     isTerracotta ? 'text-creme/90' : 'text-taupe'
                   }`}
                 >
@@ -128,10 +128,10 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
                 </p>
 
                 <!-- Deliverables Presentation Block (No Line, No Bar, Original Font in Bold) -->
-                <div class="mt-8 sm:mt-10">
+                <div class="mt-4 sm:mt-6 lg:mt-8">
                   <!-- Label / Heading -->
                   <h3
-                    class={`font-sans font-bold text-base sm:text-lg mb-3 sm:mb-4 ${
+                    class={`font-sans font-bold text-sm sm:text-base mb-2.5 sm:mb-3.5 ${
                       isTerracotta ? 'text-white' : 'text-espresso'
                     }`}
                   >
@@ -139,10 +139,10 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
                   </h3>
 
                   <!-- Deliverables List -->
-                  <ul class="space-y-2.5 sm:space-y-3">
+                  <ul class="space-y-2 sm:space-y-2.5">
                     {deliverables.map((item) => (
                       <li
-                        class={`flex items-center space-x-3 text-sm sm:text-base font-light ${
+                        class={`flex items-center space-x-2.5 sm:space-x-3 text-xs sm:text-sm lg:text-base font-light ${
                           isTerracotta
                             ? 'text-creme-powder'
                             : 'text-espresso/90'
@@ -156,11 +156,11 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
                 </div>
 
                 <!-- Direct Inquiry Button -->
-                <div class="pt-6 sm:pt-8">
+                <div class="pt-4 sm:pt-6">
                   {isTerracotta ? (
                     <a
                       href={`/contact?service=${encodeURIComponent(service.data.title)}`}
-                      class="inline-flex items-center justify-center group font-sans px-7 py-3.5 text-xs tracking-luxury uppercase bg-transparent text-creme-powder border border-white/60 hover:bg-white hover:text-espresso hover:border-white transition-all duration-400 ease-out font-medium"
+                      class="inline-flex items-center justify-center group font-sans px-7 py-3 text-xs tracking-luxury uppercase bg-transparent text-creme-powder border border-white/60 hover:bg-white hover:text-espresso hover:border-white transition-all duration-400 ease-out font-medium"
                     >
                       <span class="relative z-10">{inquiryButtonText}</span>
                       <span class="ml-2.5 transform group-hover:translate-x-1 transition-transform duration-300 ease-out inline-block">
@@ -193,11 +193,9 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
     if (!window.location.hash) return;
     const target = document.querySelector(window.location.hash);
     if (!target) return;
-    const header = document.getElementById('site-header');
-    const headerHeight = header ? header.offsetHeight : 64;
     const targetTop = target.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({
-      top: Math.max(0, targetTop - headerHeight),
+      top: Math.max(0, targetTop),
       behavior: 'smooth'
     });
   };

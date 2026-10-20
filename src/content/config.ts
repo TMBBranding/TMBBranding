@@ -11,6 +11,8 @@ export const homeSchema = z.object({
     kicker: z.string().optional(),
     title: z.string(),
     subtitle: z.string(),
+    video: z.string().optional(),
+    posterImage: z.string().optional(),
   }),
   servicesSectionTitle: z.string().optional(),
   brandsSectionTitle: z.string().optional(),
@@ -62,6 +64,7 @@ export const contactSchema = z.object({
 export const settingsSchema = z.object({
   inquiriesTitle: z.string().optional(),
   inquiriesText: z.string().optional(),
+  inquiriesSubtitle: z.string().optional(),
   contactLinkText: z.string().optional(),
   phone: z.string().optional(),
   email: z.string().optional(),
@@ -72,6 +75,7 @@ export const settingsSchema = z.object({
   location: z.string().optional(),
   headquartersText: z.string().optional(),
   worldwideText: z.string().optional(),
+  copyrightText: z.string().optional(),
 });
 
 export const serviceSchema = z.object({

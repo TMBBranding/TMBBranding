@@ -16,6 +16,22 @@ function renderMarkdownLinks(text?: string) {
     '<a href="$2" class="text-espresso font-medium underline underline-offset-4 decoration-black hover:text-terracotta hover:decoration-black transition-colors">$1</a>'
   );
 }
+
+// Split the body into paragraphs.
+// The story up to "Then a transition into beauty" goes beside the photo.
+// "Then a transition into beauty" and following paragraphs go under the photo and span across the page.
+const rawBody = about.bioFounder.body || '';
+const allParagraphs = rawBody
+  .split(/\n\s*\n/)
+  .map((p) => p.trim())
+  .filter(Boolean);
+
+const splitIndex = allParagraphs.findIndex((p) =>
+  p.toLowerCase().includes('then a transition')
+);
+
+const topParagraphs = splitIndex > 0 ? allParagraphs.slice(0, splitIndex) : allParagraphs.slice(0, 3);
+const bottomParagraphs = splitIndex > 0 ? allParagraphs.slice(splitIndex) : allParagraphs.slice(3);
 ---
 
 <Layout
@@ -57,8 +73,8 @@ function renderMarkdownLinks(text?: string) {
           </div>
         </div>
 
-        <!-- Biography Story Column -->
-        <div class="lg:col-span-7 space-y-8 lg:pl-4">
+        <!-- Biography Story Column (Top Story) -->
+        <div class="lg:col-span-7 space-y-6 lg:pl-4">
           {about.hero.subtitle && (
             <div class="space-y-3">
               <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-editorial">
@@ -67,21 +83,34 @@ function renderMarkdownLinks(text?: string) {
             </div>
           )}
 
-          <!-- Paragraphs from bioFounder.body -->
-          <div class="space-y-6 text-taupe text-base sm:text-lg font-light leading-relaxed whitespace-pre-line">
-            {about.bioFounder.body}
+          <!-- Paragraphs beside the photo -->
+          <div class="space-y-6 text-taupe text-base sm:text-lg font-light leading-relaxed">
+            {topParagraphs.map((paragraph) => (
+              <p>{paragraph}</p>
+            ))}
           </div>
-
-          <!-- Closing Invitation with Links from Decap CMS -->
-          {about.closingText && (
-            <p
-              class="text-taupe text-base sm:text-lg font-light leading-relaxed"
-              set:html={renderMarkdownLinks(about.closingText)}
-            />
-          )}
         </div>
 
       </div>
+
+      <!-- Bottom Full-Width Story: Starts with "Then a transition into beauty" under the photo -->
+      {bottomParagraphs.length > 0 && (
+        <div class="mt-12 sm:mt-16 lg:mt-20 max-w-5xl space-y-6 sm:space-y-8 text-taupe text-base sm:text-lg font-light leading-relaxed">
+          {bottomParagraphs.map((paragraph) => (
+            <p>{paragraph}</p>
+          ))}
+
+          <!-- Closing Invitation with Links from Decap CMS -->
+          {about.closingText && (
+            <div class="pt-4 sm:pt-6">
+              <p
+                class="text-taupe text-base sm:text-lg font-light leading-relaxed"
+                set:html={renderMarkdownLinks(about.closingText)}
+              />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   </section>
 </Layout>
