@@ -15,24 +15,36 @@ export default {
           linen: '#EBE5DD',
           border: 'rgb(var(--color-creme-border-rgb, 228 221 212) / <alpha-value>)',
         },
-        // Teintes chaudes principales
+        // Teintes chaudes principales (Cognac / Caramel)
         terracotta: {
-          light: 'rgb(var(--color-terracotta-light-rgb, 217 126 99) / <alpha-value>)',
-          DEFAULT: 'rgb(var(--color-terracotta-rgb, 200 109 81) / <alpha-value>)',
-          dark: 'rgb(var(--color-terracotta-dark-rgb, 184 92 66) / <alpha-value>)',
-          soft: '#EAD7CF',
+          light: 'rgb(var(--color-terracotta-light-rgb, 189 131 92) / <alpha-value>)',
+          DEFAULT: 'rgb(var(--color-terracotta-rgb, 158 103 66) / <alpha-value>)',
+          dark: 'rgb(var(--color-terracotta-dark-rgb, 125 75 42) / <alpha-value>)',
+          soft: '#EFE4DC',
+        },
+        cognac: {
+          light: 'rgb(var(--color-terracotta-light-rgb, 189 131 92) / <alpha-value>)',
+          DEFAULT: 'rgb(var(--color-terracotta-rgb, 158 103 66) / <alpha-value>)',
+          dark: 'rgb(var(--color-terracotta-dark-rgb, 125 75 42) / <alpha-value>)',
+          soft: '#EFE4DC',
         },
         ocre: {
-          light: 'rgb(var(--color-ocre-light-rgb, 230 174 110) / <alpha-value>)',
-          DEFAULT: 'rgb(var(--color-ocre-rgb, 217 155 89) / <alpha-value>)',
-          dark: '#C58643',
-          soft: '#F4E5D3',
+          light: 'rgb(var(--color-ocre-light-rgb, 216 181 143) / <alpha-value>)',
+          DEFAULT: 'rgb(var(--color-ocre-rgb, 194 155 114) / <alpha-value>)',
+          dark: '#9F774F',
+          soft: '#F5EFE6',
+        },
+        champagne: {
+          light: 'rgb(var(--color-ocre-light-rgb, 216 181 143) / <alpha-value>)',
+          DEFAULT: 'rgb(var(--color-ocre-rgb, 194 155 114) / <alpha-value>)',
+          dark: '#9F774F',
+          soft: '#F5EFE6',
         },
         amber: {
-          light: '#9E684F',
-          DEFAULT: '#82533D',
-          dark: '#5C3A2E',
-          soft: '#DFD3CC',
+          light: '#BD835C',
+          DEFAULT: '#9E6742',
+          dark: '#7D4B2A',
+          soft: '#EFE4DC',
         },
         // Typographie & Contrastes raffinés
         espresso: {
@@ -63,11 +75,11 @@ export default {
         editorial: '1.15',
       },
       boxShadow: {
-        'warm-xs': '0 2px 8px rgba(92, 58, 46, 0.04)',
-        'warm-sm': '0 4px 14px rgba(92, 58, 46, 0.06)',
-        'warm': '0 10px 30px rgba(130, 83, 61, 0.08)',
-        'warm-lg': '0 20px 45px rgba(92, 58, 46, 0.10)',
-        'warm-xl': '0 25px 60px rgba(92, 58, 46, 0.14)',
+        'warm-xs': '0 2px 8px rgba(56, 40, 32, 0.04)',
+        'warm-sm': '0 4px 14px rgba(56, 40, 32, 0.06)',
+        'warm': '0 10px 30px rgba(56, 40, 32, 0.08)',
+        'warm-lg': '0 20px 45px rgba(56, 40, 32, 0.10)',
+        'warm-xl': '0 25px 60px rgba(56, 40, 32, 0.14)',
       },
       borderRadius: {
         'luxury-sm': '0px',

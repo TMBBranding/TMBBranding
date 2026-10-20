@@ -4,9 +4,9 @@ creme:
   alabaster: "#F3EFEA"
   border: "#E4DDD4"
 terracotta:
-  default: "#C86D51"
-  dark: "#B85C42"
-  light: "#D97E63"
+  default: "#9E6742"
+  dark: "#7D4B2A"
+  light: "#BD835C"
 espresso:
   default: "#382820"
   deep: "#1C1513"
@@ -14,6 +14,6 @@ taupe:
   default: "#6B5C55"
   light: "#94847D"
 ocre:
-  default: "#D99B59"
-  light: "#E6AE6E"
+  default: "#C29B72"
+  light: "#D8B58F"
 ---

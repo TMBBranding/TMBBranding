@@ -10,12 +10,17 @@
     --color-creme-powder: #FAF7F2;
     --color-alabaster: #F3EFEA;
     --color-creme-alabaster: #F3EFEA;
-    --color-terracotta: #C86D51;
-    --color-terracotta-dark: #B85C42;
-    --color-terracotta-light: #D97E63;
-    --color-ocre: #D99B59;
-    --color-ocre-light: #E6AE6E;
-    --color-amber: #82533D;
+    --color-terracotta: #9E6742;
+    --color-terracotta-dark: #7D4B2A;
+    --color-terracotta-light: #BD835C;
+    --color-cognac: #9E6742;
+    --color-cognac-dark: #7D4B2A;
+    --color-cognac-light: #BD835C;
+    --color-ocre: #C29B72;
+    --color-ocre-light: #D8B58F;
+    --color-champagne: #C29B72;
+    --color-champagne-light: #D8B58F;
+    --color-amber: #7D4B2A;
     --color-espresso: #382820;
     --color-espresso-deep: #1C1513;
     --color-taupe: #6B5C55;
@@ -26,15 +31,20 @@
     --color-creme-powder-rgb: 250 247 242;
     --color-creme-alabaster-rgb: 243 239 234;
     --color-creme-border-rgb: 228 221 212;
-    --color-terracotta-rgb: 200 109 81;
-    --color-terracotta-dark-rgb: 184 92 66;
-    --color-terracotta-light-rgb: 217 126 99;
+    --color-terracotta-rgb: 158 103 66;
+    --color-terracotta-dark-rgb: 125 75 42;
+    --color-terracotta-light-rgb: 189 131 92;
+    --color-cognac-rgb: 158 103 66;
+    --color-cognac-dark-rgb: 125 75 42;
+    --color-cognac-light-rgb: 189 131 92;
     --color-espresso-rgb: 56 40 32;
     --color-espresso-deep-rgb: 28 21 19;
     --color-taupe-rgb: 107 92 85;
     --color-taupe-light-rgb: 148 132 125;
-    --color-ocre-rgb: 217 155 89;
-    --color-ocre-light-rgb: 230 174 110;
+    --color-ocre-rgb: 194 155 114;
+    --color-ocre-light-rgb: 216 181 143;
+    --color-champagne-rgb: 194 155 114;
+    --color-champagne-light-rgb: 216 181 143;
   }
 
   html {
@@ -68,7 +78,7 @@
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #C86D51;
+    background: var(--color-terracotta, #9E6742);
   }
 }
 
@@ -126,7 +136,7 @@
     margin-bottom: 0.5rem;
   }
   .brand-content li::marker {
-    color: #C86D51;
+    color: var(--color-terracotta, #9E6742);
   }
 }
 

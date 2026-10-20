@@ -46,9 +46,9 @@ const cPowder = theme?.creme?.powder || '#FAF7F2';
 const cAlabaster = theme?.creme?.alabaster || '#F3EFEA';
 const cBorder = theme?.creme?.border || '#E4DDD4';
 
-const tDefault = theme?.terracotta?.default || '#C86D51';
-const tDark = theme?.terracotta?.dark || '#B85C42';
-const tLight = theme?.terracotta?.light || '#D97E63';
+const tDefault = theme?.terracotta?.default || '#9E6742';
+const tDark = theme?.terracotta?.dark || '#7D4B2A';
+const tLight = theme?.terracotta?.light || '#BD835C';
 
 const eDefault = theme?.espresso?.default || '#382820';
 const eDeep = theme?.espresso?.deep || '#1C1513';
@@ -56,16 +56,16 @@ const eDeep = theme?.espresso?.deep || '#1C1513';
 const taupeDefault = theme?.taupe?.default || '#6B5C55';
 const taupeLight = theme?.taupe?.light || '#94847D';
 
-const ocreDefault = theme?.ocre?.default || '#D99B59';
-const ocreLight = theme?.ocre?.light || '#E6AE6E';
+const ocreDefault = theme?.ocre?.default || '#C29B72';
+const ocreLight = theme?.ocre?.light || '#D8B58F';
 
 const cPowderRgb = hexToRgb(cPowder, '250 247 242');
 const cAlabasterRgb = hexToRgb(cAlabaster, '243 239 234');
 const cBorderRgb = hexToRgb(cBorder, '228 221 212');
 
-const tDefaultRgb = hexToRgb(tDefault, '200 109 81');
-const tDarkRgb = hexToRgb(tDark, '184 92 66');
-const tLightRgb = hexToRgb(tLight, '217 126 99');
+const tDefaultRgb = hexToRgb(tDefault, '158 103 66');
+const tDarkRgb = hexToRgb(tDark, '125 75 42');
+const tLightRgb = hexToRgb(tLight, '189 131 92');
 
 const eDefaultRgb = hexToRgb(eDefault, '56 40 32');
 const eDeepRgb = hexToRgb(eDeep, '28 21 19');
@@ -73,8 +73,8 @@ const eDeepRgb = hexToRgb(eDeep, '28 21 19');
 const taupeDefaultRgb = hexToRgb(taupeDefault, '107 92 85');
 const taupeLightRgb = hexToRgb(taupeLight, '148 132 125');
 
-const ocreDefaultRgb = hexToRgb(ocreDefault, '217 155 89');
-const ocreLightRgb = hexToRgb(ocreLight, '230 174 110');
+const ocreDefaultRgb = hexToRgb(ocreDefault, '194 155 114');
+const ocreLightRgb = hexToRgb(ocreLight, '216 181 143');
 ---
 
 <!doctype html>
@@ -99,6 +99,9 @@ const ocreLightRgb = hexToRgb(ocreLight, '230 174 110');
         --color-terracotta: ${tDefault};
         --color-terracotta-dark: ${tDark};
         --color-terracotta-light: ${tLight};
+        --color-cognac: ${tDefault};
+        --color-cognac-dark: ${tDark};
+        --color-cognac-light: ${tLight};
 
         --color-espresso: ${eDefault};
         --color-espresso-deep: ${eDeep};
@@ -108,6 +111,8 @@ const ocreLightRgb = hexToRgb(ocreLight, '230 174 110');
 
         --color-ocre: ${ocreDefault};
         --color-ocre-light: ${ocreLight};
+        --color-champagne: ${ocreDefault};
+        --color-champagne-light: ${ocreLight};
 
         --color-creme-powder-rgb: ${cPowderRgb};
         --color-creme-alabaster-rgb: ${cAlabasterRgb};
@@ -116,6 +121,9 @@ const ocreLightRgb = hexToRgb(ocreLight, '230 174 110');
         --color-terracotta-rgb: ${tDefaultRgb};
         --color-terracotta-dark-rgb: ${tDarkRgb};
         --color-terracotta-light-rgb: ${tLightRgb};
+        --color-cognac-rgb: ${tDefaultRgb};
+        --color-cognac-dark-rgb: ${tDarkRgb};
+        --color-cognac-light-rgb: ${tLightRgb};
 
         --color-espresso-rgb: ${eDefaultRgb};
         --color-espresso-deep-rgb: ${eDeepRgb};
@@ -125,6 +133,8 @@ const ocreLightRgb = hexToRgb(ocreLight, '230 174 110');
 
         --color-ocre-rgb: ${ocreDefaultRgb};
         --color-ocre-light-rgb: ${ocreLightRgb};
+        --color-champagne-rgb: ${ocreDefaultRgb};
+        --color-champagne-light-rgb: ${ocreLightRgb};
       }
     `}></style>
 

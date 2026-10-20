@@ -164,19 +164,19 @@ collections:
               - { label: "Fond Secondaire / Cartes (Alabaster)", name: "alabaster", widget: "color", default: "#F3EFEA" }
               - { label: "Couleur des Bordures", name: "border", widget: "color", default: "#E4DDD4" }
 
-          - label: "Teinte d'Accentuation Principale (Terracotta)"
+          - label: "Teinte d'Accentuation Principale (Cognac / Caramel Chaud)"
             name: "terracotta"
             widget: "object"
             fields:
-              - { label: "Terracotta Principal", name: "default", widget: "color", default: "#C86D51" }
-              - { label: "Terracotta Foncé (Bordures / Fonds sombres)", name: "dark", widget: "color", default: "#B85C42" }
-              - { label: "Terracotta Clair (Survols)", name: "light", widget: "color", default: "#D97E63" }
+              - { label: "Cognac Principal (Boutons survols, liens)", name: "default", widget: "color", default: "#9E6742" }
+              - { label: "Cognac Foncé (Actif / Clic)", name: "dark", widget: "color", default: "#7D4B2A" }
+              - { label: "Cognac Clair (Survols subtils)", name: "light", widget: "color", default: "#BD835C" }
 
           - label: "Typographie & Titres (Espresso)"
             name: "espresso"
             widget: "object"
             fields:
-              - { label: "Espresso Principal (Titres & Boutons)", name: "default", widget: "color", default: "#382820" }
+              - { label: "Espresso Principal (Titres, Boutons & Sections)", name: "default", widget: "color", default: "#382820" }
               - { label: "Espresso Foncé (Voile Vidéo / Ombres)", name: "deep", widget: "color", default: "#1C1513" }
 
           - label: "Textes Secondaires (Taupe)"
@@ -186,12 +186,12 @@ collections:
               - { label: "Taupe Principal (Sous-titres & Descriptions)", name: "default", widget: "color", default: "#6B5C55" }
               - { label: "Taupe Clair", name: "light", widget: "color", default: "#94847D" }
 
-          - label: "Surtitres & Détails Dorés (Ocre)"
+          - label: "Surtitres & Détails Dorés (Champagne / Bronze)"
             name: "ocre"
             widget: "object"
             fields:
-              - { label: "Ocre Principal (Kickers & Lignes)", name: "default", widget: "color", default: "#D99B59" }
-              - { label: "Ocre Clair", name: "light", widget: "color", default: "#E6AE6E" }
+              - { label: "Champagne Principal (Kickers & Lignes)", name: "default", widget: "color", default: "#C29B72" }
+              - { label: "Champagne Clair (Accents sur fond sombre)", name: "light", widget: "color", default: "#D8B58F" }
 
   # ==========================================
   # COLLECTION SERVICES (Fichiers multiples)

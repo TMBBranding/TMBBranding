@@ -69,12 +69,12 @@ export const themeSchema = z.object({
     border: z.string().default('#E4DDD4'),
   }),
   terracotta: z.object({
-    default: z.string().default('#C86D51'),
-    dark: z.string().default('#B85C42'),
-    light: z.string().default('#D97E63'),
+    default: z.string().default('#9E6742'),
+    dark: z.string().default('#7D4B2A'),
+    light: z.string().default('#BD835C'),
   }),
   espresso: z.object({
-    default: z.string().default('#241B18'),
+    default: z.string().default('#382820'),
     deep: z.string().default('#1C1513'),
   }),
   taupe: z.object({
@@ -82,8 +82,8 @@ export const themeSchema = z.object({
     light: z.string().default('#94847D'),
   }),
   ocre: z.object({
-    default: z.string().default('#D99B59'),
-    light: z.string().default('#E6AE6E'),
+    default: z.string().default('#C29B72'),
+    light: z.string().default('#D8B58F'),
   }),
 });
 
