@@ -33,14 +33,14 @@ const {
   
   <!-- Success Message State (Hidden by default) -->
   <div id="contact-success" class="hidden transition-all duration-700 ease-out py-8 text-center space-y-6">
-    <div class="w-16 h-16 mx-auto rounded-full bg-ocre-soft/60 border border-ocre/40 flex items-center justify-center text-terracotta">
+    <div class="w-16 h-16 mx-auto rounded-full bg-creme-alabaster border border-creme-border flex items-center justify-center text-espresso">
       <svg class="w-8 h-8 stroke-current" fill="none" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.5 12.75l6 6 9-13.5" />
       </svg>
     </div>
     
     <div class="space-y-3 max-w-lg mx-auto">
-      <span class="text-[10px] uppercase tracking-kicker text-ocre font-sans font-semibold block">
+      <span class="text-[10px] uppercase tracking-kicker text-taupe font-sans font-semibold block">
         Inquiry Transmitted
       </span>
       <h3 class="font-serif text-3xl sm:text-4xl text-espresso font-normal">
@@ -55,13 +55,13 @@ const {
       <button
         type="button"
         id="contact-reset-btn"
-        class="inline-flex items-center justify-center px-7 py-3 text-xs uppercase tracking-luxury font-medium text-espresso border border-creme-border hover:border-terracotta rounded-luxury-sm transition-colors"
+        class="inline-flex items-center justify-center px-7 py-3 text-xs uppercase tracking-luxury font-medium text-espresso border border-creme-border hover:border-espresso rounded-luxury-sm transition-colors"
       >
         Send Another Message
       </button>
       <a
         href="/brands"
-        class="inline-flex items-center justify-center px-7 py-3 text-xs uppercase tracking-luxury font-medium text-creme-powder bg-espresso hover:bg-terracotta rounded-luxury-sm shadow-warm transition-colors"
+        class="inline-flex items-center justify-center px-7 py-3 text-xs uppercase tracking-luxury font-medium text-creme-powder bg-espresso hover:bg-espresso-deep rounded-luxury-sm shadow-warm hover:shadow-warm-lg transition-all"
       >
         Explore Recent Works &rarr;
       </a>
@@ -79,8 +79,8 @@ const {
     <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
 
     <!-- Error Alert Banner -->
-    <div id="contact-error" class="hidden p-4 rounded-luxury bg-terracotta-soft/50 border border-terracotta/40 text-espresso text-xs font-light leading-relaxed flex items-start space-x-3">
-      <svg class="w-5 h-5 text-terracotta flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <div id="contact-error" class="hidden p-4 rounded-luxury bg-creme-alabaster border border-creme-border text-espresso text-xs font-light leading-relaxed flex items-start space-x-3">
+      <svg class="w-5 h-5 text-espresso flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
       </svg>
       <div id="contact-error-text">
@@ -92,7 +92,7 @@ const {
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
       <div class="space-y-2">
         <label for="contact-first-name" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-          First Name <span class="text-terracotta">*</span>
+          First Name <span class="text-taupe">*</span>
         </label>
         <input
           type="text"
@@ -100,14 +100,14 @@ const {
           name="first_name"
           required
           autocomplete="given-name"
-          class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-terracotta focus:bg-white transition-colors"
+          class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-espresso focus:ring-1 focus:ring-espresso/20 focus:bg-white transition-all"
         />
-        <p class="text-[10px] text-terracotta hidden error-hint" id="err-first-name">Please enter your first name.</p>
+        <p class="text-[10px] text-taupe hidden error-hint" id="err-first-name">Please enter your first name.</p>
       </div>
 
       <div class="space-y-2">
         <label for="contact-last-name" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-          Last Name <span class="text-terracotta">*</span>
+          Last Name <span class="text-taupe">*</span>
         </label>
         <input
           type="text"
@@ -115,16 +115,16 @@ const {
           name="last_name"
           required
           autocomplete="family-name"
-          class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-terracotta focus:bg-white transition-colors"
+          class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-espresso focus:ring-1 focus:ring-espresso/20 focus:bg-white transition-all"
         />
-        <p class="text-[10px] text-terracotta hidden error-hint" id="err-last-name">Please enter your last name.</p>
+        <p class="text-[10px] text-taupe hidden error-hint" id="err-last-name">Please enter your last name.</p>
       </div>
     </div>
 
     <!-- 2. Email Address Row -->
     <div class="space-y-2">
       <label for="contact-email" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-        Email Address <span class="text-terracotta">*</span>
+        Email Address <span class="text-taupe">*</span>
       </label>
       <input
         type="email"
@@ -132,22 +132,22 @@ const {
         name="email"
         required
         autocomplete="email"
-        class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-terracotta focus:bg-white transition-colors"
+        class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-espresso focus:ring-1 focus:ring-espresso/20 focus:bg-white transition-all"
       />
-      <p class="text-[10px] text-terracotta hidden error-hint" id="err-email">Please enter a valid email address.</p>
+      <p class="text-[10px] text-taupe hidden error-hint" id="err-email">Please enter a valid email address.</p>
     </div>
 
     <!-- 3. Dynamic Service Selection (Dropdown) -->
     <div class="space-y-2">
       <label for="contact-service" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-        I'm Interested In <span class="text-terracotta">*</span>
+        I'm Interested In <span class="text-taupe">*</span>
       </label>
       <div class="relative">
         <select
           id="contact-service"
           name="service"
           required
-          class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-terracotta focus:bg-white transition-colors appearance-none cursor-pointer"
+          class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-espresso focus:ring-1 focus:ring-espresso/20 focus:bg-white transition-all appearance-none cursor-pointer"
         >
           <option value="" disabled selected>Select a discipline or scope...</option>
           {serviceOptions.map((opt) => (
@@ -160,46 +160,46 @@ const {
           </svg>
         </div>
       </div>
-      <p class="text-[10px] text-terracotta hidden error-hint" id="err-service">Please select an option.</p>
+      <p class="text-[10px] text-taupe hidden error-hint" id="err-service">Please select an option.</p>
     </div>
 
     <!-- 4. Budget Selector (Interactive Radios) -->
     <div class="space-y-3">
       <label class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-        Your project budget <span class="text-terracotta">*</span>
+        Your project budget <span class="text-taupe">*</span>
       </label>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {budgetOptions.map((budget) => (
-          <label class="relative flex items-center p-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm cursor-pointer hover:border-terracotta transition-colors group">
+          <label class="relative flex items-center p-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm cursor-pointer hover:border-espresso transition-colors group">
             <input
               type="radio"
               name="budget"
               value={budget}
               required
-              class="accent-terracotta text-terracotta focus:ring-0 mr-3"
+              class="accent-espresso text-espresso focus:ring-0 mr-3 cursor-pointer"
             />
-            <span class="text-xs text-espresso font-light group-hover:text-terracotta transition-colors">
+            <span class="text-xs text-espresso font-light group-hover:text-espresso transition-colors">
               {budget}
             </span>
           </label>
         ))}
       </div>
-      <p class="text-[10px] text-terracotta hidden error-hint" id="err-budget">Please select your project budget.</p>
+      <p class="text-[10px] text-taupe hidden error-hint" id="err-budget">Please select your project budget.</p>
     </div>
 
     <!-- 5. Message Textarea -->
     <div class="space-y-2">
       <label for="contact-message" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-        Tell us more about your project <span class="text-terracotta">*</span>
+        Tell us more about your project <span class="text-taupe">*</span>
       </label>
       <textarea
         id="contact-message"
         name="message"
         rows="5"
         required
-        class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-terracotta focus:bg-white transition-colors"
+        class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-espresso focus:ring-1 focus:ring-espresso/20 focus:bg-white transition-all"
       ></textarea>
-      <p class="text-[10px] text-terracotta hidden error-hint" id="err-message">Please include a brief description of your project.</p>
+      <p class="text-[10px] text-taupe hidden error-hint" id="err-message">Please include a brief description of your project.</p>
     </div>
 
     <!-- 6. RGPD / Privacy Policy Consent -->
@@ -210,13 +210,13 @@ const {
           id="contact-consent"
           name="consent"
           required
-          class="mt-1 accent-terracotta text-terracotta focus:ring-0 rounded-none"
+          class="mt-1 accent-espresso text-espresso focus:ring-0 rounded-none cursor-pointer"
         />
         <span class="text-xs text-taupe leading-relaxed font-light">
           I consent to TMB Branding processing my contact information solely for the purpose of this project inquiry in accordance with privacy principles.
         </span>
       </label>
-      <p class="text-[10px] text-terracotta hidden error-hint" id="err-consent">Consent is required to submit your inquiry.</p>
+      <p class="text-[10px] text-taupe hidden error-hint" id="err-consent">Consent is required to submit your inquiry.</p>
     </div>
 
     <!-- Submit Button (Centered, with text "Submit" and no arrow) -->
@@ -224,7 +224,7 @@ const {
       <button
         type="submit"
         id="contact-submit-btn"
-        class="w-full sm:w-auto min-w-[200px] inline-flex items-center justify-center px-12 py-4 text-xs uppercase tracking-luxury font-medium text-creme-powder bg-espresso hover:bg-terracotta rounded-luxury-sm shadow-warm hover:shadow-warm-lg transition-all duration-300 ease-out disabled:opacity-60 disabled:cursor-not-allowed group cursor-pointer"
+        class="w-full sm:w-auto min-w-[200px] inline-flex items-center justify-center px-12 py-4 text-xs uppercase tracking-luxury font-medium text-creme-powder bg-espresso hover:bg-espresso-deep active:bg-black rounded-luxury-sm shadow-warm hover:shadow-warm-lg hover:-translate-y-0.5 border border-espresso/20 transition-all duration-300 ease-out disabled:opacity-60 disabled:cursor-not-allowed group cursor-pointer"
       >
         <!-- Normal state text -->
         <span id="btn-text">

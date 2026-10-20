@@ -78,7 +78,7 @@
     border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-terracotta, #9E6742);
+    background: var(--color-espresso, #382820);
   }
 }
 
@@ -136,7 +136,7 @@
     margin-bottom: 0.5rem;
   }
   .brand-content li::marker {
-    color: var(--color-terracotta, #9E6742);
+    color: var(--color-espresso, #382820);
   }
 }
 

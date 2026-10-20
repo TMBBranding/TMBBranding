@@ -13,7 +13,7 @@ function renderMarkdownLinks(text?: string) {
   if (!text) return '';
   return text.replace(
     /\[([^\]]+)\]\(([^)]+)\)/g,
-    '<a href="$2" class="text-espresso font-medium underline underline-offset-4 decoration-black hover:text-terracotta hover:decoration-black transition-colors">$1</a>'
+    '<a href="$2" class="text-espresso font-medium underline underline-offset-4 decoration-espresso/40 hover:text-taupe hover:decoration-espresso transition-colors">$1</a>'
   );
 }
 
@@ -60,7 +60,7 @@ const bottomParagraphs = splitIndex > 0 ? allParagraphs.slice(splitIndex) : allP
         <div class="lg:col-span-5">
           <div class="relative">
             <!-- Warm Ambient Shadow -->
-            <div class="absolute -inset-2 bg-gradient-to-tr from-ocre-soft/50 via-terracotta-soft/30 to-transparent blur-lg opacity-60"></div>
+            <div class="absolute -inset-2 bg-gradient-to-tr from-creme-border/50 via-taupe/10 to-transparent blur-lg opacity-60"></div>
 
             <div class="relative aspect-[3/4] overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm-lg">
               <img

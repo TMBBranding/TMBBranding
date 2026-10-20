@@ -46,13 +46,13 @@ const isActive = (href: string) => {
             href={item.href}
             class={`text-[11px] uppercase tracking-luxury font-medium transition-colors duration-300 relative py-1.5 ${
               active
-                ? 'text-terracotta-dark font-semibold'
+                ? 'text-espresso font-semibold'
                 : 'text-taupe hover:text-espresso'
             }`}
           >
             {item.label}
             {active && (
-              <span class="absolute bottom-0 left-0 right-[0.35em] h-[1.5px] bg-terracotta"></span>
+              <span class="absolute bottom-0 left-0 right-[0.35em] h-[1.5px] bg-espresso"></span>
             )}
           </a>
         );
@@ -63,7 +63,7 @@ const isActive = (href: string) => {
     <button
       id="navbar-toggle-btn"
       type="button"
-      class="md:hidden p-2.5 -mr-2 text-espresso hover:text-terracotta focus:outline-none transition-colors"
+      class="md:hidden p-2.5 -mr-2 text-espresso hover:text-taupe focus:outline-none transition-colors"
       aria-label="Ouvrir le menu"
       aria-expanded="false"
       aria-controls="navbar-mobile-drawer"
@@ -96,7 +96,7 @@ const isActive = (href: string) => {
     <button
       id="navbar-drawer-close-btn"
       type="button"
-      class="p-2.5 -mr-2 text-espresso hover:text-terracotta focus:outline-none transition-colors"
+      class="p-2.5 -mr-2 text-espresso hover:text-taupe focus:outline-none transition-colors"
       aria-label="Fermer le menu"
     >
       <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24">
@@ -113,8 +113,8 @@ const isActive = (href: string) => {
           href={item.href}
           class={`font-serif text-3xl sm:text-4xl transition-colors duration-300 ${
             isActive(item.href)
-              ? 'text-terracotta italic font-normal'
-              : 'text-espresso hover:text-terracotta'
+              ? 'text-espresso italic font-normal'
+              : 'text-taupe hover:text-espresso'
           }`}
         >
           {item.label}
