@@ -138,7 +138,7 @@ const {
     <!-- 3. Dynamic Service Selection (Dropdown) -->
     <div class="space-y-2">
       <label for="contact-service" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-        Primary Discipline of Interest <span class="text-terracotta">*</span>
+        I'm Interested In <span class="text-terracotta">*</span>
       </label>
       <div class="relative">
         <select
@@ -158,22 +158,22 @@ const {
           </svg>
         </div>
       </div>
-      <p class="text-[10px] text-terracotta hidden error-hint" id="err-service">Please select a primary discipline of interest.</p>
+      <p class="text-[10px] text-terracotta hidden error-hint" id="err-service">Please select an option.</p>
     </div>
 
     <!-- 4. Budget Selector (Interactive Radios) -->
     <div class="space-y-3">
       <label class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-        Anticipated Investment Framework
+        Your project budget <span class="text-terracotta">*</span>
       </label>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-        {budgetOptions.map((budget, i) => (
+        {budgetOptions.map((budget) => (
           <label class="relative flex items-center p-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm cursor-pointer hover:border-terracotta transition-colors group">
             <input
               type="radio"
               name="budget"
               value={budget}
-              checked={i === 0}
+              required
               class="accent-terracotta text-terracotta focus:ring-0 mr-3"
             />
             <span class="text-xs text-espresso font-light group-hover:text-terracotta transition-colors">
@@ -182,12 +182,13 @@ const {
           </label>
         ))}
       </div>
+      <p class="text-[10px] text-terracotta hidden error-hint" id="err-budget">Please select your project budget.</p>
     </div>
 
     <!-- 5. Message Textarea -->
     <div class="space-y-2">
       <label for="contact-message" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-        Project Details &amp; Ambition <span class="text-terracotta">*</span>
+        Tell us more about your project <span class="text-terracotta">*</span>
       </label>
       <textarea
         id="contact-message"
@@ -284,6 +285,11 @@ const {
       }
       if (!serviceInput.value.trim()) {
         document.getElementById('err-service')?.classList.remove('hidden');
+        isValid = false;
+      }
+      const budgetChecked = form.querySelector('input[name="budget"]:checked');
+      if (!budgetChecked) {
+        document.getElementById('err-budget')?.classList.remove('hidden');
         isValid = false;
       }
       if (!messageInput.value.trim()) {

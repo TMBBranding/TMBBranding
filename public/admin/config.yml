@@ -137,18 +137,14 @@ collections:
         file: "src/content/pages/settings.md"
         format: "frontmatter"
         fields:
-          - { label: "Titre bloc Projet (Footer)", name: "inquiriesTitle", widget: "string", default: "Initiate a Project" }
-          - { label: "Texte d'introduction (Footer)", name: "inquiriesText", widget: "text" }
+          - { label: "Titre bloc Projet (Footer)", name: "inquiriesTitle", widget: "string", default: "Get in touch" }
           - { label: "Texte du lien Contact", name: "contactLinkText", widget: "string", default: "Contact us" }
           - { label: "Téléphone", name: "phone", widget: "string", default: "+1 512 529 1677" }
           - { label: "Email de contact", name: "email", widget: "string", default: "tiffany@tmbbranding.com" }
           - { label: "Titre Réseaux Sociaux", name: "socialTitle", widget: "string", default: "Follow Us" }
-          - { label: "Sous-titre Réseaux Sociaux", name: "socialSubtitle", widget: "string", default: "Stories & founder perspectives" }
           - { label: "Identifiant Instagram", name: "instagramHandle", widget: "string", default: "@tmbbranding" }
           - { label: "Lien Instagram", name: "instagramUrl", widget: "string", default: "https://www.instagram.com/tmbbranding/" }
           - { label: "Ville / Siège", name: "location", widget: "string", default: "Austin, Texas" }
-          - { label: "Libellé Siège (Pied de page)", name: "headquartersText", widget: "string", default: "Headquarters: Austin, TX" }
-          - { label: "Libellé International (Pied de page)", name: "worldwideText", widget: "string", default: "Worldwide" }
 
   # ==========================================
   # COLLECTION SERVICES (Fichiers multiples)
