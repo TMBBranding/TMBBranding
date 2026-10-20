@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import AnimatedLetterE from '../components/AnimatedLetterE.astro';
 import { getEntry, getCollection } from 'astro:content';
 import type { HomePageData } from '../content/config';
 
@@ -86,7 +87,7 @@ function getFirstSentence(text?: string): string {
             <>
               {startsWithE ? (
                 <>
-                  <span class="inline-block"><span class="inline-block animate-elevate-letter">E</span>{firstWord.trimStart().slice(1)}</span>
+                  <span class="inline-block"><AnimatedLetterE />{firstWord.trimStart().slice(1)}</span>
                   {restOfBefore}
                 </>
               ) : (

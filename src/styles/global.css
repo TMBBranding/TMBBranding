@@ -139,36 +139,123 @@
     color: var(--color-espresso, #382820);
   }
 
-  /* Letter "E" Progressive Reveal from Bottom to Top (Drawn like a pen) */
-  @keyframes drawLetterFromBottom {
-    0% {
-      clip-path: inset(100% 0 0 0);
-      -webkit-clip-path: inset(100% 0 0 0);
-      opacity: 0.2;
-    }
-    15% {
-      opacity: 1;
-    }
-    100% {
-      clip-path: inset(0 0 0 0);
-      -webkit-clip-path: inset(0 0 0 0);
-      opacity: 1;
-    }
+  /* =====================================================================
+     ANIMATION TYPOGRAPHIQUE CALLIGRAPHIQUE - LETTRE « E » (À LA PLUME)
+     Progression ascendante rigoureuse du bas vers le haut
+     ===================================================================== */
+  .calligraphy-contour {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 14;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
   }
 
-  .animate-elevate-letter {
-    display: inline-block;
-    clip-path: inset(100% 0 0 0);
-    -webkit-clip-path: inset(100% 0 0 0);
-    animation: drawLetterFromBottom 2s cubic-bezier(0.25, 1, 0.4, 1) 0.4s forwards;
-    will-change: clip-path, -webkit-clip-path;
+  /* 1. Base inférieure (droite vers gauche) */
+  .path-base-bot {
+    stroke-dasharray: 725;
+    stroke-dashoffset: 725;
+    animation: drawPathBaseBot 0.8s cubic-bezier(0.3, 0, 0.2, 1) 0.4s forwards, fadeCalligraphyContour 0.7s ease-out 3.9s forwards;
+  }
+  .path-base-top {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: drawPathBaseTop 0.8s cubic-bezier(0.3, 0, 0.2, 1) 0.4s forwards, fadeCalligraphyContour 0.7s ease-out 3.9s forwards;
+  }
+
+  /* 2. Tige verticale inférieure (bas vers milieu) */
+  .path-stem-low-l {
+    stroke-dasharray: 235;
+    stroke-dashoffset: 235;
+    animation: drawPathStemLowL 0.65s cubic-bezier(0.3, 0, 0.2, 1) 1.2s forwards, fadeCalligraphyContour 0.7s ease-out 3.9s forwards;
+  }
+  .path-stem-low-r {
+    stroke-dasharray: 230;
+    stroke-dashoffset: 230;
+    animation: drawPathStemLowR 0.65s cubic-bezier(0.3, 0, 0.2, 1) 1.2s forwards, fadeCalligraphyContour 0.7s ease-out 3.9s forwards;
+  }
+
+  /* 3. Barre centrale (gauche vers droite) */
+  .path-mid {
+    stroke-dasharray: 750;
+    stroke-dashoffset: 750;
+    animation: drawPathMid 0.75s cubic-bezier(0.3, 0, 0.2, 1) 1.85s forwards, fadeCalligraphyContour 0.7s ease-out 3.9s forwards;
+  }
+
+  /* 4. Tige verticale supérieure (milieu vers haut) */
+  .path-stem-up-l {
+    stroke-dasharray: 210;
+    stroke-dashoffset: 210;
+    animation: drawPathStemUpL 0.65s cubic-bezier(0.3, 0, 0.2, 1) 2.6s forwards, fadeCalligraphyContour 0.7s ease-out 3.9s forwards;
+  }
+  .path-stem-up-r {
+    stroke-dasharray: 205;
+    stroke-dashoffset: 205;
+    animation: drawPathStemUpR 0.65s cubic-bezier(0.3, 0, 0.2, 1) 2.6s forwards, fadeCalligraphyContour 0.7s ease-out 3.9s forwards;
+  }
+
+  /* 5. Barre supérieure (gauche vers droite) */
+  .path-top {
+    stroke-dasharray: 1010;
+    stroke-dashoffset: 1010;
+    animation: drawPathTop 0.9s cubic-bezier(0.3, 0, 0.2, 1) 3.25s forwards, fadeCalligraphyContour 0.7s ease-out 3.9s forwards;
+  }
+
+  /* 6. Remplissage typographique opaque Cormorant Garamond */
+  .calligraphy-fill {
+    fill: currentColor;
+    opacity: 0;
+    animation: fadeInCalligraphyFill 0.7s ease-out 3.8s forwards;
+  }
+
+  @keyframes drawPathBaseBot {
+    0% { stroke-dashoffset: 725; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawPathBaseTop {
+    0% { stroke-dashoffset: 400; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawPathStemLowL {
+    0% { stroke-dashoffset: 235; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawPathStemLowR {
+    0% { stroke-dashoffset: 230; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawPathMid {
+    0% { stroke-dashoffset: 750; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawPathStemUpL {
+    0% { stroke-dashoffset: 210; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawPathStemUpR {
+    0% { stroke-dashoffset: 205; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawPathTop {
+    0% { stroke-dashoffset: 1010; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes fadeInCalligraphyFill {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes fadeCalligraphyContour {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .animate-elevate-letter {
+    .calligraphy-contour {
+      display: none !important;
+    }
+    .calligraphy-fill {
       animation: none !important;
-      clip-path: none !important;
-      -webkit-clip-path: none !important;
       opacity: 1 !important;
     }
   }
