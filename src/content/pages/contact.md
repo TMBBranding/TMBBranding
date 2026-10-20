@@ -14,6 +14,7 @@ budgetOptions:
   - "$5,000 – $10,000"
   - "$10,000 – $15,000"
   - "> $15,000"
+submitButtonText: "Submit"
 seo:
   metaTitle: "Contact TMB Branding | Austin, TX Creative Studio"
   metaDescription: "Start your project with TMB Branding in Austin, TX. Strategic storytelling, branding, and digital growth for ambitious founder-led businesses."

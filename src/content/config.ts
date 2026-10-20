@@ -58,6 +58,7 @@ export const contactSchema = z.object({
   subtitle: z.string(),
   serviceOptions: z.array(z.string()),
   budgetOptions: z.array(z.string()),
+  submitButtonText: z.string().optional(),
   seo: seoSchema,
 });
 

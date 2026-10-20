@@ -126,6 +126,7 @@ collections:
             name: "budgetOptions"
             widget: "list"
             field: { label: "Fourchette de budget", name: "budget", widget: "string" }
+          - { label: "Texte du bouton d'envoi", name: "submitButtonText", widget: "string", default: "Submit", required: false }
           - label: "Référencement (SEO)"
             name: "seo"
             widget: "object"

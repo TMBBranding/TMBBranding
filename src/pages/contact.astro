@@ -35,6 +35,7 @@ const contact = contactEntry.data as ContactPageData;
         <ContactForm
           serviceOptions={contact.serviceOptions}
           budgetOptions={contact.budgetOptions}
+          submitButtonText={contact.submitButtonText || "Submit"}
         />
       </div>
     </div>
