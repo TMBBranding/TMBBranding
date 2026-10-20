@@ -95,41 +95,46 @@ const brandsPage = brandsPageEntry?.data;
     </div>
   </section>
 
-  <!-- MAGAZINE-STYLE BRANDS GALLERY (SOLUTION 1: CARRE EDITORIAL 1:1) -->
-  <section class="py-12 sm:py-16 lg:py-20">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-24 sm:space-y-32">
-      {renderedBrands.map(({ brand, Content, dimensions, isPortrait }, index) => {
-        const isReversed = index % 2 === 1;
-        return (
-          <article id={brand.id.replace(/\.md$/, '')} class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 xl:gap-16 items-stretch scroll-mt-20">
-            <!-- Imagery Container (Square 1:1 Ratio, No White Frame, object-top for portrait) -->
-            <div class={`lg:col-span-6 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
-              <div class="relative w-full aspect-square overflow-hidden shadow-warm bg-creme-alabaster">
-                <img
-                  src={brand.data.coverImage}
-                  alt={brand.data.name}
-                  class={`w-full h-full object-cover ${isPortrait ? 'object-top' : 'object-center'}`}
-                  loading="lazy"
-                />
+  <!-- BRANDS GALLERY WITH FULL-VIEWPORT SECTIONS -->
+  <div class="flex flex-col">
+    {renderedBrands.map(({ brand, Content, dimensions, isPortrait }, index) => {
+      const isReversed = index % 2 === 1;
+      return (
+        <section
+          id={brand.id.replace(/\.md$/, '')}
+          class="relative w-full min-h-[100dvh] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-0 transition-colors duration-500"
+        >
+          <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full my-auto">
+            <article class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 xl:gap-16 items-center">
+              <!-- Imagery Container (Square 1:1 Ratio, No White Frame, object-top for portrait) -->
+              <div class={`lg:col-span-6 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
+                <div class="relative w-full aspect-square max-h-[34vh] sm:max-h-[40vh] lg:max-h-[58vh] max-w-[34vh] sm:max-w-[40vh] lg:max-w-[58vh] overflow-hidden shadow-warm bg-creme-alabaster mx-auto">
+                  <img
+                    src={brand.data.coverImage}
+                    alt={brand.data.name}
+                    class={`w-full h-full object-cover ${isPortrait ? 'object-top' : 'object-center'}`}
+                    loading="lazy"
+                  />
+                </div>
               </div>
-            </div>
 
-            <!-- Editorial Copy Column (Takes exact same height as the photo) -->
-            <div class={`lg:col-span-6 flex flex-col justify-between py-1 sm:py-2 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
-              <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-tight">
-                {brand.data.name}
-              </h2>
+              <!-- Editorial Copy Column -->
+              <div class={`lg:col-span-6 space-y-4 sm:space-y-5 lg:space-y-6 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
+                <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-tight">
+                  {brand.data.name}
+                </h2>
 
-              <!-- Rendered Markdown Details -->
-              <div class="brand-content space-y-5 sm:space-y-6 text-taupe text-base sm:text-lg font-light leading-relaxed">
-                <Content />
+                <!-- Rendered Markdown Details -->
+                <div class="brand-content space-y-4 sm:space-y-5 text-taupe text-sm sm:text-base lg:text-lg font-light leading-relaxed">
+                  <Content />
+                </div>
               </div>
-            </div>
-          </article>
-        );
-      })}
-    </div>
-  </section>
+            </article>
+          </div>
+        </section>
+      );
+    })}
+  </div>
 </Layout>
 
 <script is:inline>
@@ -137,11 +142,9 @@ const brandsPage = brandsPageEntry?.data;
     if (!window.location.hash) return;
     const target = document.querySelector(window.location.hash);
     if (!target) return;
-    const header = document.getElementById('site-header');
-    const headerHeight = header ? header.offsetHeight : 64;
     const targetTop = target.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({
-      top: Math.max(0, targetTop - headerHeight - 16),
+      top: Math.max(0, targetTop),
       behavior: 'smooth'
     });
   };
