@@ -151,6 +151,48 @@ collections:
           - { label: "Ville / Siège", name: "location", widget: "string", default: "Austin, Texas" }
           - { label: "Texte de Copyright (Bas de page)", name: "copyrightText", widget: "string", default: "© 2026 TMB Branding. All rights reserved." }
 
+      - name: "theme"
+        label: "Thème & Couleurs"
+        file: "src/content/pages/theme.md"
+        format: "frontmatter"
+        fields:
+          - label: "Bases Neutres (Fonds)"
+            name: "creme"
+            widget: "object"
+            fields:
+              - { label: "Fond Principal (Crème)", name: "powder", widget: "color", default: "#FAF7F2" }
+              - { label: "Fond Secondaire / Cartes (Alabaster)", name: "alabaster", widget: "color", default: "#F3EFEA" }
+              - { label: "Couleur des Bordures", name: "border", widget: "color", default: "#E4DDD4" }
+
+          - label: "Teinte d'Accentuation Principale (Terracotta)"
+            name: "terracotta"
+            widget: "object"
+            fields:
+              - { label: "Terracotta Principal", name: "default", widget: "color", default: "#C86D51" }
+              - { label: "Terracotta Foncé (Bordures / Fonds sombres)", name: "dark", widget: "color", default: "#B85C42" }
+              - { label: "Terracotta Clair (Survols)", name: "light", widget: "color", default: "#D97E63" }
+
+          - label: "Typographie & Titres (Espresso)"
+            name: "espresso"
+            widget: "object"
+            fields:
+              - { label: "Espresso Principal (Titres & Boutons)", name: "default", widget: "color", default: "#241B18" }
+              - { label: "Espresso Foncé (Voile Vidéo / Ombres)", name: "deep", widget: "color", default: "#1C1513" }
+
+          - label: "Textes Secondaires (Taupe)"
+            name: "taupe"
+            widget: "object"
+            fields:
+              - { label: "Taupe Principal (Sous-titres & Descriptions)", name: "default", widget: "color", default: "#6B5C55" }
+              - { label: "Taupe Clair", name: "light", widget: "color", default: "#94847D" }
+
+          - label: "Surtitres & Détails Dorés (Ocre)"
+            name: "ocre"
+            widget: "object"
+            fields:
+              - { label: "Ocre Principal (Kickers & Lignes)", name: "default", widget: "color", default: "#D99B59" }
+              - { label: "Ocre Clair", name: "light", widget: "color", default: "#E6AE6E" }
+
   # ==========================================
   # COLLECTION SERVICES (Fichiers multiples)
   # ==========================================

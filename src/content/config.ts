@@ -62,6 +62,31 @@ export const contactSchema = z.object({
   seo: seoSchema,
 });
 
+export const themeSchema = z.object({
+  creme: z.object({
+    powder: z.string().default('#FAF7F2'),
+    alabaster: z.string().default('#F3EFEA'),
+    border: z.string().default('#E4DDD4'),
+  }),
+  terracotta: z.object({
+    default: z.string().default('#C86D51'),
+    dark: z.string().default('#B85C42'),
+    light: z.string().default('#D97E63'),
+  }),
+  espresso: z.object({
+    default: z.string().default('#241B18'),
+    deep: z.string().default('#1C1513'),
+  }),
+  taupe: z.object({
+    default: z.string().default('#6B5C55'),
+    light: z.string().default('#94847D'),
+  }),
+  ocre: z.object({
+    default: z.string().default('#D99B59'),
+    light: z.string().default('#E6AE6E'),
+  }),
+});
+
 export const settingsSchema = z.object({
   inquiriesTitle: z.string().optional(),
   inquiriesText: z.string().optional(),
@@ -101,6 +126,7 @@ const pagesCollection = defineCollection({
     servicesPageSchema,
     brandsPageSchema,
     contactSchema,
+    themeSchema,
     settingsSchema,
   ]),
 });

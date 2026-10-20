@@ -7,13 +7,34 @@
 @layer base {
   :root {
     --color-creme: #FAF7F2;
+    --color-creme-powder: #FAF7F2;
     --color-alabaster: #F3EFEA;
+    --color-creme-alabaster: #F3EFEA;
     --color-terracotta: #C86D51;
+    --color-terracotta-dark: #B85C42;
+    --color-terracotta-light: #D97E63;
     --color-ocre: #D99B59;
+    --color-ocre-light: #E6AE6E;
     --color-amber: #82533D;
     --color-espresso: #241B18;
+    --color-espresso-deep: #1C1513;
     --color-taupe: #6B5C55;
+    --color-taupe-light: #94847D;
     --color-border: #E4DDD4;
+    --color-creme-border: #E4DDD4;
+
+    --color-creme-powder-rgb: 250 247 242;
+    --color-creme-alabaster-rgb: 243 239 234;
+    --color-creme-border-rgb: 228 221 212;
+    --color-terracotta-rgb: 200 109 81;
+    --color-terracotta-dark-rgb: 184 92 66;
+    --color-terracotta-light-rgb: 217 126 99;
+    --color-espresso-rgb: 36 27 24;
+    --color-espresso-deep-rgb: 28 21 19;
+    --color-taupe-rgb: 107 92 85;
+    --color-taupe-light-rgb: 148 132 125;
+    --color-ocre-rgb: 217 155 89;
+    --color-ocre-light-rgb: 230 174 110;
   }
 
   html {
