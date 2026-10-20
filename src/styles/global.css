@@ -138,5 +138,38 @@
   .brand-content li::marker {
     color: var(--color-espresso, #382820);
   }
+
+  /* Poetic Elevating Letter "E" Animation */
+  @keyframes elevateLetter {
+    0% {
+      opacity: 0;
+      transform: translateY(75%) scale(0.92);
+      filter: blur(4px);
+    }
+    35% {
+      opacity: 0.6;
+      filter: blur(1.5px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: blur(0px);
+    }
+  }
+
+  .animate-elevate-letter {
+    display: inline-block;
+    animation: elevateLetter 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.35s both;
+    will-change: transform, opacity, filter;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .animate-elevate-letter {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+  }
 }
 

@@ -68,17 +68,39 @@ function getFirstSentence(text?: string): string {
         </div>
       )}
 
-      <!-- Main Title -->
+      <!-- Main Title with Poetic "Elevating" E Animation -->
       <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal leading-[1.08] tracking-tight text-white drop-shadow-md max-w-4xl mx-auto">
-        {home.hero.title.includes('Founder-Led') ? (
-          <>
-            {home.hero.title.split('Founder-Led')[0]}
-            <span class="italic whitespace-nowrap">Founder-Led</span>
-            {home.hero.title.split('Founder-Led')[1]}
-          </>
-        ) : (
-          home.hero.title
-        )}
+        {(() => {
+          const title = home.hero.title || "Elevating Founder-Led Brands";
+          const hasFounderLed = title.includes('Founder-Led');
+          const [before, ...afterParts] = hasFounderLed ? title.split('Founder-Led') : [title];
+          const after = afterParts.join('Founder-Led');
+          
+          const trimmedBefore = before.trimStart();
+          const startsWithE = trimmedBefore.startsWith('E');
+          const firstSpace = before.indexOf(' ');
+          const firstWord = firstSpace !== -1 ? before.slice(0, firstSpace) : before;
+          const restOfBefore = firstSpace !== -1 ? before.slice(firstSpace) : '';
+
+          return (
+            <>
+              {startsWithE ? (
+                <>
+                  <span class="inline-block group/elevate cursor-default"><span class="inline-block animate-elevate-letter transition-transform duration-500 ease-out group-hover/elevate:-translate-y-2">E</span>{firstWord.trimStart().slice(1)}</span>
+                  {restOfBefore}
+                </>
+              ) : (
+                before
+              )}
+              {hasFounderLed && (
+                <>
+                  <span class="italic whitespace-nowrap">Founder-Led</span>
+                  {after}
+                </>
+              )}
+            </>
+          );
+        })()}
       </h1>
 
       <!-- Subtitle -->
