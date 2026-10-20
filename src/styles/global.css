@@ -35,11 +35,6 @@
     color: #241B18;
   }
 
-  ::selection {
-    background-color: #C86D51;
-    color: #FFFFFF;
-  }
-
   /* Custom Warm Mineral Scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
