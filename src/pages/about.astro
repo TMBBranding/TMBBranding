@@ -5,7 +5,7 @@ import type { AboutPageData } from '../content/config';
 
 const aboutEntry = await getEntry('pages', 'about');
 if (!aboutEntry) {
-  throw new Error("Impossible de charger la collection 'pages/about'");
+  throw new Error("Failed to load collection 'pages/about'");
 }
 const about = aboutEntry.data as AboutPageData;
 

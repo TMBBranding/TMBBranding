@@ -44,7 +44,7 @@
       <line x1="-120" y1="-8" x2="-25" y2="-8" stroke="#E4DDD4" stroke-width="1" />
       <circle cx="0" cy="-8" r="2.5" fill="#C86D51" />
       <line x1="25" y1="-8" x2="120" y2="-8" stroke="#E4DDD4" stroke-width="1" />
-      <text x="0" y="16" class="subtitle-editorial">PARIS &middot; LUXE &middot; BEAUTÉ &middot; SANTÉ</text>
+      <text x="0" y="16" class="subtitle-editorial">PARIS &middot; LUXURY &middot; BEAUTY &middot; WELLNESS</text>
     </g>
   </g>
 </svg>

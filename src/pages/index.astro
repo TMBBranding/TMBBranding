@@ -5,7 +5,7 @@ import type { HomePageData } from '../content/config';
 
 const homeEntry = await getEntry('pages', 'home');
 if (!homeEntry) {
-  throw new Error("Impossible de charger la collection 'pages/home'");
+  throw new Error("Failed to load collection 'pages/home'");
 }
 const home = homeEntry.data as HomePageData;
 
@@ -48,7 +48,7 @@ function getFirstSentence(text?: string): string {
       {heroVideoUrl !== "/videos/hero-workspace.mp4" && (
         <source src="/videos/hero-workspace.mp4" type="video/mp4" />
       )}
-      Votre navigateur ne supporte pas la lecture de vidéos.
+      Your browser does not support the video tag.
     </video>
 
     <!-- Warm Cinematic Overlay for Contrast & Editorial Legibility -->
@@ -93,8 +93,8 @@ function getFirstSentence(text?: string): string {
         id="hero-video-toggle"
         type="button"
         class="group w-5.5 h-5.5 sm:w-6 sm:h-6 rounded-full bg-white/70 hover:bg-white text-espresso/80 hover:text-espresso backdrop-blur-xs shadow-xs flex items-center justify-center transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-white/80 cursor-pointer"
-        aria-label="Mettre en pause la vidéo"
-        title="Mettre en pause"
+        aria-label="Pause video"
+        title="Pause"
       >
         <!-- Pause Icon (shown when playing) -->
         <svg
@@ -117,7 +117,7 @@ function getFirstSentence(text?: string): string {
     </div>
   </section>
 
-  <!-- 2. GRILLE DE SERVICES -->
+  <!-- 2. SERVICES GRID -->
   <section class="py-24 sm:py-32 bg-espresso text-creme-powder border-b border-espresso-deep/40">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <!-- Section Header (Centered, no button) -->
@@ -227,7 +227,7 @@ function getFirstSentence(text?: string): string {
                 idx === 0 ? 'w-8 bg-taupe' : 'w-2 bg-creme-border hover:bg-taupe'
               }`}
               data-target={idx}
-              aria-label={`Aller au témoignage ${idx + 1}`}
+              aria-label={`Go to slide ${idx + 1}`}
             ></button>
           ))}
         </div>
@@ -249,13 +249,13 @@ function getFirstSentence(text?: string): string {
       if (isPaused) {
         heroPauseIcon.classList.add('hidden');
         heroPlayIcon.classList.remove('hidden');
-        heroVideoToggle.setAttribute('aria-label', 'Lire la vidéo');
-        heroVideoToggle.setAttribute('title', 'Lecture');
+        heroVideoToggle.setAttribute('aria-label', 'Play video');
+        heroVideoToggle.setAttribute('title', 'Play');
       } else {
         heroPlayIcon.classList.add('hidden');
         heroPauseIcon.classList.remove('hidden');
-        heroVideoToggle.setAttribute('aria-label', 'Mettre en pause la vidéo');
-        heroVideoToggle.setAttribute('title', 'Mettre en pause');
+        heroVideoToggle.setAttribute('aria-label', 'Pause video');
+        heroVideoToggle.setAttribute('title', 'Pause');
       }
     };
 

@@ -2,7 +2,7 @@
   command = "npm run build"
   publish = "dist"
 
-# Configuration des en-têtes de sécurité
+# Security Headers Configuration
 [[headers]]
   for = "/*"
   [headers.values]
@@ -10,13 +10,13 @@
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
 
-# Exception pour l'interface Decap CMS
+# Exception for Decap CMS interface
 [[headers]]
   for = "/admin/*"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
 
-# Redirection automatique pour l'accès à l'administration
+# Automatic redirect for admin access
 [[redirects]]
   from = "/admin"
   to = "/admin/"

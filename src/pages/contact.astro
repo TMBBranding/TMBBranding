@@ -6,7 +6,7 @@ import type { ContactPageData } from '../content/config';
 
 const contactEntry = await getEntry('pages', 'contact');
 if (!contactEntry) {
-  throw new Error("Impossible de charger la collection 'pages/contact'");
+  throw new Error("Failed to load collection 'pages/contact'");
 }
 const contact = contactEntry.data as ContactPageData;
 ---

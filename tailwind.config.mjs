@@ -6,7 +6,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Bases neutres minérales
+        // Mineral neutral bases
         creme: {
           DEFAULT: 'rgb(var(--color-creme-powder-rgb, 250 247 242) / <alpha-value>)',
           light: '#FFFFFF',
@@ -15,7 +15,7 @@ export default {
           linen: '#EBE5DD',
           border: 'rgb(var(--color-creme-border-rgb, 228 221 212) / <alpha-value>)',
         },
-        // Teintes chaudes principales (Cognac / Caramel)
+        // Primary warm shades (Cognac / Caramel)
         terracotta: {
           light: 'rgb(var(--color-terracotta-light-rgb, 189 131 92) / <alpha-value>)',
           DEFAULT: 'rgb(var(--color-terracotta-rgb, 158 103 66) / <alpha-value>)',
@@ -46,7 +46,7 @@ export default {
           dark: '#7D4B2A',
           soft: '#EFE4DC',
         },
-        // Typographie & Contrastes raffinés
+        // Typography & refined contrasts
         espresso: {
           DEFAULT: 'rgb(var(--color-espresso-rgb, 56 40 32) / <alpha-value>)',
           deep: 'rgb(var(--color-espresso-deep-rgb, 28 21 19) / <alpha-value>)',

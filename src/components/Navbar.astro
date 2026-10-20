@@ -38,7 +38,7 @@ const isActive = (href: string) => {
     </a>
 
     <!-- Desktop Navigation -->
-    <nav class="hidden md:flex items-center space-x-9 lg:space-x-11" aria-label="Navigation Principale">
+    <nav class="hidden md:flex items-center space-x-9 lg:space-x-11" aria-label="Main Navigation">
       {navItems.map((item) => {
         const active = isActive(item.href);
         return (
@@ -64,7 +64,7 @@ const isActive = (href: string) => {
       id="navbar-toggle-btn"
       type="button"
       class="md:hidden p-2.5 -mr-2 text-espresso hover:text-taupe focus:outline-none transition-colors"
-      aria-label="Ouvrir le menu"
+      aria-label="Open menu"
       aria-expanded="false"
       aria-controls="navbar-mobile-drawer"
     >
@@ -97,7 +97,7 @@ const isActive = (href: string) => {
       id="navbar-drawer-close-btn"
       type="button"
       class="p-2.5 -mr-2 text-espresso hover:text-taupe focus:outline-none transition-colors"
-      aria-label="Fermer le menu"
+      aria-label="Close menu"
     >
       <svg class="w-6 h-6 stroke-current" fill="none" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
@@ -107,7 +107,7 @@ const isActive = (href: string) => {
 
   <!-- Navigation Links Only (Clean, Minimalist & Focused) -->
   <div class="px-6 sm:px-8 py-10 sm:py-12 flex flex-col flex-grow justify-start overflow-y-auto">
-    <nav class="flex flex-col space-y-6 sm:space-y-7" aria-label="Navigation Mobile">
+    <nav class="flex flex-col space-y-6 sm:space-y-7" aria-label="Mobile Navigation">
       {navItems.map((item) => (
         <a
           href={item.href}
@@ -151,7 +151,7 @@ const isActive = (href: string) => {
   const openMobileMenu = () => {
     if (!navBtn || !navDrawer) return;
     navBtn.setAttribute('aria-expanded', 'true');
-    navBtn.setAttribute('aria-label', 'Fermer le menu');
+    navBtn.setAttribute('aria-label', 'Close menu');
     navDrawer.classList.remove('hidden');
     iconHamb?.classList.add('hidden');
     iconClose?.classList.remove('hidden');
@@ -163,7 +163,7 @@ const isActive = (href: string) => {
   const closeMobileMenu = () => {
     if (!navBtn || !navDrawer) return;
     navBtn.setAttribute('aria-expanded', 'false');
-    navBtn.setAttribute('aria-label', 'Ouvrir le menu');
+    navBtn.setAttribute('aria-label', 'Open menu');
     navDrawer.classList.add('hidden');
     iconHamb?.classList.remove('hidden');
     iconClose?.classList.add('hidden');

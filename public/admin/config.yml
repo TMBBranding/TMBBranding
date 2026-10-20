@@ -7,14 +7,14 @@ public_folder: "/images/uploads"
 
 collections:
   # ==========================================
-  # PAGES UNIQUES (Accueil, À Propos, Contact)
+  # SINGLE PAGES (Home, About, Contact)
   # ==========================================
   - name: "pages"
     label: "Pages"
     delete: false
     files:
       - name: "home"
-        label: "Page d'Accueil"
+        label: "Home Page"
         file: "src/content/pages/home.md"
         format: "frontmatter"
         fields:
@@ -22,62 +22,62 @@ collections:
             name: "hero"
             widget: "object"
             fields:
-              - { label: "Kicker / Sur-titre", name: "kicker", widget: "string", required: false }
-              - { label: "Titre Principal", name: "title", widget: "string" }
-              - { label: "Sous-titre", name: "subtitle", widget: "text" }
-              - { label: "Vidéo d'arrière-plan (Hero)", name: "video", widget: "file", required: false, default: "/videos/hero-workspace.mp4", hint: "Fichier vidéo (MP4, WebM, etc.) affiché en fond plein écran" }
-              - { label: "Image de prévisualisation (Poster)", name: "posterImage", widget: "image", required: false, default: "/videos/preview-frame.jpg", hint: "Image affichée pendant le chargement de la vidéo" }
-          - { label: "Titre de la section Services", name: "servicesSectionTitle", widget: "string", required: false, default: "Boutique Brand & Digital Marketing" }
-          - { label: "Titre de la section Marques", name: "brandsSectionTitle", widget: "string", required: false, default: "Trusted by Visionary Founders" }
-          - label: "Témoignages Clients"
+              - { label: "Kicker / Header Accent", name: "kicker", widget: "string", required: false }
+              - { label: "Main Title", name: "title", widget: "string" }
+              - { label: "Subtitle", name: "subtitle", widget: "text" }
+              - { label: "Background Video (Hero)", name: "video", widget: "file", required: false, default: "/videos/hero-workspace.mp4", hint: "Full-screen background video file (MP4, WebM, etc.)" }
+              - { label: "Preview Image (Poster)", name: "posterImage", widget: "image", required: false, default: "/videos/preview-frame.jpg", hint: "Image displayed while the video is loading" }
+          - { label: "Services Section Title", name: "servicesSectionTitle", widget: "string", required: false, default: "Boutique Brand & Digital Marketing" }
+          - { label: "Brands Section Title", name: "brandsSectionTitle", widget: "string", required: false, default: "Trusted by Visionary Founders" }
+          - label: "Client Testimonials"
             name: "testimonials"
             widget: "list"
             summary: "{{fields.author}} — {{fields.role}}"
             fields:
-              - { label: "Citation / Avis", name: "quote", widget: "text" }
-              - { label: "Auteur", name: "author", widget: "string" }
-              - { label: "Rôle & Marque", name: "role", widget: "string" }
-          - label: "Référencement (SEO)"
+              - { label: "Quote / Testimonial", name: "quote", widget: "text" }
+              - { label: "Author", name: "author", widget: "string" }
+              - { label: "Role & Brand", name: "role", widget: "string" }
+          - label: "Search Engine Optimization (SEO)"
             name: "seo"
             widget: "object"
             fields:
-              - { label: "Meta Titre", name: "metaTitle", widget: "string" }
+              - { label: "Meta Title", name: "metaTitle", widget: "string" }
               - { label: "Meta Description", name: "metaDescription", widget: "text" }
-              - { label: "Image Open Graph (OG)", name: "ogImage", widget: "image", required: false }
+              - { label: "Open Graph Image (OG)", name: "ogImage", widget: "image", required: false }
 
       - name: "services_page"
-        label: "Page Services (En-tête & SEO)"
+        label: "Services Page (Header & SEO)"
         file: "src/content/pages/services.md"
         format: "frontmatter"
         fields:
-          - { label: "Titre Principal", name: "title", widget: "string" }
-          - { label: "Sous-titre / Introduction", name: "subtitle", widget: "text" }
-          - { label: "Libellé du bouton de contact", name: "inquiryButtonText", widget: "string", required: false, default: "Inquire About This Service" }
-          - label: "Référencement (SEO)"
+          - { label: "Main Title", name: "title", widget: "string" }
+          - { label: "Subtitle / Introduction", name: "subtitle", widget: "text" }
+          - { label: "Inquiry Button Text", name: "inquiryButtonText", widget: "string", required: false, default: "Inquire About This Service" }
+          - label: "Search Engine Optimization (SEO)"
             name: "seo"
             widget: "object"
             fields:
-              - { label: "Meta Titre", name: "metaTitle", widget: "string" }
+              - { label: "Meta Title", name: "metaTitle", widget: "string" }
               - { label: "Meta Description", name: "metaDescription", widget: "text" }
-              - { label: "Image Open Graph (OG)", name: "ogImage", widget: "image", required: false }
+              - { label: "Open Graph Image (OG)", name: "ogImage", widget: "image", required: false }
 
       - name: "brands_page"
-        label: "Page Marques Clientes (En-tête & SEO)"
+        label: "Brands Page (Header & SEO)"
         file: "src/content/pages/brands.md"
         format: "frontmatter"
         fields:
-          - { label: "Titre Principal", name: "title", widget: "string" }
-          - { label: "Sous-titre / Introduction", name: "subtitle", widget: "text" }
-          - label: "Référencement (SEO)"
+          - { label: "Main Title", name: "title", widget: "string" }
+          - { label: "Subtitle / Introduction", name: "subtitle", widget: "text" }
+          - label: "Search Engine Optimization (SEO)"
             name: "seo"
             widget: "object"
             fields:
-              - { label: "Meta Titre", name: "metaTitle", widget: "string" }
+              - { label: "Meta Title", name: "metaTitle", widget: "string" }
               - { label: "Meta Description", name: "metaDescription", widget: "text" }
-              - { label: "Image Open Graph (OG)", name: "ogImage", widget: "image", required: false }
+              - { label: "Open Graph Image (OG)", name: "ogImage", widget: "image", required: false }
 
       - name: "about"
-        label: "Page À Propos"
+        label: "About Page"
         file: "src/content/pages/about.md"
         format: "frontmatter"
         fields:
@@ -85,33 +85,33 @@ collections:
             name: "hero"
             widget: "object"
             fields:
-              - { label: "Titre", name: "title", widget: "string" }
-              - { label: "Sous-titre / Titre Histoire", name: "subtitle", widget: "text", required: false }
-          - label: "Biographie Fondatrice (Tiffany)"
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Subtitle / Story Title", name: "subtitle", widget: "text", required: false }
+          - label: "Founder Biography (Tiffany)"
             name: "bioFounder"
             widget: "object"
             fields:
-              - { label: "Nom complet", name: "name", widget: "string" }
-              - { label: "Portrait", name: "portraitImage", widget: "image" }
-              - { label: "Biographie & Vision", name: "body", widget: "markdown", hint: "Les premiers paragraphes s'affichent à côté du portrait. Le paragraphe débutant par 'Then a transition into beauty' et les suivants s'étendent sur toute la largeur sous la photo." }
-          - { label: "Texte d'invitation final avec liens", name: "closingText", widget: "string", required: false, hint: "Exemple: We’d love to work with you. [Get in touch](/contact) or visit our [Brands](/brands) page." }
-          - label: "Référencement (SEO)"
+              - { label: "Full Name", name: "name", widget: "string" }
+              - { label: "Portrait Photo", name: "portraitImage", widget: "image" }
+              - { label: "Biography & Vision", name: "body", widget: "markdown", hint: "First paragraphs appear next to the portrait photo. The paragraph starting with 'Then a transition into beauty' and following ones stretch full-width below." }
+          - { label: "Closing Invitation Text with Links", name: "closingText", widget: "string", required: false, hint: "Example: We’d love to work with you. [Get in touch](/contact) or visit our [Brands](/brands) page." }
+          - label: "Search Engine Optimization (SEO)"
             name: "seo"
             widget: "object"
             fields:
-              - { label: "Meta Titre", name: "metaTitle", widget: "string" }
+              - { label: "Meta Title", name: "metaTitle", widget: "string" }
               - { label: "Meta Description", name: "metaDescription", widget: "text" }
-              - { label: "Image Open Graph (OG)", name: "ogImage", widget: "image", required: false }
+              - { label: "Open Graph Image (OG)", name: "ogImage", widget: "image", required: false }
 
       - name: "contact"
-        label: "Page Contact"
+        label: "Contact Page"
         file: "src/content/pages/contact.md"
         format: "frontmatter"
         fields:
-          - { label: "Titre Principal", name: "title", widget: "string" }
-          - { label: "Sous-titre", name: "subtitle", widget: "text" }
-          - { label: "Texte par défaut du sélecteur (Placeholder)", name: "servicePlaceholder", widget: "string", default: "Select an option", required: false }
-          - label: "Options de Services demandés"
+          - { label: "Main Title", name: "title", widget: "string" }
+          - { label: "Subtitle", name: "subtitle", widget: "text" }
+          - { label: "Dropdown Placeholder Text", name: "servicePlaceholder", widget: "string", default: "Select an option", required: false }
+          - label: "Inquiry Service Options"
             name: "serviceOptions"
             widget: "list"
             default:
@@ -122,80 +122,80 @@ collections:
               - "Paid Social"
               - "Events & Activations"
               - "Something else"
-            field: { label: "Option de Service", name: "option", widget: "string" }
-          - label: "Fourchettes de Budget"
+            field: { label: "Service Option", name: "option", widget: "string" }
+          - label: "Budget Ranges"
             name: "budgetOptions"
             widget: "list"
-            field: { label: "Fourchette de budget", name: "budget", widget: "string" }
-          - { label: "Texte du bouton d'envoi", name: "submitButtonText", widget: "string", default: "Submit", required: false }
-          - label: "Référencement (SEO)"
+            field: { label: "Budget Range", name: "budget", widget: "string" }
+          - { label: "Submit Button Text", name: "submitButtonText", widget: "string", default: "Submit", required: false }
+          - label: "Search Engine Optimization (SEO)"
             name: "seo"
             widget: "object"
             fields:
-              - { label: "Meta Titre", name: "metaTitle", widget: "string" }
+              - { label: "Meta Title", name: "metaTitle", widget: "string" }
               - { label: "Meta Description", name: "metaDescription", widget: "text" }
-              - { label: "Image Open Graph (OG)", name: "ogImage", widget: "image", required: false }
+              - { label: "Open Graph Image (OG)", name: "ogImage", widget: "image", required: false }
 
       - name: "settings"
-        label: "Coordonnées & Pied de Page"
+        label: "Contact Information & Footer"
         file: "src/content/pages/settings.md"
         format: "frontmatter"
         fields:
-          - { label: "Titre bloc Projet (Footer)", name: "inquiriesTitle", widget: "string", default: "WORK WITH TMB" }
-          - { label: "Texte d'accroche (Footer)", name: "inquiriesSubtitle", widget: "text", default: "New beginnings. Next chapters. Meaningful growth. Let's build what's next." }
-          - { label: "Texte du lien Contact", name: "contactLinkText", widget: "string", default: "Contact us" }
-          - { label: "Téléphone", name: "phone", widget: "string", default: "+1 512 529 1677" }
-          - { label: "Email de contact", name: "email", widget: "string", default: "tiffany@tmbbranding.com" }
-          - { label: "Titre Réseaux Sociaux", name: "socialTitle", widget: "string", default: "Follow Us" }
-          - { label: "Identifiant Instagram", name: "instagramHandle", widget: "string", default: "@tmbbranding" }
-          - { label: "Lien Instagram", name: "instagramUrl", widget: "string", default: "https://www.instagram.com/tmbbranding/" }
-          - { label: "Ville / Siège", name: "location", widget: "string", default: "Austin, Texas" }
-          - { label: "Texte de Copyright (Bas de page)", name: "copyrightText", widget: "string", default: "© 2026 TMB Branding. All rights reserved." }
+          - { label: "Inquiries Section Title (Footer)", name: "inquiriesTitle", widget: "string", default: "WORK WITH TMB" }
+          - { label: "Inquiries Tagline (Footer)", name: "inquiriesSubtitle", widget: "text", default: "New beginnings. Next chapters. Meaningful growth. Let's build what's next." }
+          - { label: "Contact Link Text", name: "contactLinkText", widget: "string", default: "Contact us" }
+          - { label: "Phone Number", name: "phone", widget: "string", default: "+1 512 529 1677" }
+          - { label: "Contact Email", name: "email", widget: "string", default: "tiffany@tmbbranding.com" }
+          - { label: "Social Section Title", name: "socialTitle", widget: "string", default: "Follow Us" }
+          - { label: "Instagram Handle", name: "instagramHandle", widget: "string", default: "@tmbbranding" }
+          - { label: "Instagram URL", name: "instagramUrl", widget: "string", default: "https://www.instagram.com/tmbbranding/" }
+          - { label: "City / Headquarters", name: "location", widget: "string", default: "Austin, Texas" }
+          - { label: "Copyright Text (Footer)", name: "copyrightText", widget: "string", default: "© 2026 TMB Branding. All rights reserved." }
 
       - name: "theme"
-        label: "Thème & Couleurs"
+        label: "Theme & Color Palette"
         file: "src/content/pages/theme.md"
         format: "frontmatter"
         fields:
-          - label: "Bases Neutres (Fonds)"
+          - label: "Neutral Bases (Backgrounds)"
             name: "creme"
             widget: "object"
             fields:
-              - { label: "Fond Principal (Crème)", name: "powder", widget: "color", default: "#FAF7F2" }
-              - { label: "Fond Secondaire / Cartes (Alabaster)", name: "alabaster", widget: "color", default: "#F3EFEA" }
-              - { label: "Couleur des Bordures", name: "border", widget: "color", default: "#E4DDD4" }
+              - { label: "Primary Background (Creme Powder)", name: "powder", widget: "color", default: "#FAF7F2" }
+              - { label: "Secondary Background / Cards (Alabaster)", name: "alabaster", widget: "color", default: "#F3EFEA" }
+              - { label: "Border Color", name: "border", widget: "color", default: "#E4DDD4" }
 
-          - label: "Teinte d'Accentuation Principale (Cognac / Caramel Chaud)"
+          - label: "Primary Accent Shade (Cognac / Warm Terracotta)"
             name: "terracotta"
             widget: "object"
             fields:
-              - { label: "Cognac Principal (Boutons survols, liens)", name: "default", widget: "color", default: "#9E6742" }
-              - { label: "Cognac Foncé (Actif / Clic)", name: "dark", widget: "color", default: "#7D4B2A" }
-              - { label: "Cognac Clair (Survols subtils)", name: "light", widget: "color", default: "#BD835C" }
+              - { label: "Primary Cognac (Hover buttons, links)", name: "default", widget: "color", default: "#9E6742" }
+              - { label: "Dark Cognac (Active / Pressed)", name: "dark", widget: "color", default: "#7D4B2A" }
+              - { label: "Light Cognac (Subtle hovers)", name: "light", widget: "color", default: "#BD835C" }
 
-          - label: "Typographie & Titres (Espresso)"
+          - label: "Typography & Headings (Espresso)"
             name: "espresso"
             widget: "object"
             fields:
-              - { label: "Espresso Principal (Titres, Boutons & Sections)", name: "default", widget: "color", default: "#382820" }
-              - { label: "Espresso Foncé (Voile Vidéo / Ombres)", name: "deep", widget: "color", default: "#1C1513" }
+              - { label: "Primary Espresso (Headings, buttons & sections)", name: "default", widget: "color", default: "#382820" }
+              - { label: "Deep Espresso (Video overlay / shadows)", name: "deep", widget: "color", default: "#1C1513" }
 
-          - label: "Textes Secondaires (Taupe)"
+          - label: "Secondary Text (Taupe)"
             name: "taupe"
             widget: "object"
             fields:
-              - { label: "Taupe Principal (Sous-titres & Descriptions)", name: "default", widget: "color", default: "#6B5C55" }
-              - { label: "Taupe Clair", name: "light", widget: "color", default: "#94847D" }
+              - { label: "Primary Taupe (Subtitles & descriptions)", name: "default", widget: "color", default: "#6B5C55" }
+              - { label: "Light Taupe", name: "light", widget: "color", default: "#94847D" }
 
-          - label: "Surtitres & Détails Dorés (Champagne / Bronze)"
+          - label: "Kickers & Golden Accents (Champagne / Bronze)"
             name: "ocre"
             widget: "object"
             fields:
-              - { label: "Champagne Principal (Kickers & Lignes)", name: "default", widget: "color", default: "#C29B72" }
-              - { label: "Champagne Clair (Accents sur fond sombre)", name: "light", widget: "color", default: "#D8B58F" }
+              - { label: "Primary Champagne (Kickers & accent lines)", name: "default", widget: "color", default: "#C29B72" }
+              - { label: "Light Champagne (Accents on dark background)", name: "light", widget: "color", default: "#D8B58F" }
 
   # ==========================================
-  # COLLECTION SERVICES (Fichiers multiples)
+  # SERVICES COLLECTION (Multiple files)
   # ==========================================
   - name: "services"
     label: "Services"
@@ -203,23 +203,23 @@ collections:
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Titre du Service", name: "title", widget: "string" }
-      - { label: "Ordre d'affichage", name: "order", widget: "number", value_type: "int", default: 1 }
-      - { label: "Description courte", name: "shortDescription", widget: "text" }
-      - { label: "Image de Couverture", name: "coverImage", widget: "image" }
-      - { label: "Description Détaillée (Markdown)", name: "body", widget: "markdown" }
+      - { label: "Service Title", name: "title", widget: "string" }
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int", default: 1 }
+      - { label: "Short Description", name: "shortDescription", widget: "text" }
+      - { label: "Cover Image", name: "coverImage", widget: "image" }
+      - { label: "Detailed Description (Markdown)", name: "body", widget: "markdown" }
 
   # ==========================================
-  # COLLECTION BRANDS (Portfolio clients)
+  # BRANDS COLLECTION (Client portfolio)
   # ==========================================
   - name: "brands"
-    label: "Marques Clientes"
+    label: "Client Brands"
     folder: "src/content/brands"
     create: true
     slug: "{{slug}}"
     fields:
-      - { label: "Nom de la Marque", name: "name", widget: "string" }
-      - { label: "Ordre d'affichage", name: "order", widget: "number", value_type: "int", default: 1 }
+      - { label: "Brand Name", name: "name", widget: "string" }
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int", default: 1 }
       - { label: "Logo", name: "logoImage", widget: "image" }
-      - { label: "Image de Couverture", name: "coverImage", widget: "image" }
-      - { label: "Présentation / Étude de Cas (Markdown)", name: "body", widget: "markdown" }
+      - { label: "Cover Image", name: "coverImage", widget: "image" }
+      - { label: "Case Study / Overview (Markdown)", name: "body", widget: "markdown" }
