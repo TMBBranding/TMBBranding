@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
   <defs>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700&amp;display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&amp;display=swap');
       .brand-text {
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        font-size: 42px;
-        font-weight: 700;
-        letter-spacing: 0.5px;
+        font-size: 44px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
         fill: #FAF7F2;
       }
     </style>
   </defs>
   <rect width="100" height="100" fill="#382820"/>
-  <text x="50.5%" y="51.5%" text-anchor="middle" dominant-baseline="central" class="brand-text">TMB</text>
+  <text x="50%" y="51%" text-anchor="middle" dominant-baseline="central" class="brand-text">TMB</text>
 </svg>
