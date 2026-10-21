@@ -1,6 +1,6 @@
 ---
 title: Let’s Tell Your Brand Story
-subtitle: New beginnings. Next chapters. Meaningful growth. Build what's next.
+subtitle: New beginnings. Next chapters. Meaningful growth. Build what's next !
 servicePlaceholder: Select an option
 serviceOptions:
   - Social Media Strategy
