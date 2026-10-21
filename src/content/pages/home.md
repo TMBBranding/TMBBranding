@@ -1,6 +1,6 @@
 ---
 hero:
-  title: Elevating Founder-Led Brands
+  title: Elevating Founder-Led Brands tiff
   subtitle: Bringing visionary ideas to life through strategic storytelling,
     thoughtful partnerships, and digital-first marketing.
   video: /videos/hero-workspace.mp4
