@@ -23,9 +23,8 @@ testimonials:
     author: Reese Platt
     role: Founder
 seo:
-  metaTitle: TMB Branding | Founder-Led Branding Agency Austin TX
-  metaDescription: Boutique branding and digital agency in Austin, TX elevating
-    visionary founder-led fashion, beauty, and lifestyle brands to cultural
-    authority.
+  metaTitle: TMB Branding | Founder-Led Branding
+  metaDescription: Boutique branding and digital agency elevating visionary
+    founder-led fashion, beauty, and lifestyle brands to cultural authority.
   ogImage: /images/uploads/hero-home.jpg
 ---
