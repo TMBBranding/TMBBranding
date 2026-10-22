@@ -9,6 +9,22 @@ if (!contactEntry) {
   throw new Error("Failed to load collection 'pages/contact'");
 }
 const contact = contactEntry.data as ContactPageData;
+
+const rawTitle = contact.title || "Let’s Tell Your Brand Story";
+const targetPhrase = "Your Brand Story";
+const targetIndex = rawTitle.indexOf(targetPhrase);
+
+let prefix = "";
+let animatedText = targetPhrase;
+
+if (targetIndex !== -1) {
+  prefix = rawTitle.slice(0, targetIndex);
+  animatedText = targetPhrase;
+} else {
+  // Fallback if title is modified without exact phrase
+  prefix = rawTitle.replace(/\s+\S+\s*$/, " ");
+  animatedText = rawTitle.slice(prefix.length);
+}
 ---
 
 <Layout
@@ -23,8 +39,18 @@ const contact = contactEntry.data as ContactPageData;
       <div class="max-w-4xl mx-auto space-y-8 sm:space-y-10">
         <!-- Header -->
         <div class="space-y-4 sm:space-y-6">
-          <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial">
-            {contact.title}
+          <h1
+            class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial select-text"
+            aria-label={rawTitle}
+          >
+            <span class="sr-only">{rawTitle}</span>
+            <span aria-hidden="true">
+              <span>{prefix}</span><span
+                class="typewriter-container inline"
+                id="contact-typewriter"
+                data-text={animatedText}
+              ><span class="typewriter-output"></span><span class="typewriter-cursor" aria-hidden="true"></span><noscript><span class="inline">{animatedText}</span><style>.typewriter-cursor { display: none !important; }</style></noscript></span>
+            </span>
           </h1>
           <p class="text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans max-w-2xl">
             {contact.subtitle}
@@ -36,9 +62,159 @@ const contact = contactEntry.data as ContactPageData;
           serviceOptions={contact.serviceOptions}
           budgetOptions={contact.budgetOptions}
           submitButtonText={contact.submitButtonText || "Submit"}
+          submittingButtonText={contact.submittingButtonText}
           servicePlaceholder={contact.servicePlaceholder || "Select an option"}
+          formLabels={contact.formLabels}
+          formErrors={contact.formErrors}
+          formSuccess={contact.formSuccess}
         />
       </div>
     </div>
   </section>
 </Layout>
+
+<style>
+  .typewriter-cursor {
+    display: inline-block;
+    width: 0.045em;
+    min-width: 2px;
+    height: 0.82em;
+    margin-left: 0.08em;
+    vertical-align: -0.06em;
+    background-color: currentColor;
+    border-radius: 1px;
+    animation: typewriter-blink 0.85s step-start infinite;
+    transition: opacity 0.3s ease-out;
+  }
+
+  .typewriter-cursor.is-typing {
+    animation: none;
+    opacity: 1;
+  }
+
+  .typewriter-cursor.is-hidden {
+    opacity: 0 !important;
+    animation: none !important;
+  }
+
+  @keyframes typewriter-blink {
+    0%, 49.9% {
+      opacity: 1;
+    }
+    50%, 100% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .typewriter-cursor {
+      display: none !important;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const initTypewriter = () => {
+      const container = document.getElementById('contact-typewriter');
+      if (!container) return;
+
+      const fullText = container.getAttribute('data-text') || 'Your Brand Story';
+      const outputEl = container.querySelector('.typewriter-output');
+      const cursorEl = container.querySelector('.typewriter-cursor');
+      if (!outputEl || !cursorEl) return;
+
+      // Respect user's motion preferences
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        outputEl.textContent = fullText;
+        cursorEl.style.display = 'none';
+        return;
+      }
+
+      let isTyping = false;
+      let timerId = null;
+
+      function getTypingDelay(char, prevChar) {
+        // 1. Pause entre les mots (espace)
+        if (char === ' ') {
+          return 280 + Math.random() * 110; // 280ms - 390ms
+        }
+        // 2. Reprise du mot après un espace
+        if (prevChar === ' ') {
+          return 180 + Math.random() * 80; // 180ms - 260ms
+        }
+        // 3. Majuscule (touche Shift)
+        if (char === char.toUpperCase() && char !== char.toLowerCase()) {
+          return 200 + Math.random() * 90; // 200ms - 290ms
+        }
+        // 4. Micro-pause naturelle humaine (~15% des lettres)
+        if (Math.random() < 0.16) {
+          return 220 + Math.random() * 90; // 220ms - 310ms
+        }
+        // 5. Frappe fluide / liée (~30% des lettres)
+        if (Math.random() < 0.3) {
+          return 75 + Math.random() * 35; // 75ms - 110ms
+        }
+        // 6. Frappe standard humaine irrégulière et vivante
+        return 115 + Math.random() * 65; // 115ms - 180ms
+      }
+
+      function startTyping() {
+        if (isTyping) return;
+        isTyping = true;
+        outputEl.textContent = '';
+        cursorEl.classList.remove('is-typing', 'is-hidden');
+
+        let charIndex = 0;
+
+        function typeNextChar() {
+          if (charIndex < fullText.length) {
+            const char = fullText.charAt(charIndex);
+            const prevChar = charIndex > 0 ? fullText.charAt(charIndex - 1) : '';
+            outputEl.textContent += char;
+            charIndex++;
+
+            // Calcul du délai organique irrégulier
+            const delay = getTypingDelay(char, prevChar);
+
+            // Si pause entre les mots, le trait a le temps de clignoter
+            if (delay >= 280) {
+              cursorEl.classList.remove('is-typing');
+            } else {
+              cursorEl.classList.add('is-typing');
+            }
+
+            timerId = setTimeout(typeNextChar, delay);
+          } else {
+            isTyping = false;
+            // Une fois la dernière lettre tapée, faire disparaître le trait
+            timerId = setTimeout(() => {
+              cursorEl.classList.add('is-hidden');
+            }, 300);
+          }
+        }
+
+        // Le trait clignote une fois ou deux (~1.0s) avant que la frappe commence
+        timerId = setTimeout(typeNextChar, 1050);
+      }
+
+      startTyping();
+
+      // Clic sur le titre pour rejouer l'animation
+      const heading = container.closest('h1');
+      if (heading) {
+        heading.addEventListener('click', () => {
+          if (timerId) clearTimeout(timerId);
+          isTyping = false;
+          startTyping();
+        });
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initTypewriter);
+    } else {
+      initTypewriter();
+    }
+  })();
+</script>

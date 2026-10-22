@@ -62,6 +62,7 @@ export default {
       fontFamily: {
         serif: ['"Cormorant Garamond"', 'Playfair Display', 'Italiana', 'Didot', 'Georgia', 'serif'],
         sans: ['"Plus Jakarta Sans"', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        syne: ['"Syne"', 'sans-serif'],
       },
       letterSpacing: {
         widest: '0.2em',

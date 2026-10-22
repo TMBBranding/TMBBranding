@@ -14,14 +14,19 @@ interface Props {
 }
 
 const {
-  title = 'TMB Branding | Founder-Led Branding Agency Austin TX',
-  description = 'Boutique branding and digital agency in Austin, TX elevating visionary founder-led fashion, beauty, and lifestyle brands to cultural authority.',
+  title = 'TMB Branding | Founder-Led Branding Agency',
+  description = 'Boutique branding and digital agency elevating visionary founder-led fashion, beauty, and lifestyle brands to cultural authority.',
   ogImage = '/images/uploads/hero-home.jpg',
   currentPath = Astro.url.pathname,
   noindex = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://tmbbranding.com');
+
+// Load global settings from Decap CMS (src/content/pages/settings.md)
+const settingsEntry = await getEntry('pages', 'settings');
+const settings = settingsEntry?.data;
+const siteLanguage = settings?.siteLanguage || 'en';
 
 // Load dynamic theme colors from Decap CMS (src/content/pages/theme.md)
 const themeEntry = await getEntry('pages', 'theme');
@@ -78,7 +83,7 @@ const ocreLightRgb = hexToRgb(ocreLight, '216 181 143');
 ---
 
 <!doctype html>
-<html lang="en" class="bg-creme-powder text-espresso antialiased">
+<html lang={siteLanguage} class="bg-creme-powder text-espresso antialiased">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -145,11 +150,18 @@ const ocreLightRgb = hexToRgb(ocreLight, '216 181 143');
       ogImage={ogImage}
       canonicalURL={canonicalURL}
       noindex={noindex}
+      ogLocale={settings?.ogLocale}
+      companyName={settings?.companyName || settings?.brandName}
+      founderName={settings?.founderName}
+      founderTitle={settings?.founderTitle}
+      companyAddressLocality={settings?.location}
+      phone={settings?.phone}
     />
 
     <!-- Preconnect to Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Italiana&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Syne:wght@500;600;700;800&display=swap" />
 
     <!-- Netlify Identity Widget -->
     <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>

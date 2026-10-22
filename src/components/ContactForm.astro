@@ -4,6 +4,34 @@ interface Props {
   serviceOptions?: string[];
   budgetOptions?: string[];
   submitButtonText?: string;
+  submittingButtonText?: string;
+  formLabels?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    service?: string;
+    budget?: string;
+    message?: string;
+    consent?: string;
+  };
+  formErrors?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    service?: string;
+    budget?: string;
+    message?: string;
+    consent?: string;
+    submitFailed?: string;
+  };
+  formSuccess?: {
+    kicker?: string;
+    title?: string;
+    message?: string;
+    resetButtonText?: string;
+    exploreButtonText?: string;
+    exploreButtonUrl?: string;
+  };
   accessKey?: string;
   class?: string;
 }
@@ -26,9 +54,40 @@ const {
     '> $15,000',
   ],
   submitButtonText = 'Submit',
+  submittingButtonText = 'Submitting...',
+  formLabels = {},
+  formErrors = {},
+  formSuccess = {},
   accessKey = import.meta.env.PUBLIC_WEB3FORMS_KEY || 'YOUR_ACCESS_KEY_HERE',
   class: className = '',
 } = Astro.props;
+
+// Resolved Labels with Fallbacks
+const lFirstName = formLabels.firstName || 'First Name';
+const lLastName = formLabels.lastName || 'Last Name';
+const lEmail = formLabels.email || 'Email Address';
+const lService = formLabels.service || "I'm Interested In";
+const lBudget = formLabels.budget || 'Your project budget';
+const lMessage = formLabels.message || 'Tell us more about your project';
+const lConsent = formLabels.consent || 'I consent to TMB Branding processing my contact information solely for the purpose of this project inquiry in accordance with privacy principles.';
+
+// Resolved Errors with Fallbacks
+const errFirstName = formErrors.firstName || 'Please enter your first name.';
+const errLastName = formErrors.lastName || 'Please enter your last name.';
+const errEmail = formErrors.email || 'Please enter a valid email address.';
+const errService = formErrors.service || 'Please select an option.';
+const errBudget = formErrors.budget || 'Please select your project budget.';
+const errMessage = formErrors.message || 'Please include a brief description of your project.';
+const errConsent = formErrors.consent || 'Consent is required to submit your inquiry.';
+const errSubmitFailed = formErrors.submitFailed || 'Unable to submit inquiry. Please verify your details or email us directly at tiffany@tmbbranding.com.';
+
+// Resolved Success Screen with Fallbacks
+const successKicker = formSuccess.kicker || 'Inquiry Transmitted';
+const successTitle = formSuccess.title || 'Thank you for reaching out';
+const successMessage = formSuccess.message || 'Your brief has been received. The TMB team will review your objectives and respond within 24 to 48 business hours.';
+const successResetBtn = formSuccess.resetButtonText || 'Send Another Message';
+const successExploreBtn = formSuccess.exploreButtonText || 'Explore Recent Works →';
+const successExploreUrl = formSuccess.exploreButtonUrl || '/brands';
 ---
 
 <div class={`relative bg-creme-powder border border-creme-border p-8 sm:p-12 lg:p-14 shadow-warm ${className}`} id="contact-form-container">
@@ -43,13 +102,13 @@ const {
     
     <div class="space-y-3 max-w-lg mx-auto">
       <span class="text-[10px] uppercase tracking-kicker text-taupe font-sans font-semibold block">
-        Inquiry Transmitted
+        {successKicker}
       </span>
       <h3 class="font-serif text-3xl sm:text-4xl text-espresso font-normal">
-        Thank you for sharing your vision.
+        {successTitle}
       </h3>
       <p class="text-taupe text-sm sm:text-base font-light leading-relaxed">
-        Your brief has been received with confidentiality. Tiffany and the TMB team will review your objectives and respond within 24 to 48 business hours.
+        {successMessage}
       </p>
     </div>
 
@@ -59,13 +118,13 @@ const {
         id="contact-reset-btn"
         class="inline-flex items-center justify-center px-7 py-3 text-xs uppercase tracking-luxury font-medium text-espresso border border-creme-border hover:border-espresso rounded-luxury-sm transition-colors"
       >
-        Send Another Message
+        {successResetBtn}
       </button>
       <a
-        href="/brands"
+        href={successExploreUrl}
         class="inline-flex items-center justify-center px-7 py-3 text-xs uppercase tracking-luxury font-medium text-creme-powder bg-espresso hover:bg-espresso-deep rounded-luxury-sm shadow-warm hover:shadow-warm-lg transition-all"
       >
-        Explore Recent Works &rarr;
+        {successExploreBtn}
       </a>
     </div>
   </div>
@@ -81,12 +140,16 @@ const {
     <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off" />
 
     <!-- Error Alert Banner -->
-    <div id="contact-error" class="hidden p-4 rounded-luxury bg-creme-alabaster border border-creme-border text-espresso text-xs font-light leading-relaxed flex items-start space-x-3">
+    <div
+      id="contact-error"
+      data-default-error={errSubmitFailed}
+      class="hidden p-4 rounded-luxury bg-creme-alabaster border border-creme-border text-espresso text-xs font-light leading-relaxed flex items-start space-x-3"
+    >
       <svg class="w-5 h-5 text-espresso flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
       </svg>
       <div id="contact-error-text">
-        Unable to submit inquiry. Please verify your details or email us directly at tiffany@tmbbranding.com.
+        {errSubmitFailed}
       </div>
     </div>
 
@@ -94,7 +157,7 @@ const {
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
       <div class="space-y-2">
         <label for="contact-first-name" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-          First Name <span class="text-taupe">*</span>
+          {lFirstName} <span class="text-taupe">*</span>
         </label>
         <input
           type="text"
@@ -104,12 +167,12 @@ const {
           autocomplete="given-name"
           class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-espresso focus:bg-white transition-colors duration-200"
         />
-        <p class="text-[10px] text-taupe hidden error-hint" id="err-first-name">Please enter your first name.</p>
+        <p class="text-[10px] text-taupe hidden error-hint" id="err-first-name">{errFirstName}</p>
       </div>
 
       <div class="space-y-2">
         <label for="contact-last-name" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-          Last Name <span class="text-taupe">*</span>
+          {lLastName} <span class="text-taupe">*</span>
         </label>
         <input
           type="text"
@@ -119,14 +182,14 @@ const {
           autocomplete="family-name"
           class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-espresso focus:bg-white transition-colors duration-200"
         />
-        <p class="text-[10px] text-taupe hidden error-hint" id="err-last-name">Please enter your last name.</p>
+        <p class="text-[10px] text-taupe hidden error-hint" id="err-last-name">{errLastName}</p>
       </div>
     </div>
 
     <!-- 2. Email Address Row -->
     <div class="space-y-2">
       <label for="contact-email" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-        Email Address <span class="text-taupe">*</span>
+        {lEmail} <span class="text-taupe">*</span>
       </label>
       <input
         type="email"
@@ -136,13 +199,13 @@ const {
         autocomplete="email"
         class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-espresso focus:bg-white transition-colors duration-200"
       />
-      <p class="text-[10px] text-taupe hidden error-hint" id="err-email">Please enter a valid email address.</p>
+      <p class="text-[10px] text-taupe hidden error-hint" id="err-email">{errEmail}</p>
     </div>
 
     <!-- 3. Dynamic Service Selection (Dropdown) -->
     <div class="space-y-2">
       <label for="contact-service" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-        I'm Interested In <span class="text-taupe">*</span>
+        {lService} <span class="text-taupe">*</span>
       </label>
       <div class="relative">
         <select
@@ -162,13 +225,13 @@ const {
           </svg>
         </div>
       </div>
-      <p class="text-[10px] text-taupe hidden error-hint" id="err-service">Please select an option.</p>
+      <p class="text-[10px] text-taupe hidden error-hint" id="err-service">{errService}</p>
     </div>
 
     <!-- 4. Budget Selector (Interactive Radios) -->
     <div class="space-y-3">
       <label class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-        Your project budget <span class="text-taupe">*</span>
+        {lBudget} <span class="text-taupe">*</span>
       </label>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {budgetOptions.map((budget) => (
@@ -186,13 +249,13 @@ const {
           </label>
         ))}
       </div>
-      <p class="text-[10px] text-taupe hidden error-hint" id="err-budget">Please select your project budget.</p>
+      <p class="text-[10px] text-taupe hidden error-hint" id="err-budget">{errBudget}</p>
     </div>
 
     <!-- 5. Message Textarea -->
     <div class="space-y-2">
       <label for="contact-message" class="block text-xs uppercase tracking-luxury text-espresso font-medium">
-        Tell us more about your project <span class="text-taupe">*</span>
+        {lMessage} <span class="text-taupe">*</span>
       </label>
       <textarea
         id="contact-message"
@@ -201,7 +264,7 @@ const {
         required
         class="w-full px-4 py-3.5 bg-creme-alabaster/60 border border-creme-border rounded-luxury-sm text-espresso text-sm focus:outline-none focus:border-espresso focus:bg-white transition-colors duration-200"
       ></textarea>
-      <p class="text-[10px] text-taupe hidden error-hint" id="err-message">Please include a brief description of your project.</p>
+      <p class="text-[10px] text-taupe hidden error-hint" id="err-message">{errMessage}</p>
     </div>
 
     <!-- 6. RGPD / Privacy Policy Consent -->
@@ -215,10 +278,10 @@ const {
           class="mt-1 accent-espresso text-espresso focus:ring-0 rounded-none cursor-pointer"
         />
         <span class="text-xs text-taupe leading-relaxed font-light">
-          I consent to TMB Branding processing my contact information solely for the purpose of this project inquiry in accordance with privacy principles.
+          {lConsent}
         </span>
       </label>
-      <p class="text-[10px] text-taupe hidden error-hint" id="err-consent">Consent is required to submit your inquiry.</p>
+      <p class="text-[10px] text-taupe hidden error-hint" id="err-consent">{errConsent}</p>
     </div>
 
     <!-- Submit Button (Centered, with text "Submit" and no arrow) -->
@@ -239,7 +302,7 @@ const {
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
           </svg>
-          <span>Submitting...</span>
+          <span>{submittingButtonText}</span>
         </span>
       </button>
     </div>
@@ -345,13 +408,13 @@ const {
           form.reset();
         } else {
           // Web3Forms API error or invalid key warning
-          throw new Error(result.message || 'Transmission failed.');
+          throw new Error(result.message || (errorContainer?.getAttribute('data-default-error') || 'Transmission failed.'));
         }
       } catch (err) {
         console.warn('Web3Forms Notice:', err);
         // Display polite user feedback
         if (errorContainer && errorText) {
-          errorText.textContent = err.message || 'Submission failed. Please verify your details or email concierge@tmbbranding.com directly.';
+          errorText.textContent = err.message || (errorContainer.getAttribute('data-default-error') || 'Submission failed.');
           errorContainer.classList.remove('hidden');
         }
       } finally {

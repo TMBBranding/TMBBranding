@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Italiana&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Italiana&family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&family=Syne:wght@500;600;700;800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -204,6 +204,135 @@
     animation: fadeInMaskFull 0.15s ease-out 2.05s forwards;
   }
 
+  /* =====================================================================
+     ANIMATION TYPOGRAPHIQUE SÉQUENTIELLE MODERNE - SIGLE « TMB »
+     Rythme majestueux (durée 0.90s/0.85s) et enchaînement fluide en relais (~2.95s)
+     Courbe équilibrée et continue : cubic-bezier(0.25, 0.1, 0.25, 1)
+     Enchaînement dynamique :
+       1. « T » (0.50s -> 1.40s) :
+          - Petit délai initial de respiration (0.50s)
+          - Barre supérieure arrive depuis le haut (translateY(-480px) -> 0)
+          - Tige verticale arrive depuis le bas (translateY(480px) -> 0)
+       2. « M » (1.00s -> 1.90s) :
+          - Débute dès que le T converge
+          - Moitié gauche arrive depuis le haut (translateY(-480px) -> 0)
+          - Moitié droite arrive depuis le bas (translateY(480px) -> 0)
+       3. « B » (1.55s -> 2.95s) :
+          - Tige verticale (1.55s -> 2.40s) :
+             Débute dès que le M converge
+             Couchée à l'horizontale (90deg), se redresse de droite à gauche (0deg)
+          - Boucles arrondies (2.10s -> 2.95s) :
+             Glissent depuis la droite (translateX(480px) -> 0) et se connectent à la tige
+     ===================================================================== */
+  
+  /* --- LETTRE T --- */
+  .tmb-piece-t-bar {
+    opacity: 0;
+    transform: translateY(-480px);
+    animation: animTmbTBar 0.90s cubic-bezier(0.25, 0.1, 0.25, 1) 0.50s both;
+  }
+  .tmb-piece-t-stem {
+    opacity: 0;
+    transform: translateY(480px);
+    animation: animTmbTStem 0.90s cubic-bezier(0.25, 0.1, 0.25, 1) 0.50s both;
+  }
+
+  /* --- LETTRE M --- */
+  .tmb-piece-m-left {
+    opacity: 0;
+    transform: translateY(-480px);
+    animation: animTmbMLeft 0.90s cubic-bezier(0.25, 0.1, 0.25, 1) 1.00s both;
+  }
+  .tmb-piece-m-right {
+    opacity: 0;
+    transform: translateY(480px);
+    animation: animTmbMRight 0.90s cubic-bezier(0.25, 0.1, 0.25, 1) 1.00s both;
+  }
+
+  /* --- LETTRE B --- */
+  .tmb-piece-b-stem {
+    opacity: 0;
+    transform-origin: 1432.3px 745px;
+    transform-box: view-box;
+    transform: translate(1432.3px, 745px) rotate(90deg) translate(-1432.3px, -745px);
+    animation: animTmbBStem 0.85s cubic-bezier(0.25, 0.1, 0.25, 1) 1.55s both;
+  }
+  .tmb-piece-b-loops {
+    opacity: 0;
+    transform: translateX(480px);
+    animation: animTmbBLoops 0.85s cubic-bezier(0.25, 0.1, 0.25, 1) 2.10s both;
+  }
+
+  /* Keyframes TMB */
+  @keyframes animTmbTBar {
+    0% {
+      opacity: 0;
+      transform: translateY(-480px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes animTmbTStem {
+    0% {
+      opacity: 0;
+      transform: translateY(480px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes animTmbMLeft {
+    0% {
+      opacity: 0;
+      transform: translateY(-480px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes animTmbMRight {
+    0% {
+      opacity: 0;
+      transform: translateY(480px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes animTmbBStem {
+    0% {
+      opacity: 0;
+      transform: translate(1432.3px, 745px) rotate(90deg) translate(-1432.3px, -745px);
+    }
+    15% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: translate(1432.3px, 745px) rotate(0deg) translate(-1432.3px, -745px);
+    }
+  }
+
+  @keyframes animTmbBLoops {
+    0% {
+      opacity: 0;
+      transform: translateX(480px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
   /* Keyframes remplissage continu sans rupture de vitesse */
   @keyframes drawMaskBase {
     0% { stroke-dashoffset: 700; opacity: 1; }
@@ -234,15 +363,354 @@
     100% { opacity: 1; }
   }
 
+  /* =====================================================================
+     ANIMATION SCEAU DE CIRE / POINÇON CIRCULAIRE - LETTRE « O » ("OUR BRANDS")
+     Tracé calligraphique en double arc opposé (délié haut -> flanc plein -> scellement bas) (~1.05s)
+     Suivi de l'estampille tactile (micro-pression + onde de sceau) et de la révélation du titre
+     ===================================================================== */
+  .seal-mask-stroke {
+    fill: none;
+    stroke: #ffffff;
+    stroke-width: 110;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+  }
+  .mask-seal-left {
+    stroke-dasharray: 1050;
+    stroke-dashoffset: 1050;
+    animation: drawSealLeft 1.50s cubic-bezier(0.35, 0, 0.25, 1) 0.20s forwards;
+  }
+  .mask-seal-right {
+    stroke-dasharray: 1050;
+    stroke-dashoffset: 1050;
+    animation: drawSealRight 1.50s cubic-bezier(0.35, 0, 0.25, 1) 0.25s forwards;
+  }
+  .mask-seal-full-fill {
+    opacity: 0;
+    animation: fadeInSealFull 0.16s ease-out 1.72s forwards;
+  }
+  .seal-ripple {
+    transform-origin: 383px 310px;
+    opacity: 0;
+    animation: pulseSealRipple 0.80s cubic-bezier(0.16, 1, 0.3, 1) 1.72s forwards;
+  }
+  .seal-o-glyph {
+    transform-origin: 383px 310px;
+    animation: stampPressO 0.42s cubic-bezier(0.2, 0.8, 0.3, 1) 1.72s forwards;
+  }
+  /* =====================================================================
+     EFFET BRUME PROGRESSIVE PAR LETTRE (ONDE DE FLOU ULTRA-FLUIDE D'UNE LETTRE DE LARGE)
+     Déplacement soyeux et continu de gauche à droite :
+       - À droite : fort blur (8px) et montée d'opacité en entrée
+       - À gauche : dissipation continue (5px -> 1.5px -> 0px)
+       - Zéro saccade : ancrage spatial fixe (sans décalage horizontal)
+     ===================================================================== */
+  .char-space {
+    display: inline;
+  }
+  .mist-char {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(8px);
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    animation: charMistExit 0.42s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+    will-change: opacity, filter;
+  }
+
+  @keyframes charMistExit {
+    0% {
+      opacity: 0;
+      filter: blur(8px);
+    }
+    30% {
+      /* Entrée dans la brume : fort blur à droite */
+      opacity: 0.7;
+      filter: blur(5px);
+    }
+    70% {
+      /* Transition vers la sortie : léger blur à gauche */
+      opacity: 0.95;
+      filter: blur(1.5px);
+    }
+    100% {
+      /* Sortie de la brume : aspect final net et instantané */
+      opacity: 1;
+      filter: blur(0px);
+    }
+  }
+
+  @keyframes drawSealLeft {
+    0% { stroke-dashoffset: 1050; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawSealRight {
+    0% { stroke-dashoffset: 1050; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes fadeInSealFull {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes pulseSealRipple {
+    0% {
+      transform: scale(0.8);
+      opacity: 0.65;
+      stroke-width: 5px;
+    }
+    40% {
+      opacity: 0.3;
+    }
+    100% {
+      transform: scale(1.4);
+      opacity: 0;
+      stroke-width: 1px;
+    }
+  }
+  @keyframes stampPressO {
+    0% { transform: scale(1); }
+    30% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+  }
+
+  /* =====================================================================
+     ANIMATION TYPOGRAPHIQUE « DIGITAL MARKETING SERVICES »
+     CHUTE DU POINT SUR LE « i » DE MARKETING (3 REBONDS) & SCINTILLEMENT AMPOULE
+     Chorégraphie :
+       1. État initial : le titre est estompé (taupe ultra-doux, opacité 20%),
+          seul le « i » de Marketing attend son point.
+       2. Le point du « i » de Marketing chute avec fluidité depuis le haut
+          et rebondit trois fois sans déformation (1.10s).
+       3. Dès qu'il a terminé son 3e rebond et s'est stabilisé (1.48s),
+          le mot scintille amplement façon ampoule à filament (1.15s)
+          puis se stabilise dans l'Espresso signature définitif.
+     ===================================================================== */
+  .bulb-char {
+    opacity: 0.20;
+    color: var(--color-taupe-light);
+    filter: blur(0.5px);
+    animation: bulbFlickerIgnite 1.15s cubic-bezier(0.16, 1, 0.3, 1) 1.48s forwards;
+    will-change: opacity, color, text-shadow, filter;
+  }
+
+  .i-letter-box {
+    line-height: inherit;
+  }
+
+  .i-stem {
+    -webkit-clip-path: inset(35% 0 0 0);
+    clip-path: inset(35% 0 0 0);
+  }
+
+  .i-dot-glyph {
+    -webkit-clip-path: inset(0 0 65% 0);
+    clip-path: inset(0 0 65% 0);
+  }
+
+  .i-dot-anim {
+    color: var(--color-espresso);
+    opacity: 0;
+    animation: bounceDotBall 1.10s cubic-bezier(0.25, 0.1, 0.25, 1) 0.35s forwards;
+    will-change: transform, opacity;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* Chute fluide et triple rebond rigide (apparence chic, épurée, luxe sans déformation) */
+  /* Le point animé reste constamment dans sa couleur finale Espresso */
+  /* Coordonnées en em pour une parfaite adaptabilité responsive à toutes les tailles d'écran (mobile à desktop 4K) */
+  @keyframes bounceDotBall {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, -1.6em, 0);
+      color: var(--color-espresso);
+    }
+    4% {
+      opacity: 1;
+      transform: translate3d(0, -1.32em, 0);
+      color: var(--color-espresso);
+    }
+    30% {
+      /* 1er impact au sol */
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+      color: var(--color-espresso);
+    }
+    46% {
+      /* Sommet 1er rebond (haut) */
+      transform: translate3d(0, -0.42em, 0);
+      opacity: 1;
+      color: var(--color-espresso);
+    }
+    62% {
+      /* 2e impact au sol */
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+      color: var(--color-espresso);
+    }
+    74% {
+      /* Sommet 2e rebond (moyen) */
+      transform: translate3d(0, -0.125em, 0);
+      opacity: 1;
+      color: var(--color-espresso);
+    }
+    84% {
+      /* 3e impact au sol */
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+      color: var(--color-espresso);
+    }
+    91% {
+      /* Sommet 3e et dernier rebond (micro-amorti) */
+      transform: translate3d(0, -0.035em, 0);
+      opacity: 1;
+      color: var(--color-espresso);
+    }
+    97% {
+      /* Atterrissage final */
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+      color: var(--color-espresso);
+    }
+    100% {
+      /* Reste stabilisé dans sa couleur finale Espresso */
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+      color: var(--color-espresso);
+    }
+  }
+
+  /* Scintillement d'allumage façon ampoule à filament (vitesse accrue / micro-pulsations vives sur 1.15s) */
+  @keyframes bulbFlickerIgnite {
+    0% {
+      opacity: 0.20;
+      color: var(--color-taupe-light);
+      filter: blur(0.5px);
+      text-shadow: none;
+    }
+    4% {
+      /* 1er arc électrique vif */
+      opacity: 0.82;
+      color: #8C5332;
+      filter: blur(0px);
+      text-shadow: 0 0 10px rgba(194, 155, 114, 0.7);
+    }
+    8% {
+      /* Micro-chute rapide */
+      opacity: 0.25;
+      color: var(--color-taupe-light);
+      text-shadow: none;
+    }
+    13% {
+      /* 2e impulsion filament */
+      opacity: 0.90;
+      color: #7D4B2A;
+      text-shadow: 0 0 14px rgba(216, 181, 143, 0.8), 0 0 25px rgba(189, 131, 92, 0.35);
+    }
+    18% {
+      /* Baisse brève */
+      opacity: 0.35;
+      color: var(--color-taupe);
+      text-shadow: 0 0 3px rgba(194, 155, 114, 0.2);
+    }
+    24% {
+      /* 3e allumage nerveux */
+      opacity: 0.78;
+      color: #6B422B;
+      text-shadow: 0 0 8px rgba(194, 155, 114, 0.5);
+    }
+    29% {
+      /* Creux rapide */
+      opacity: 0.40;
+      color: var(--color-taupe);
+      text-shadow: none;
+    }
+    36% {
+      /* 4e impulsion montante */
+      opacity: 0.95;
+      color: #553B2E;
+      text-shadow: 0 0 16px rgba(216, 181, 143, 0.85), 0 0 30px rgba(194, 155, 114, 0.4);
+    }
+    42% {
+      /* Micro-hésitation */
+      opacity: 0.55;
+      color: #6B4C3E;
+      text-shadow: 0 0 5px rgba(194, 155, 114, 0.25);
+    }
+    50% {
+      /* 5e surtension intense / filament rayonnant */
+      opacity: 1;
+      color: #4A352B;
+      text-shadow: 0 0 20px rgba(216, 181, 143, 0.9), 0 0 40px rgba(189, 131, 92, 0.45);
+    }
+    56% {
+      /* Micro-frémissement */
+      opacity: 0.68;
+      color: #553B2E;
+      text-shadow: 0 0 8px rgba(194, 155, 114, 0.3);
+    }
+    64% {
+      /* 6e battement chaud */
+      opacity: 0.96;
+      color: #432E25;
+      text-shadow: 0 0 12px rgba(194, 155, 114, 0.4);
+    }
+    70% {
+      /* Stabilisation progressive */
+      opacity: 0.80;
+      color: #3D2A22;
+      text-shadow: 0 0 5px rgba(194, 155, 114, 0.2);
+    }
+    80% {
+      /* Prise de régime plein */
+      opacity: 1;
+      color: var(--color-espresso);
+      text-shadow: 0 0 3px rgba(194, 155, 114, 0.1);
+    }
+    100% {
+      /* Apparence finale : Espresso profond, net, stable */
+      opacity: 1;
+      color: var(--color-espresso);
+      filter: blur(0px);
+      text-shadow: none;
+    }
+  }
+
+
   @media (prefers-reduced-motion: reduce) {
-    .calligraphy-mask-stroke {
+    .calligraphy-mask-stroke,
+    .tmb-mask-stroke,
+    .seal-mask-stroke {
       animation: none !important;
       opacity: 1 !important;
       stroke-dashoffset: 0 !important;
     }
-    .mask-full-fill {
+    .mask-full-fill,
+    .mask-seal-full-fill,
+    .tmb-piece-t-bar,
+    .tmb-piece-t-stem,
+    .tmb-piece-m-left,
+    .tmb-piece-m-right,
+    .tmb-piece-b-stem,
+    .tmb-piece-b-loops,
+    .seal-o-glyph,
+    .mist-char,
+    .bulb-char,
+    .i-stem,
+    .i-dot-glyph {
       animation: none !important;
       opacity: 1 !important;
+      color: var(--color-espresso) !important;
+      transform: none !important;
+      filter: none !important;
+      text-shadow: none !important;
+      -webkit-clip-path: none !important;
+      clip-path: none !important;
+    }
+    .seal-ripple,
+    .i-dot-anim {
+      display: none !important;
     }
   }
 }

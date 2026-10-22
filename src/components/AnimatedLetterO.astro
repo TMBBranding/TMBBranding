@@ -1,0 +1,52 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<span class={`inline-block align-baseline h-[0.625em] w-[0.766em] relative select-none ${className}`} aria-hidden="true">
+  <svg
+    viewBox="0 0 766 625"
+    class="block w-full h-full overflow-visible"
+    aria-hidden="true"
+  >
+    <defs>
+      <!-- Masque calligraphique pour le Sceau de Cire / Poinçon Circulaire (Lettre O) -->
+      <mask id="seal-o-mask">
+        <!-- 1. Arc calligraphique gauche (sommet vers bas) -->
+        <path
+          class="seal-mask-stroke mask-seal-left"
+          d="M 380 -5 C 200 -5, 84 120, 84 305 C 84 490, 200 630, 382 630"
+        />
+        <!-- 2. Arc calligraphique droit (sommet vers bas, décalage organique fluide) -->
+        <path
+          class="seal-mask-stroke mask-seal-right"
+          d="M 380 -5 C 565 -5, 680 120, 680 305 C 680 490, 565 630, 382 630"
+        />
+        <!-- Découvre 100% de la typographie dès la rencontre des deux arcs au sceau -->
+        <rect width="100%" height="100%" fill="#ffffff" class="mask-seal-full-fill" />
+      </mask>
+    </defs>
+
+    <!-- Onde d'estampille circulaire / Poinçon d'artisan (Sceau de cire) -->
+    <ellipse
+      cx="383"
+      cy="310"
+      rx="360"
+      ry="340"
+      fill="none"
+      stroke="currentColor"
+      class="seal-ripple text-terracotta"
+    />
+
+    <!-- Glyphe Cormorant Garamond masqué par la double plume avec micro-pression tactile d'estampage -->
+    <path
+      fill="currentColor"
+      mask="url(#seal-o-mask)"
+      class="seal-o-glyph"
+      d="M366 637Q294 637 235.50 611.50Q177 586 135.50 541Q94 496 71.50 437.50Q49 379 49 313Q49 232 80.50 171Q112 110 164 69.50Q216 29 278 9Q340-11 401-11Q475-11 533.50 15.50Q592 42 633 87Q674 132 695.50 189Q717 246 717 306Q717 376 689 436Q661 496 612.50 541Q564 586 500.50 611.50Q437 637 366 637M401 616Q469 616 523 583.50Q577 551 609 488Q641 425 641 334Q641 240 606.50 167.50Q572 95 508.50 53.50Q445 12 359 12Q248 12 186.50 83.50Q125 155 125 278Q125 349 144.50 410.50Q164 472 201 518.50Q238 565 289 590.50Q340 616 401 616"
+    />
+  </svg>
+</span>

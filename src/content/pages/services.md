@@ -7,6 +7,7 @@ subtitle: At TMB Branding, we partner with founder-led brands to bring visionary
   evolving something established, our approach is grounded in authenticity,
   creativity, and real results.
 inquiryButtonText: Inquire About This Service
+defaultDeliverablesHeading: "Services Include:"
 seo:
   metaTitle: Digital Marketing Services — TMB Branding
   metaDescription: "Explore our 6 core capabilities: Social Media Strategy,

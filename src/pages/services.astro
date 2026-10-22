@@ -2,16 +2,22 @@
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import { getCollection, getEntry } from 'astro:content';
+import type { ServicesPageData } from '../content/config';
 import fs from 'node:fs';
 import path from 'node:path';
 
 const allServices = await getCollection('services');
 const services = allServices.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
-function parseServiceContent(rawBody: string, fallbackDesc: string) {
+const servicesPageEntry = await getEntry('pages', 'services');
+const servicesPage = servicesPageEntry?.data as ServicesPageData | undefined;
+const defaultDeliverablesHeading = servicesPage?.defaultDeliverablesHeading || "Services Include:";
+const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This Service";
+
+function parseServiceContent(rawBody: string, fallbackDesc: string, fallbackDeliverables: string) {
   const body = rawBody.replace(/^---[\s\S]*?---\s*/, '').trim();
   const headingMatch = body.match(/^###\s*\*{0,2}(.*?)\*{0,2}\s*$/m);
-  const deliverablesHeading = headingMatch ? headingMatch[1].trim() : 'Services Include:';
+  const deliverablesHeading = headingMatch ? headingMatch[1].trim() : fallbackDeliverables;
   const descriptionPart = body.split(/^###/m)[0].trim();
   const description = descriptionPart || fallbackDesc;
   const deliverables = body
@@ -37,20 +43,16 @@ const parsedServices = services.map((service) => {
       raw = '';
     }
   }
-  const parsed = parseServiceContent(raw, service.data.shortDescription);
+  const parsed = parseServiceContent(raw, service.data.shortDescription, defaultDeliverablesHeading);
   return {
     service,
     ...parsed,
   };
 });
-
-const servicesPageEntry = await getEntry('pages', 'services');
-const servicesPage = servicesPageEntry?.data;
-const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This Service";
 ---
 
 <Layout
-  title={servicesPage?.seo?.metaTitle || "Digital Marketing Services — TMB Branding | Austin, TX"}
+  title={servicesPage?.seo?.metaTitle || "Digital Marketing Services — TMB Branding"}
   description={servicesPage?.seo?.metaDescription || "Explore our 6 core capabilities: Social Media Strategy, Strategic Partnerships, Thought Leadership, Email Marketing, Paid Social, and Events & Activations."}
   ogImage={servicesPage?.seo?.ogImage}
   currentPath="/services"
@@ -58,12 +60,44 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
   <!-- HERO HEADER (NO BOTTOM BORDER) -->
   <section class="pt-16 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="max-w-3xl space-y-6">
-        <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial">
-          {servicesPage?.title || "Digital Marketing Services"}
+      <div class="max-w-5xl space-y-6">
+        <h1
+          class="relative block w-full font-serif text-[clamp(2.1rem,6vw,4.5rem)] font-normal text-espresso leading-editorial lg:whitespace-nowrap"
+          aria-label={servicesPage?.title || "Digital Marketing Services"}
+        >
+          {(() => {
+            const rawTitle = servicesPage?.title || "Digital Marketing Services";
+            const words = rawTitle.split(' ');
+
+            return words.map((word, wIdx) => {
+              const chars = word.split('');
+              const isMarketing = word.toLowerCase() === 'marketing';
+
+              return (
+                <><span class="inline-block whitespace-nowrap">{chars.map((char) => {
+                  // Seul le 'i' du mot "Marketing" a son point qui chute et rebondit
+                  if (isMarketing && char === 'i') {
+                    return (
+                      <span class="i-letter-box relative inline-block align-baseline" aria-hidden="true">
+                        <!-- Tige du i de Marketing (point tronqué) -->
+                        <span class="i-stem block bulb-char">{char}</span>
+                        <!-- Point du i unique de Marketing qui tombe et rebondit avec fluidité -->
+                        <span class="i-dot-anim absolute inset-0 block pointer-events-none">
+                          <span class="i-dot-glyph block">{char}</span>
+                        </span>
+                      </span>
+                    );
+                  }
+                  return (
+                    <span class="bulb-char inline-block" aria-hidden="true">{char}</span>
+                  );
+                })}</span>{wIdx < words.length - 1 && ' '}</>
+              );
+            });
+          })()}
         </h1>
         {servicesPage?.subtitle && (
-          <p class="text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans">
+          <p class="max-w-3xl text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans">
             {servicesPage.subtitle}
           </p>
         )}
@@ -80,26 +114,26 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
       return (
         <section
           id={service.id.replace(/\.md$/, '')}
-          class={`relative w-full min-h-[100dvh] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-0 transition-colors duration-500 ${
+          class={`service-section relative w-full min-h-[100dvh] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-14 sm:scroll-mt-16 transition-colors duration-500 ${
             isEspresso
               ? 'bg-espresso text-creme-powder'
               : 'bg-creme-powder text-espresso'
           }`}
         >
           <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full my-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 xl:gap-16 items-center">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-10 xl:gap-16 items-center">
               
               <!-- Visual Column (No Hover Effects) -->
               <div class={`lg:col-span-6 ${isVisualRight ? 'lg:order-2' : 'lg:order-1'}`}>
                 <div
-                  class={`relative aspect-[16/10] sm:aspect-[16/10] lg:aspect-[4/3] max-h-[26vh] sm:max-h-[30vh] lg:max-h-[52vh] overflow-hidden shadow-warm w-full mx-auto ${
+                  class={`service-image-box relative aspect-[16/10] sm:aspect-[16/10] lg:aspect-[4/3] max-h-[26vh] sm:max-h-[30vh] lg:max-h-[52vh] overflow-hidden shadow-warm w-full mx-auto ${
                     isEspresso
                       ? 'bg-espresso-deep'
                       : 'bg-creme-alabaster'
                   }`}
                 >
                   <img
-                    src={service.data.coverImage}
+                    src={service.data.detailImage || service.data.coverImage || service.data.cardImage}
                     alt={service.data.title}
                     class="w-full h-full object-cover object-center"
                     loading="lazy"
@@ -108,7 +142,7 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
               </div>
 
               <!-- Content Column -->
-              <div class={`lg:col-span-6 space-y-4 sm:space-y-5 lg:space-y-6 ${isVisualRight ? 'lg:order-1' : 'lg:order-2'}`}>
+              <div class={`service-content-box lg:col-span-6 space-y-4 sm:space-y-5 lg:space-y-6 ${isVisualRight ? 'lg:order-1' : 'lg:order-2'}`}>
                 <!-- Title -->
                 <h2
                   class={`font-serif text-3xl sm:text-4xl lg:text-5xl leading-tight ${
@@ -128,7 +162,7 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
                 </p>
 
                 <!-- Deliverables Presentation Block (No Line, No Bar, Original Font in Bold) -->
-                <div class="mt-4 sm:mt-6 lg:mt-8">
+                <div class="service-deliverables mt-4 sm:mt-6 lg:mt-8">
                   <!-- Label / Heading -->
                   <h3
                     class={`font-sans font-bold text-sm sm:text-base mb-2.5 sm:mb-3.5 ${
@@ -156,7 +190,7 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
                 </div>
 
                 <!-- Direct Inquiry Button -->
-                <div class="pt-4 sm:pt-6">
+                <div class="service-inquiry-btn pt-4 sm:pt-6">
                   {isEspresso ? (
                     <a
                       href={`/contact?service=${encodeURIComponent(service.data.title)}`}
@@ -188,23 +222,132 @@ const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This
   </div>
 </Layout>
 
+<style>
+  /* iPad Pro 13" (1024x1366 / 1032x1376 in portrait & 1366x1024 / 1376x1032 in landscape): Display 2 services per page */
+  @media (min-width: 1024px) and (max-width: 1032px),
+         (min-width: 1024px) and (max-width: 1376px) and (min-height: 950px),
+         (pointer: coarse) and (min-width: 1024px) and (max-width: 1376px) {
+    .service-section {
+      min-height: 50dvh !important;
+      padding-top: 1.25rem !important;
+      padding-bottom: 1.25rem !important;
+    }
+
+    .service-section .service-image-box {
+      max-height: 22vh !important;
+      aspect-ratio: 16 / 10 !important;
+    }
+
+    .service-section .service-content-box {
+      row-gap: 0.75rem !important;
+    }
+
+    .service-section h2 {
+      font-size: 1.85rem !important;
+      line-height: 1.2 !important;
+    }
+
+    .service-section p {
+      font-size: 0.875rem !important;
+      line-height: 1.5 !important;
+    }
+
+    .service-section .service-deliverables {
+      margin-top: 0.625rem !important;
+    }
+
+    .service-section .service-deliverables h3 {
+      font-size: 0.8125rem !important;
+      margin-bottom: 0.25rem !important;
+    }
+
+    .service-section .service-deliverables ul {
+      row-gap: 0.25rem !important;
+    }
+
+    .service-section .service-deliverables li {
+      font-size: 0.8125rem !important;
+      line-height: 1.35 !important;
+    }
+
+    .service-section .service-inquiry-btn {
+      padding-top: 0.625rem !important;
+    }
+
+    .service-section .service-inquiry-btn :global(a) {
+      padding: 0.5rem 1.25rem !important;
+      font-size: 0.6875rem !important;
+    }
+  }
+</style>
+
 <script is:inline>
-  const alignServiceHash = () => {
+  // Disable automatic browser scroll restoration when landing with a hash
+  if ('scrollRestoration' in history && window.location.hash) {
+    history.scrollRestoration = 'manual';
+  }
+
+  const getHeaderHeight = () => {
+    const header = document.getElementById('site-header');
+    if (!header) return window.innerWidth >= 640 ? 64 : 56;
+    const rect = header.getBoundingClientRect();
+    return rect.height || (window.innerWidth >= 640 ? 64 : 56);
+  };
+
+  const alignServiceHash = (smooth = false) => {
     if (!window.location.hash) return;
-    const target = document.querySelector(window.location.hash);
+    const hash = window.location.hash;
+    const target = document.querySelector(hash);
     if (!target) return;
-    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+
+    const header = document.getElementById('site-header');
+    header?.classList.remove('-translate-y-full');
+
+    const headerHeight = getHeaderHeight();
+    const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const targetRect = target.getBoundingClientRect();
+    const targetTop = targetRect.top + currentScrollY;
+    const scrollToY = Math.max(0, targetTop - headerHeight);
+
     window.scrollTo({
-      top: Math.max(0, targetTop),
-      behavior: 'smooth'
+      top: scrollToY,
+      behavior: smooth ? 'smooth' : 'auto'
     });
   };
 
   if (window.location.hash) {
-    alignServiceHash();
+    // Stage 1: Instant alignment immediately upon script execution
+    alignServiceHash(false);
+
+    // Stage 2: Next frame after initial DOM calculation
+    requestAnimationFrame(() => {
+      alignServiceHash(false);
+    });
+
+    // Stage 3: When DOM is fully interactive
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        alignServiceHash(false);
+      });
+    }
+
+    // Stage 4: When typography and custom fonts are fully rendered
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        alignServiceHash(false);
+      });
+    }
+
+    // Stage 5: When all assets (images, stylesheets) finish loading
     window.addEventListener('load', () => {
-      setTimeout(alignServiceHash, 50);
+      alignServiceHash(false);
+      setTimeout(() => alignServiceHash(false), 50);
+      setTimeout(() => alignServiceHash(false), 200);
+      setTimeout(() => alignServiceHash(false), 500);
     });
   }
-  window.addEventListener('hashchange', alignServiceHash);
+
+  window.addEventListener('hashchange', () => {
+    alignServiceHash(true);
+  });
 </script>

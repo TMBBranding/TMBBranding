@@ -18,6 +18,8 @@ const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0
 
 const heroVideoUrl = home.hero.video || "/videos/hero-workspace.mp4";
 const heroPosterUrl = home.hero.posterImage || "/videos/preview-frame.jpg";
+const videoPlayLabel = home.hero.videoPlayLabel || "Play video";
+const videoPauseLabel = home.hero.videoPauseLabel || "Pause video";
 
 function getFirstSentence(text?: string): string {
   if (!text) return '';
@@ -33,8 +35,8 @@ function getFirstSentence(text?: string): string {
   ogImage={home.seo.ogImage}
   currentPath="/"
 >
-  <!-- 1. HERO VIDEO SECTION -->
-  <section class="relative w-full h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] min-h-[540px] flex items-center justify-center overflow-hidden">
+  <!-- 1. HERO VIDEO SECTION (Sticky Parallax Curtain) -->
+  <section class="sticky top-14 sm:top-16 z-10 w-full h-[calc(100dvh-3.5rem)] sm:h-[calc(100dvh-4rem)] min-h-[540px] flex items-center justify-center overflow-hidden">
     <!-- Background Video with AutoPlay, Loop, Muted, Playsinline -->
     <video
       id="hero-video"
@@ -70,42 +72,35 @@ function getFirstSentence(text?: string): string {
       )}
 
       <!-- Main Title with Calligraphic Animated E -->
-      <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal leading-[1.08] tracking-tight text-white drop-shadow-md max-w-4xl mx-auto">
+      <h1 class="hero-title font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal leading-[1.08] tracking-tight text-white drop-shadow-md max-w-4xl mx-auto">
         {(() => {
-          const title = home.hero.title || "Elevating Founder-Led Brands";
-          const hasFounderLed = title.includes('Founder-Led');
-          const [before, ...afterParts] = hasFounderLed ? title.split('Founder-Led') : [title];
-          const after = afterParts.join('Founder-Led');
-          
-          const trimmedBefore = before.trimStart();
-          const startsWithE = trimmedBefore.startsWith('E');
-          const firstSpace = before.indexOf(' ');
-          const firstWord = firstSpace !== -1 ? before.slice(0, firstSpace) : before;
-          const restOfBefore = firstSpace !== -1 ? before.slice(firstSpace) : '';
+          const rawTitle = home.hero.title || "Elevating Founder-Led Brands";
+          const firstSpace = rawTitle.trimStart().indexOf(' ');
+          const firstWord = firstSpace !== -1 ? rawTitle.trimStart().slice(0, firstSpace) : rawTitle;
+          const rest = firstSpace !== -1 ? rawTitle.trimStart().slice(firstSpace).trim() : '';
+
+          let italic = '';
+          let afterItalic = '';
+          if (rest.includes('Founder-Led')) {
+            italic = 'Founder-Led';
+            afterItalic = rest.split('Founder-Led').slice(1).join('Founder-Led').trim();
+          } else {
+            afterItalic = rest;
+          }
 
           return (
             <>
-              {startsWithE ? (
-                <>
-                  <span class="inline-block"><AnimatedLetterE />{firstWord.trimStart().slice(1)}</span>
-                  {restOfBefore}
-                </>
-              ) : (
-                before
-              )}
-              {hasFounderLed && (
-                <>
-                  <span class="italic whitespace-nowrap">Founder-Led</span>
-                  {after}
-                </>
-              )}
+              <span class="relative inline-block align-baseline">
+                <span>{firstWord}</span>
+                <span class="elevating-trail absolute inset-0 pointer-events-none select-none text-white" aria-hidden="true">{firstWord}</span>
+              </span>{italic ? <> <span class="italic whitespace-nowrap">{italic}</span><br />{afterItalic}</> : <><br />{afterItalic}</>}
             </>
           );
         })()}
       </h1>
 
       <!-- Subtitle -->
-      <p class="text-base sm:text-lg md:text-xl text-creme-powder/90 font-light leading-relaxed max-w-2xl mx-auto font-sans drop-shadow-sm">
+      <p class="hero-subtitle text-base sm:text-lg md:text-xl text-creme-powder/90 font-light leading-relaxed max-w-2xl mx-auto font-sans drop-shadow-sm">
         {home.hero.subtitle}
       </p>
     </div>
@@ -115,9 +110,11 @@ function getFirstSentence(text?: string): string {
       <button
         id="hero-video-toggle"
         type="button"
+        data-play-label={videoPlayLabel}
+        data-pause-label={videoPauseLabel}
         class="group w-5.5 h-5.5 sm:w-6 sm:h-6 rounded-full bg-white/70 hover:bg-white text-espresso/80 hover:text-espresso backdrop-blur-xs shadow-xs flex items-center justify-center transition-all duration-300 focus:outline-none focus:ring-1 focus:ring-white/80 cursor-pointer"
-        aria-label="Pause video"
-        title="Pause"
+        aria-label={videoPauseLabel}
+        title={videoPauseLabel}
       >
         <!-- Pause Icon (shown when playing) -->
         <svg
@@ -140,7 +137,9 @@ function getFirstSentence(text?: string): string {
     </div>
   </section>
 
-  <!-- 2. SERVICES GRID -->
+  <!-- 2. SCROLLING CONTENT WRAPPER (Slides up over the fixed hero video) -->
+  <div class="relative z-20 shadow-[0_-25px_50px_rgba(0,0,0,0.4)] bg-creme-powder">
+    <!-- 2. SERVICES GRID -->
   <section class="py-24 sm:py-32 bg-espresso text-creme-powder border-b border-espresso-deep/40">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <!-- Section Header (Centered, no button) -->
@@ -160,7 +159,7 @@ function getFirstSentence(text?: string): string {
                 <!-- Service Image Ratio 16/10 -->
                 <a href={serviceAnchor} class="block relative aspect-[16/10] overflow-hidden bg-creme-alabaster">
                   <img
-                    src={service.data.coverImage}
+                    src={service.data.cardImage || service.data.coverImage}
                     alt={service.data.title}
                     class="w-full h-full object-cover object-center slow-zoom"
                     loading="lazy"
@@ -258,6 +257,7 @@ function getFirstSentence(text?: string): string {
 
     </div>
   </section>
+  </div>
 </Layout>
 
 <script is:inline>
@@ -268,17 +268,20 @@ function getFirstSentence(text?: string): string {
   const heroPlayIcon = document.getElementById('hero-video-play-icon');
 
   if (heroVideo && heroVideoToggle && heroPauseIcon && heroPlayIcon) {
+    const playLabel = heroVideoToggle.getAttribute('data-play-label') || 'Play video';
+    const pauseLabel = heroVideoToggle.getAttribute('data-pause-label') || 'Pause video';
+
     const updatePlayPauseUI = (isPaused) => {
       if (isPaused) {
         heroPauseIcon.classList.add('hidden');
         heroPlayIcon.classList.remove('hidden');
-        heroVideoToggle.setAttribute('aria-label', 'Play video');
-        heroVideoToggle.setAttribute('title', 'Play');
+        heroVideoToggle.setAttribute('aria-label', playLabel);
+        heroVideoToggle.setAttribute('title', playLabel);
       } else {
         heroPlayIcon.classList.add('hidden');
         heroPauseIcon.classList.remove('hidden');
-        heroVideoToggle.setAttribute('aria-label', 'Pause video');
-        heroVideoToggle.setAttribute('title', 'Pause');
+        heroVideoToggle.setAttribute('aria-label', pauseLabel);
+        heroVideoToggle.setAttribute('title', pauseLabel);
       }
     };
 
@@ -368,3 +371,119 @@ function getFirstSentence(text?: string): string {
     startTestimonialsAutoPlay();
   }
 </script>
+
+<style>
+  /* 1. Synchronized editorial entrance of the hero title */
+  .hero-title {
+    will-change: transform, opacity, filter;
+    animation: heroTitleRise 1.5s cubic-bezier(0.33, 1, 0.68, 1) 0.3s both;
+  }
+
+  @keyframes heroTitleRise {
+    0% {
+      opacity: 0.05;
+      transform: translateY(0.35em);
+      filter: blur(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
+    }
+  }
+
+  /* 2. Upward ascending trail: graceful, floating elevation echo */
+  /* Perfectly fluid, single continuous ease-out curve, zero hitch, mirrors rising motion */
+  .elevating-trail {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    user-select: none;
+    opacity: 0;
+    color: inherit;
+    will-change: transform, opacity, filter;
+    animation: elevatingAscend 3s cubic-bezier(0.33, 1, 0.68, 1) 1.08s forwards;
+  }
+
+  @keyframes elevatingAscend {
+    0% {
+      opacity: 0.55;
+      transform: translateY(0);
+      filter: blur(1px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-1.0em);
+      filter: blur(8px);
+    }
+  }
+
+  /* 3. Subtitle: smooth fade-in once "Elevating" locks into its final resting position (0.3s + 1.5s = 1.8s) */
+  .hero-subtitle {
+    will-change: opacity, transform;
+    animation: heroSubtitleFadeIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.8s both;
+  }
+
+  @keyframes heroSubtitleFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Mobile: accentuated motion amplitudes (< 640px) */
+  @media (max-width: 639px) {
+    .hero-title {
+      animation-name: heroTitleRiseMobile;
+    }
+    .elevating-trail {
+      animation-name: elevatingAscendMobile;
+    }
+  }
+
+  @keyframes heroTitleRiseMobile {
+    0% {
+      opacity: 0.05;
+      transform: translateY(0.45em);
+      filter: blur(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0px);
+    }
+  }
+
+  @keyframes elevatingAscendMobile {
+    0% {
+      opacity: 0.55;
+      transform: translateY(0);
+      filter: blur(1px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-1.85em);
+      filter: blur(8px);
+    }
+  }
+
+  /* Accessibility: respect user preference for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-title,
+    .hero-subtitle {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+    .elevating-trail {
+      display: none !important;
+    }
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import AnimatedTMB from '../components/AnimatedTMB.astro';
 import { getEntry } from 'astro:content';
 import type { AboutPageData } from '../content/config';
 
@@ -18,20 +19,35 @@ function renderMarkdownLinks(text?: string) {
 }
 
 // Split the body into paragraphs.
-// The story up to "Then a transition into beauty" goes beside the photo.
-// "Then a transition into beauty" and following paragraphs go under the photo and span across the page.
+// Supports:
+// 1. Explicit <!-- split --> delimiter in the markdown
+// 2. Or configured paragraphsBesidePhoto number in Decap CMS
+// 3. Or automatic fallback (legacy phrase or 3 paragraphs)
 const rawBody = about.bioFounder.body || '';
-const allParagraphs = rawBody
-  .split(/\n\s*\n/)
-  .map((p) => p.trim())
-  .filter(Boolean);
+let topParagraphs: string[] = [];
+let bottomParagraphs: string[] = [];
 
-const splitIndex = allParagraphs.findIndex((p) =>
-  p.toLowerCase().includes('then a transition')
-);
+if (rawBody.includes('<!-- split -->')) {
+  const [topPart, ...bottomParts] = rawBody.split('<!-- split -->');
+  topParagraphs = topPart.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+  bottomParagraphs = bottomParts.join('\n\n').split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+} else {
+  const allParagraphs = rawBody
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean);
 
-const topParagraphs = splitIndex > 0 ? allParagraphs.slice(0, splitIndex) : allParagraphs.slice(0, 3);
-const bottomParagraphs = splitIndex > 0 ? allParagraphs.slice(splitIndex) : allParagraphs.slice(3);
+  const legacyIndex = allParagraphs.findIndex((p) =>
+    p.toLowerCase().includes('then a transition')
+  );
+
+  const splitIndex = typeof about.paragraphsBesidePhoto === 'number'
+    ? about.paragraphsBesidePhoto
+    : (legacyIndex > 0 ? legacyIndex : 3);
+
+  topParagraphs = allParagraphs.slice(0, splitIndex);
+  bottomParagraphs = allParagraphs.slice(splitIndex);
+}
 ---
 
 <Layout
@@ -45,7 +61,46 @@ const bottomParagraphs = splitIndex > 0 ? allParagraphs.slice(splitIndex) : allP
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="max-w-3xl">
         <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial">
-          {about.hero.title}
+          {(() => {
+            const rawTitle = (about.hero.title || "Building TMB").trim();
+            
+            // Check for explicit asterisks like "Building *TMB*"
+            const asteriskMatch = rawTitle.match(/^(.*?)\*(.*?)\*(.*)$/);
+            if (asteriskMatch) {
+              const [, before, tmbPart, after] = asteriskMatch;
+              return (
+                <>
+                  {before.trimEnd()}
+                  <span class="inline-block ml-3 sm:ml-4 lg:ml-5">
+                    {tmbPart.trim().toUpperCase() === 'TMB' ? (
+                      <AnimatedTMB class="text-espresso fill-espresso" />
+                    ) : (
+                      <span class="font-sans font-extralight tracking-normal text-[0.88em] inline-block align-baseline">{tmbPart}</span>
+                    )}
+                  </span>
+                  {after}
+                </>
+              );
+            }
+            
+            // Or automatically detect "TMB"
+            if (rawTitle.includes('TMB')) {
+              const parts = rawTitle.split('TMB');
+              const before = parts[0];
+              const after = parts.slice(1).join('TMB');
+              return (
+                <>
+                  {before.trimEnd()}
+                  <span class="inline-block ml-3 sm:ml-4 lg:ml-5">
+                    <AnimatedTMB class="text-espresso fill-espresso" />
+                  </span>
+                  {after}
+                </>
+              );
+            }
+            
+            return rawTitle;
+          })()}
         </h1>
       </div>
     </div>
@@ -54,10 +109,10 @@ const bottomParagraphs = splitIndex > 0 ? allParagraphs.slice(splitIndex) : allP
   <!-- 2. BIO FOUNDER SECTION (TIFFANY) -->
   <section class="pb-24 sm:pb-32">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start lg:items-center">
         
         <!-- Portrait Column with Studio Framing -->
-        <div class="lg:col-span-5">
+        <div class="lg:col-span-5 lg:self-center">
           <div class="relative">
             <!-- Warm Ambient Shadow -->
             <div class="absolute -inset-2 bg-gradient-to-tr from-creme-border/50 via-taupe/10 to-transparent blur-lg opacity-60"></div>
@@ -65,7 +120,7 @@ const bottomParagraphs = splitIndex > 0 ? allParagraphs.slice(splitIndex) : allP
             <div class="relative aspect-[3/4] overflow-hidden bg-creme-alabaster border border-creme-border shadow-warm-lg">
               <img
                 src={about.bioFounder.portraitImage}
-                alt={`Portrait of ${about.bioFounder.name}`}
+                alt={about.bioFounder.portraitAlt || `Portrait of ${about.bioFounder.name}`}
                 class="w-full h-full object-cover object-top"
                 loading="lazy"
               />
@@ -95,7 +150,7 @@ const bottomParagraphs = splitIndex > 0 ? allParagraphs.slice(splitIndex) : allP
 
       <!-- Bottom Full-Width Story: Starts with "Then a transition into beauty" under the photo -->
       {bottomParagraphs.length > 0 && (
-        <div class="mt-12 sm:mt-16 lg:mt-20 max-w-5xl space-y-6 sm:space-y-8 text-taupe text-base sm:text-lg font-light leading-relaxed">
+        <div class="mt-4 sm:mt-6 lg:mt-6 space-y-6 sm:space-y-8 text-taupe text-base sm:text-lg font-light leading-relaxed">
           {bottomParagraphs.map((paragraph) => (
             <p>{paragraph}</p>
           ))}

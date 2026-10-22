@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import AnimatedLetterO from '../components/AnimatedLetterO.astro';
 import { getCollection, getEntry, render } from 'astro:content';
+import type { BrandsPageData } from '../content/config';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -70,11 +72,11 @@ const renderedBrands = await Promise.all(
 );
 
 const brandsPageEntry = await getEntry('pages', 'brands');
-const brandsPage = brandsPageEntry?.data;
+const brandsPage = brandsPageEntry?.data as BrandsPageData | undefined;
 ---
 
 <Layout
-  title={brandsPage?.seo?.metaTitle || "Our Brands & Case Studies — TMB Branding | Austin, TX"}
+  title={brandsPage?.seo?.metaTitle || "Our Brands & Case Studies — TMB Branding"}
   description={brandsPage?.seo?.metaDescription || "Explore our portfolio of founder-led fashion, beauty, wellness, and lifestyle brands, including Surya by Martha Soffer, N2B4B, Influxious, Recess, L'Une, and OPI."}
   ogImage={brandsPage?.seo?.ogImage}
   currentPath="/brands"
@@ -83,8 +85,51 @@ const brandsPage = brandsPageEntry?.data;
   <section class="pt-16 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="max-w-3xl space-y-6">
-        <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial">
-          {brandsPage?.title || "Our Brands"}
+        <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial" aria-label={brandsPage?.title || "Our Brands"}>
+          {(() => {
+            const rawTitle = brandsPage?.title || "Our Brands";
+            const trimmed = rawTitle.trimStart();
+            const startsWithO = /^[OoÔôÖö]/.test(trimmed);
+
+            if (!startsWithO) {
+              return rawTitle;
+            }
+
+            const restOfTitle = trimmed.slice(1);
+            const baseDelay = 1.68;
+            const stagger = 0.055;
+
+            let charIndex = 0;
+            const words = restOfTitle.split(/(\s+)/);
+
+            return (
+              <>
+                <span class="inline-block" aria-hidden="true"><AnimatedLetterO /></span>{words.map((chunk) => {
+                  if (/^\s+$/.test(chunk)) {
+                    charIndex += 0.5;
+                    return <span class="char-space" aria-hidden="true">&nbsp;</span>;
+                  }
+                  return (
+                    <span class="inline-block whitespace-nowrap" aria-hidden="true">
+                      {chunk.split('').map((char) => {
+                        const delay = (baseDelay + charIndex * stagger).toFixed(3);
+                        charIndex++;
+                        return (
+                          <span
+                            class="mist-char"
+                            style={`animation-delay: ${delay}s;`}
+                            aria-hidden="true"
+                          >
+                            {char}
+                          </span>
+                        );
+                      })}
+                    </span>
+                  );
+                })}
+              </>
+            );
+          })()}
         </h1>
         {brandsPage?.subtitle && (
           <p class="text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans">
@@ -102,13 +147,13 @@ const brandsPage = brandsPageEntry?.data;
       return (
         <section
           id={brand.id.replace(/\.md$/, '')}
-          class="relative w-full min-h-[100dvh] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-0 transition-colors duration-500"
+          class="brand-section relative w-full min-h-[100dvh] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-14 sm:scroll-mt-16 transition-colors duration-500"
         >
           <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full my-auto">
-            <article class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-14 xl:gap-16 items-center">
+            <article class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-10 xl:gap-16 items-center">
               <!-- Imagery Container (Square 1:1 Ratio, No White Frame, object-top for portrait) -->
               <div class={`lg:col-span-6 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
-                <div class="relative w-full aspect-square max-h-[34vh] sm:max-h-[40vh] lg:max-h-[58vh] max-w-[34vh] sm:max-w-[40vh] lg:max-w-[58vh] overflow-hidden shadow-warm bg-creme-alabaster mx-auto">
+                <div class="brand-image-box relative w-full aspect-square max-h-[34vh] sm:max-h-[40vh] lg:max-h-[58vh] max-w-[34vh] sm:max-w-[40vh] lg:max-w-[58vh] overflow-hidden shadow-warm bg-creme-alabaster mx-auto">
                   <img
                     src={brand.data.coverImage}
                     alt={brand.data.name}
@@ -119,7 +164,7 @@ const brandsPage = brandsPageEntry?.data;
               </div>
 
               <!-- Editorial Copy Column -->
-              <div class={`lg:col-span-6 space-y-4 sm:space-y-5 lg:space-y-6 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
+              <div class={`brand-content-box lg:col-span-6 space-y-4 sm:space-y-5 lg:space-y-6 ${isReversed ? 'lg:order-1' : 'lg:order-2'}`}>
                 <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-tight">
                   {brand.data.name}
                 </h2>
@@ -137,23 +182,109 @@ const brandsPage = brandsPageEntry?.data;
   </div>
 </Layout>
 
+<style>
+  /* iPad Pro 13" (1024x1366 / 1032x1376 in portrait & 1366x1024 / 1376x1032 in landscape): Display 2 brands per page */
+  @media (min-width: 1024px) and (max-width: 1032px),
+         (min-width: 1024px) and (max-width: 1376px) and (min-height: 950px),
+         (pointer: coarse) and (min-width: 1024px) and (max-width: 1376px) {
+    .brand-section {
+      min-height: 50dvh !important;
+      padding-top: 1.25rem !important;
+      padding-bottom: 1.25rem !important;
+    }
+
+    .brand-section .brand-image-box {
+      max-height: 25vh !important;
+      max-width: 25vh !important;
+    }
+
+    .brand-section .brand-content-box {
+      row-gap: 0.75rem !important;
+    }
+
+    .brand-section h2 {
+      font-size: 1.85rem !important;
+      line-height: 1.2 !important;
+    }
+
+    .brand-section .brand-content {
+      row-gap: 0.5rem !important;
+    }
+
+    .brand-section .brand-content :global(p) {
+      font-size: 0.875rem !important;
+      line-height: 1.5 !important;
+    }
+  }
+</style>
+
 <script is:inline>
-  const alignBrandHash = () => {
+  // Disable automatic browser scroll restoration when landing with a hash
+  if ('scrollRestoration' in history && window.location.hash) {
+    history.scrollRestoration = 'manual';
+  }
+
+  const getHeaderHeight = () => {
+    const header = document.getElementById('site-header');
+    if (!header) return window.innerWidth >= 640 ? 64 : 56;
+    const rect = header.getBoundingClientRect();
+    return rect.height || (window.innerWidth >= 640 ? 64 : 56);
+  };
+
+  const alignBrandHash = (smooth = false) => {
     if (!window.location.hash) return;
-    const target = document.querySelector(window.location.hash);
+    const hash = window.location.hash;
+    const target = document.querySelector(hash);
     if (!target) return;
-    const targetTop = target.getBoundingClientRect().top + window.scrollY;
+
+    const header = document.getElementById('site-header');
+    header?.classList.remove('-translate-y-full');
+
+    const headerHeight = getHeaderHeight();
+    const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+    const targetRect = target.getBoundingClientRect();
+    const targetTop = targetRect.top + currentScrollY;
+    const scrollToY = Math.max(0, targetTop - headerHeight);
+
     window.scrollTo({
-      top: Math.max(0, targetTop),
-      behavior: 'smooth'
+      top: scrollToY,
+      behavior: smooth ? 'smooth' : 'auto'
     });
   };
 
   if (window.location.hash) {
-    alignBrandHash();
+    // Stage 1: Instant alignment immediately upon script execution
+    alignBrandHash(false);
+
+    // Stage 2: Next frame after initial DOM calculation
+    requestAnimationFrame(() => {
+      alignBrandHash(false);
+    });
+
+    // Stage 3: When DOM is fully interactive
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        alignBrandHash(false);
+      });
+    }
+
+    // Stage 4: When typography and custom fonts are fully rendered
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        alignBrandHash(false);
+      });
+    }
+
+    // Stage 5: When all assets (images, stylesheets) finish loading
     window.addEventListener('load', () => {
-      setTimeout(alignBrandHash, 50);
+      alignBrandHash(false);
+      setTimeout(() => alignBrandHash(false), 50);
+      setTimeout(() => alignBrandHash(false), 200);
+      setTimeout(() => alignBrandHash(false), 500);
     });
   }
-  window.addEventListener('hashchange', alignBrandHash);
+
+  window.addEventListener('hashchange', () => {
+    alignBrandHash(true);
+  });
 </script>

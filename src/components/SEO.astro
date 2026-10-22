@@ -5,15 +5,27 @@ interface Props {
   canonicalURL?: string | URL;
   ogImage?: string;
   ogType?: 'website' | 'article' | 'profile';
+  ogLocale?: string;
+  companyName?: string;
+  phone?: string;
+  founderName?: string;
+  founderTitle?: string;
+  companyAddressLocality?: string;
   noindex?: boolean;
 }
 
 const {
-  title = 'TMB Branding | Founder-Led Branding Agency Austin TX',
-  description = 'Boutique branding and digital agency in Austin, TX elevating visionary founder-led fashion, beauty, and lifestyle brands to cultural authority.',
+  title = 'TMB Branding | Founder-Led Branding Agency',
+  description = 'Boutique branding and digital agency elevating visionary founder-led fashion, beauty, and lifestyle brands to cultural authority.',
   canonicalURL = new URL(Astro.url.pathname, Astro.site ?? 'https://tmbbranding.com'),
   ogImage = '/images/uploads/hero-home.jpg',
   ogType = 'website',
+  ogLocale = 'en_US',
+  companyName = 'TMB Branding',
+  phone = '+1-512-529-1677',
+  founderName = 'Tiffany',
+  founderTitle = 'Founder & Creative Director',
+  companyAddressLocality = 'International',
   noindex = false,
 } = Astro.props;
 
@@ -25,18 +37,17 @@ const resolvedOgImage = new URL(ogImage, siteUrl).href;
 const schemaOrgData = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  name: 'TMB Branding',
-  alternateName: 'TMB Creative Direction & Brand Architecture',
+  name: companyName,
+  alternateName: `${companyName} Creative Direction & Brand Architecture`,
   url: siteUrl.toString(),
   description: description,
   image: resolvedOgImage,
   logo: new URL('/favicon.svg', siteUrl).href,
-  telephone: '+1-512-529-1677',
+  telephone: phone,
   priceRange: '$$$$',
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'Austin',
-    addressRegion: 'TX',
+    addressLocality: companyAddressLocality,
     addressCountry: 'US',
   },
   geo: {
@@ -46,14 +57,14 @@ const schemaOrgData = {
   },
   founder: {
     '@type': 'Person',
-    name: 'Tiffany',
-    jobTitle: 'Founder & Creative Director',
+    name: founderName,
+    jobTitle: founderTitle,
     image: new URL('/images/uploads/founder-tiffany.png', siteUrl).href,
   },
   areaServed: [
     {
       '@type': 'AdministrativeArea',
-      name: 'Austin, Texas',
+      name: companyAddressLocality,
     },
     {
       '@type': 'Country',
@@ -89,13 +100,13 @@ const schemaOrgData = {
 )}
 
 <!-- Open Graph / Facebook -->
-<meta property="og:site_name" content="TMB Branding" />
+<meta property="og:site_name" content={companyName} />
 <meta property="og:type" content={ogType} />
 <meta property="og:url" content={resolvedCanonical} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={resolvedOgImage} />
-<meta property="og:locale" content="en_US" />
+<meta property="og:locale" content={ogLocale} />
 
 <!-- Twitter Card -->
 <meta property="twitter:card" content="summary_large_image" />

@@ -10,14 +10,19 @@ const { currentPath = Astro.url.pathname } = Astro.props;
 const settingsEntry = await getEntry('pages', 'settings');
 const settings = settingsEntry?.data;
 const phone = settings?.phone || "+1 512 529 1677";
-const location = settings?.location || "Austin, TX";
+const location = settings?.location || "International";
+const brandName = settings?.brandName || "TMB BRANDING";
 
-const navItems = [
+const defaultNavItems = [
   { label: 'Services', href: '/services' },
   { label: 'Brands', href: '/brands' },
   { label: 'About Us', href: '/about' },
   { label: 'Contact', href: '/contact' },
 ];
+
+const navItems = (settings?.navItems && settings.navItems.length > 0)
+  ? settings.navItems
+  : defaultNavItems;
 
 const isActive = (href: string) => {
   if (href === '/') return currentPath === '/' || currentPath === '';
@@ -31,9 +36,9 @@ const isActive = (href: string) => {
 >
   <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 h-14 sm:h-16 flex items-center justify-between">
     <!-- Brand Logo -->
-    <a href="/" class="inline-flex items-center focus:outline-none" aria-label="TMB Branding">
+    <a href="/" class="inline-flex items-center focus:outline-none" aria-label={brandName}>
       <span class="font-sans text-[11px] uppercase tracking-luxury font-medium text-espresso">
-        TMB BRANDING
+        {brandName}
       </span>
     </a>
 
@@ -87,9 +92,9 @@ const isActive = (href: string) => {
 >
   <!-- Dedicated Drawer Top Bar with Brand Logo & Close (X) Button -->
   <div class="h-14 sm:h-16 px-6 sm:px-8 flex items-center justify-between border-b border-creme-border/60 flex-shrink-0 bg-creme-powder">
-    <a href="/" class="inline-flex items-center focus:outline-none" aria-label="TMB Branding">
+    <a href="/" class="inline-flex items-center focus:outline-none" aria-label={brandName}>
       <span class="font-sans text-[11px] uppercase tracking-luxury font-medium text-espresso">
-        TMB BRANDING
+        {brandName}
       </span>
     </a>
 
@@ -218,23 +223,45 @@ const isActive = (href: string) => {
   // Smart Autohide on Scroll
   let lastScrollY = window.scrollY;
   let isTicking = false;
+  let suppressAutohide = !!window.location.hash;
+
+  if (suppressAutohide) {
+    header?.classList.remove('-translate-y-full');
+    setTimeout(() => {
+      suppressAutohide = false;
+      lastScrollY = window.scrollY;
+    }, 1200);
+  }
+
+  window.addEventListener('hashchange', () => {
+    suppressAutohide = true;
+    header?.classList.remove('-translate-y-full');
+    setTimeout(() => {
+      suppressAutohide = false;
+      lastScrollY = window.scrollY;
+    }, 1000);
+  });
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
 
-    // Never hide header when mobile menu is open
+    // Never hide header when mobile menu is open or during initial hash alignment
     const isMobileMenuOpen = navBtn && navBtn.getAttribute('aria-expanded') === 'true';
-    if (isMobileMenuOpen) {
+    if (isMobileMenuOpen || suppressAutohide) {
       header?.classList.remove('-translate-y-full');
       lastScrollY = currentScrollY;
       isTicking = false;
       return;
     }
 
+    const isHome = window.location.pathname === '/' || window.location.pathname === '';
+    // On the homepage, keep header pinned while scrolling past the sticky hero
+    const hideThreshold = isHome ? (window.innerHeight - 80) : 70;
+
     // Always reveal at top of page (threshold 20px)
     if (currentScrollY <= 20) {
       header?.classList.remove('-translate-y-full');
-    } else if (currentScrollY > lastScrollY && currentScrollY > 70) {
+    } else if (currentScrollY > lastScrollY && currentScrollY > hideThreshold) {
       // Scrolling down -> hide header
       header?.classList.add('-translate-y-full');
     } else if (currentScrollY < lastScrollY) {

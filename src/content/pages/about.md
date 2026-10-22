@@ -5,6 +5,7 @@ hero:
 bioFounder:
   name: Tiffany
   portraitImage: /images/uploads/founder-tiffany.png
+  portraitAlt: Portrait of Tiffany, Founder of TMB Branding
   body: >
     TMB Branding was born out of a deep love for storytelling, brand building,
     and helping founders bring their visions to life.
@@ -20,6 +21,7 @@ bioFounder:
 
 
     Since then, Tiffany has built a collective of creatives with deep expertise in fashion, beauty, wellness, and lifestyle. What makes TMB different is the approach: we layer strategic storytelling with visual identity, we work with influential people who move culture - not just those who monetize it - and we build brands that grow not just in numbers, but in depth.
+paragraphsBesidePhoto: 3
 closingText: We’d love to work with you. [Get in touch](/contact) or visit our
   [Brands](/brands) page to explore recent projects.
 seo:

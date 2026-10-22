@@ -13,6 +13,8 @@ export const homeSchema = z.object({
     subtitle: z.string(),
     video: z.string().optional(),
     posterImage: z.string().optional(),
+    videoPlayLabel: z.string().optional(),
+    videoPauseLabel: z.string().optional(),
   }),
   servicesSectionTitle: z.string().optional(),
   brandsSectionTitle: z.string().optional(),
@@ -34,8 +36,10 @@ export const aboutSchema = z.object({
   bioFounder: z.object({
     name: z.string(),
     portraitImage: z.string(),
+    portraitAlt: z.string().optional(),
     body: z.string(),
   }),
+  paragraphsBesidePhoto: z.number().optional(),
   closingText: z.string().optional(),
   seo: seoSchema,
 });
@@ -44,6 +48,7 @@ export const servicesPageSchema = z.object({
   title: z.string(),
   subtitle: z.string().optional(),
   inquiryButtonText: z.string().optional(),
+  defaultDeliverablesHeading: z.string().optional(),
   seo: seoSchema,
 });
 
@@ -60,6 +65,40 @@ export const contactSchema = z.object({
   serviceOptions: z.array(z.string()),
   budgetOptions: z.array(z.string()),
   submitButtonText: z.string().optional(),
+  submittingButtonText: z.string().optional(),
+  formLabels: z
+    .object({
+      firstName: z.string().optional(),
+      lastName: z.string().optional(),
+      email: z.string().optional(),
+      service: z.string().optional(),
+      budget: z.string().optional(),
+      message: z.string().optional(),
+      consent: z.string().optional(),
+    })
+    .optional(),
+  formErrors: z
+    .object({
+      firstName: z.string().optional(),
+      lastName: z.string().optional(),
+      email: z.string().optional(),
+      service: z.string().optional(),
+      budget: z.string().optional(),
+      message: z.string().optional(),
+      consent: z.string().optional(),
+      submitFailed: z.string().optional(),
+    })
+    .optional(),
+  formSuccess: z
+    .object({
+      kicker: z.string().optional(),
+      title: z.string().optional(),
+      message: z.string().optional(),
+      resetButtonText: z.string().optional(),
+      exploreButtonText: z.string().optional(),
+      exploreButtonUrl: z.string().optional(),
+    })
+    .optional(),
   seo: seoSchema,
 });
 
@@ -89,7 +128,23 @@ export const themeSchema = z.object({
 });
 
 export const settingsSchema = z.object({
+  brandName: z.string().optional(),
+  siteLanguage: z.string().optional(),
+  ogLocale: z.string().optional(),
+  companyName: z.string().optional(),
+  founderName: z.string().optional(),
+  founderTitle: z.string().optional(),
+  navItems: z
+    .array(
+      z.object({
+        label: z.string(),
+        href: z.string(),
+      })
+    )
+    .optional(),
   inquiriesTitle: z.string().optional(),
+  inquiriesText: z.string().optional(),
+  inquiriesSubtitle: z.string().optional(),
   contactLinkText: z.string().optional(),
   phone: z.string().optional(),
   email: z.string().optional(),
@@ -107,7 +162,9 @@ export const serviceSchema = z.object({
   title: z.string(),
   order: z.number().default(0),
   shortDescription: z.string(),
-  coverImage: z.string(),
+  coverImage: z.string().optional(),
+  cardImage: z.string().optional(),
+  detailImage: z.string().optional(),
 });
 
 export const brandSchema = z.object({

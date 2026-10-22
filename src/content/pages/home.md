@@ -5,6 +5,8 @@ hero:
     thoughtful partnerships, and digital-first marketing.
   video: /videos/hero-workspace.mp4
   posterImage: /videos/preview-frame.jpg
+  videoPlayLabel: Play video
+  videoPauseLabel: Pause video
 servicesSectionTitle: Boutique Brand & Digital Marketing
 brandsSectionTitle: Trusted by Visionary Founders
 testimonials:

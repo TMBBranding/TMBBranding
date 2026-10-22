@@ -1,0 +1,79 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<span class={`inline-block align-baseline h-[0.67em] w-[1.78em] relative select-none ${className}`} aria-label="TMB">
+  <svg
+    viewBox="0 0 1980 745"
+    class="block w-full h-full"
+    style="overflow: visible;"
+    aria-hidden="true"
+  >
+    <defs>
+      <!-- Découpe verticale du M en son centre exact x=924.5 -->
+      <clipPath id="tmb-m-clip-left" clipPathUnits="userSpaceOnUse">
+        <rect x="0" y="-1500" width="924.5" height="4000" />
+      </clipPath>
+      <clipPath id="tmb-m-clip-right" clipPathUnits="userSpaceOnUse">
+        <rect x="924.5" y="-1500" width="3000" height="4000" />
+      </clipPath>
+      <!-- Découpe des boucles du B pour isoler la partie arrondie droite avec ses évidements intérieurs (trous) -->
+      <clipPath id="tmb-b-clip-loops" clipPathUnits="userSpaceOnUse">
+        <rect x="1487.3" y="-1500" width="3000" height="4000" />
+      </clipPath>
+    </defs>
+
+    <!-- 1. LETTRE T (épaisseur calibrée à 55px) -->
+    <!-- Barre supérieure : arrive par le haut (amplitude élargie) -->
+    <g class="tmb-piece-t-bar">
+      <path
+        fill="currentColor"
+        d="M20.3 0L493.7 0L493.7 50L20.3 50Z"
+      />
+    </g>
+    <!-- Tige verticale : arrive par le bas (amplitude élargie) -->
+    <g class="tmb-piece-t-stem">
+      <path
+        fill="currentColor"
+        d="M230.3 50L285.3 50L285.3 745L230.3 745Z"
+      />
+    </g>
+
+    <!-- 2. LETTRE M (épaisseur calibrée à 55px) -->
+    <!-- Moitié gauche : arrive par le haut (amplitude élargie) -->
+    <g class="tmb-piece-m-left" clip-path="url(#tmb-m-clip-left)">
+      <path
+        fill="currentColor"
+        d="M666.3 745L611.3 745L611.3 0L656.3 0L933 419.3L914 419.3L1193 0L1238 0L1238 745L1183 745L1183 87L1192.3 95.3L925.7 501.7L923.3 501.7L655.3 95.3L666.3 87L666.3 745Z"
+      />
+    </g>
+    <!-- Moitié droite : arrive par le bas (amplitude élargie) -->
+    <g class="tmb-piece-m-right" clip-path="url(#tmb-m-clip-right)">
+      <path
+        fill="currentColor"
+        d="M666.3 745L611.3 745L611.3 0L656.3 0L933 419.3L914 419.3L1193 0L1238 0L1238 745L1183 745L1183 87L1192.3 95.3L925.7 501.7L923.3 501.7L655.3 95.3L666.3 87L666.3 745Z"
+      />
+    </g>
+
+    <!-- 3. LETTRE B (épaisseur calibrée à 55px) -->
+    <!-- Tige verticale : couchée à l'horizontale, se relève de droite à gauche -->
+    <g class="tmb-piece-b-stem">
+      <path
+        fill="currentColor"
+        d="M1432.3 0L1487.3 0L1487.3 745L1432.3 745Z"
+      />
+    </g>
+    <!-- Boucles arrondies : arrivent depuis la droite et se connectent à la tige avec ses deux trous intacts -->
+    <g class="tmb-piece-b-loops" clip-path="url(#tmb-b-clip-loops)">
+      <path
+        fill="currentColor"
+        fill-rule="evenodd"
+        d="M1735.3 745L1432.3 745L1432.3 0L1735.3 0Q1795.7 0 1840.5 24.3Q1885.3 48.7 1910.5 91Q1935.7 133.3 1935.7 187.7L1935.7 187.7Q1935.7 245.7 1904.7 290.7Q1873.7 335.7 1819.7 353.7L1819.7 353.7L1819.7 342Q1864.3 354 1897.2 382.2Q1930 410.3 1947.8 449.7Q1965.7 489 1965.7 535.3L1965.7 535.3Q1965.7 630.3 1905.8 687.7Q1846 745 1735.3 745L1735.3 745ZM1487.3 377L1487.3 695L1728 695Q1813 695 1861.8 651.7Q1910.7 608.3 1910.7 536.3L1910.7 536.3Q1910.7 464 1863.2 420.5Q1815.7 377 1736.3 377L1736.3 377L1487.3 377ZM1487.3 50L1487.3 327.3L1729.3 327.3Q1798.3 327.3 1839.5 289Q1880.7 250.7 1880.7 187.3L1880.7 187.3Q1880.7 124 1840.8 87Q1801 50 1729.3 50L1729.3 50L1487.3 50Z"
+      />
+    </g>
+  </svg>
+</span>
