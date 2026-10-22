@@ -376,7 +376,7 @@ function getFirstSentence(text?: string): string {
   /* 1. Synchronized editorial entrance of the hero title */
   .hero-title {
     will-change: transform, opacity, filter;
-    animation: heroTitleRise 1.5s cubic-bezier(0.33, 1, 0.68, 1) 0.3s both;
+    animation: heroTitleRise 1.9s cubic-bezier(0.33, 1, 0.68, 1) 0.3s both;
   }
 
   @keyframes heroTitleRise {
@@ -404,7 +404,7 @@ function getFirstSentence(text?: string): string {
     opacity: 0;
     color: inherit;
     will-change: transform, opacity, filter;
-    animation: elevatingAscend 3s cubic-bezier(0.33, 1, 0.68, 1) 1.08s forwards;
+    animation: elevatingAscend 5s cubic-bezier(0.33, 1, 0.68, 1) 1.25s forwards;
   }
 
   @keyframes elevatingAscend {
@@ -420,10 +420,10 @@ function getFirstSentence(text?: string): string {
     }
   }
 
-  /* 3. Subtitle: smooth fade-in once "Elevating" locks into its final resting position (0.3s + 1.5s = 1.8s) */
+  /* 3. Subtitle: smooth fade-in as the elevating trail dissolves and vanishes (~3.1s) */
   .hero-subtitle {
     will-change: opacity, transform;
-    animation: heroSubtitleFadeIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.8s both;
+    animation: heroSubtitleFadeIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) 3.1s both;
   }
 
   @keyframes heroSubtitleFadeIn {
