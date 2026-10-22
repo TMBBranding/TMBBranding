@@ -142,7 +142,6 @@ collections:
         format: "frontmatter"
         fields:
           - { label: "Inquiries Section Title (Footer)", name: "inquiriesTitle", widget: "string", default: "WORK WITH TMB" }
-          - { label: "Inquiries Tagline (Footer)", name: "inquiriesSubtitle", widget: "text", default: "New beginnings. Next chapters. Meaningful growth. Let's build what's next." }
           - { label: "Contact Link Text", name: "contactLinkText", widget: "string", default: "Contact us" }
           - { label: "Phone Number", name: "phone", widget: "string", default: "+1 512 529 1677" }
           - { label: "Contact Email", name: "email", widget: "string", default: "tiffany@tmbbranding.com" }

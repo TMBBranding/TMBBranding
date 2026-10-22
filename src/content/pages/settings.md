@@ -1,6 +1,5 @@
 ---
 inquiriesTitle: WORK WITH TMB
-inquiriesSubtitle: New beginnings. Next chapters. Meaningful growth. Let's build what's next.
 contactLinkText: Contact us
 phone: +1 512 529 1677
 email: tiffany@tmbbranding.com

@@ -90,8 +90,6 @@ export const themeSchema = z.object({
 
 export const settingsSchema = z.object({
   inquiriesTitle: z.string().optional(),
-  inquiriesText: z.string().optional(),
-  inquiriesSubtitle: z.string().optional(),
   contactLinkText: z.string().optional(),
   phone: z.string().optional(),
   email: z.string().optional(),
