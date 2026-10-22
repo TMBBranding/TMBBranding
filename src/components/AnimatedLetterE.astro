@@ -1,0 +1,42 @@
+---
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<span class={`inline-block align-baseline h-[0.625em] w-[0.537em] relative select-none ${className}`} aria-hidden="true">
+  <svg
+    viewBox="0 0 537 625"
+    class="block w-full h-full overflow-visible"
+    aria-hidden="true"
+  >
+    <defs>
+      <!-- Masque de remplissage calligraphique synchronisé trait par trait -->
+      <mask id="calligraphy-e-mask">
+        <!-- 1. Base (droite vers gauche) -->
+        <path opacity="0" class="calligraphy-mask-stroke mask-base" d="M 487 500 C 480 570 460 615 440 615 L 35 615 C 35 595 70 595 140 595" />
+        <!-- 2. Tige verticale inférieure (bas vers milieu, s'arrête pile au bas de la barre centrale y=310) -->
+        <path opacity="0" class="calligraphy-mask-stroke mask-stem-low" d="M 161 630 L 161 310" />
+        <!-- 3a. Barre centrale : démarre de l'extrémité gauche x=128 (hauteur calibrée 22px, y=289 à y=311, aucun trou) -->
+        <path opacity="0" class="calligraphy-mask-stroke mask-mid-bar" d="M 128 300 L 360 300" />
+        <!-- 3b. Barre centrale : évasement et empattement remplis directement à la plume en temps réel -->
+        <path opacity="0" class="calligraphy-mask-stroke mask-mid-serif" d="M 330 300 Q 365 315 412 390 L 412 220 Q 365 285 330 300 L 415 300" />
+        <!-- 4. Tige verticale supérieure (repart pile du haut de la barre centrale y=289) -->
+        <path opacity="0" class="calligraphy-mask-stroke mask-stem-up" d="M 161 289 L 161 0" />
+        <!-- 5. Barre supérieure (gauche vers droite) -->
+        <path opacity="0" class="calligraphy-mask-stroke mask-top" d="M 40 10 L 445 10 C 455 10 455 40 455 135" />
+        <!-- Découvre 100% de la typographie à l'achèvement du tracé -->
+        <rect opacity="0" width="100%" height="100%" fill="#ffffff" class="mask-full-fill" />
+      </mask>
+    </defs>
+
+    <!-- Remplissage plein pur révélé à la plume sans aucune bordure filaire -->
+    <path
+      fill="currentColor"
+      mask="url(#calligraphy-e-mask)"
+      d="M462 625L43 625Q41 625 41 619Q41 613 43 613Q80 613 98 608Q116 603 122.50 588Q129 573 129 544L129 81Q129 52 122.50 37.50Q116 23 98 17.50Q80 12 43 12Q41 12 41 6Q41 0 43 0L445 0Q454 0 454 9L456 132Q456 135 450.50 135.50Q445 136 445 133Q442 79 412.50 50Q383 21 336 21L275 21Q241 21 223.50 26Q206 31 199.50 45Q193 59 193 86L193 540Q193 566 199.50 580Q206 594 222.50 599Q239 604 272 604L352 604Q400 604 432.50 569.50Q465 535 475 476Q475 473 481 474Q487 475 487 478Q483 504 480.50 541Q478 578 478 610Q478 625 462 625M406 392Q406 348 384.50 329Q363 310 313 310L163 310L163 289L316 289Q364 289 384.50 272.50Q405 256 405 219Q405 217 411 217Q417 217 417 219Q417 249 416.50 265.50Q416 282 416 300Q416 323 417 345Q418 367 418 392Q418 394 412 394Q406 394 406 392"
+    />
+  </svg>
+</span>

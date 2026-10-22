@@ -138,5 +138,112 @@
   .brand-content li::marker {
     color: var(--color-espresso, #382820);
   }
+
+  /* =====================================================================
+     ANIMATION TYPOGRAPHIQUE CALLIGRAPHIQUE - LETTRE « E » (À LA PLUME)
+     Tracé fluide et continu en plein (sans pause aux raccords) (~2.1s)
+     Enchaînement immédiat : base -> tige basse -> barre médiane -> tige haute -> barre supérieure
+     ===================================================================== */
+  .calligraphy-mask-stroke {
+    fill: none;
+    stroke: #ffffff;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0;
+  }
+  /* 1. Base inférieure (droite vers gauche jusqu'à la tige) */
+  .mask-base {
+    stroke-width: 80;
+    stroke-dasharray: 700;
+    stroke-dashoffset: 700;
+    animation: drawMaskBase 0.54s cubic-bezier(0.3, 0, 0.8, 1) 0.15s forwards;
+  }
+  /* 2. Tige verticale inférieure (du bas jusqu'au bas de la barre médiane y=310) */
+  .mask-stem-low {
+    stroke-width: 80;
+    stroke-linecap: butt;
+    stroke-dasharray: 340;
+    stroke-dashoffset: 340;
+    animation: drawMaskStemLow 0.30s linear 0.68s forwards;
+  }
+  /* 3a. Barre médiane : segment horizontal depuis l'extrémité gauche x=128 (hauteur calibrée à 22px, de y=289 à y=311) */
+  .mask-mid-bar {
+    stroke-width: 22;
+    stroke-linecap: butt;
+    stroke-dasharray: 250;
+    stroke-dashoffset: 250;
+    animation: drawMaskMidBar 0.20s linear 0.97s forwards;
+  }
+  /* 3b. Barre médiane : évasement et empattement vertical (remplissage intégral direct) */
+  .mask-mid-serif {
+    stroke-width: 55;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 530;
+    stroke-dashoffset: 530;
+    animation: drawMaskMidSerif 0.20s cubic-bezier(0.2, 0, 0.3, 1) 1.15s forwards;
+  }
+  /* 4. Tige verticale supérieure (repart pile de y=289 vers le haut) */
+  .mask-stem-up {
+    stroke-width: 80;
+    stroke-linecap: butt;
+    stroke-dasharray: 310;
+    stroke-dashoffset: 310;
+    animation: drawMaskStemUp 0.28s linear 1.34s forwards;
+  }
+  /* 5. Barre supérieure (dès que la tige atteint le sommet, vers la droite) */
+  .mask-top {
+    stroke-width: 70;
+    stroke-dasharray: 560;
+    stroke-dashoffset: 560;
+    animation: drawMaskTop 0.46s cubic-bezier(0.1, 0, 0.25, 1) 1.61s forwards;
+  }
+  /* Révélation finale nette de l'ensemble de la typographie */
+  .mask-full-fill {
+    opacity: 0;
+    animation: fadeInMaskFull 0.15s ease-out 2.05s forwards;
+  }
+
+  /* Keyframes remplissage continu sans rupture de vitesse */
+  @keyframes drawMaskBase {
+    0% { stroke-dashoffset: 700; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawMaskStemLow {
+    0% { stroke-dashoffset: 340; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawMaskMidBar {
+    0% { stroke-dashoffset: 250; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawMaskMidSerif {
+    0% { stroke-dashoffset: 530; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawMaskStemUp {
+    0% { stroke-dashoffset: 310; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes drawMaskTop {
+    0% { stroke-dashoffset: 560; opacity: 1; }
+    100% { stroke-dashoffset: 0; opacity: 1; }
+  }
+  @keyframes fadeInMaskFull {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .calligraphy-mask-stroke {
+      animation: none !important;
+      opacity: 1 !important;
+      stroke-dashoffset: 0 !important;
+    }
+    .mask-full-fill {
+      animation: none !important;
+      opacity: 1 !important;
+    }
+  }
 }
 
