@@ -69,19 +69,43 @@ const parsedServices = services.map((service) => {
             const rawTitle = servicesPage?.title || "Digital Marketing Services";
             const words = rawTitle.split(' ');
 
-            return words.map((word, wIdx) => {
+            // Localisation dynamique de l'épicentre : le « i » de Marketing
+            let epicenterPos = 14;
+            let currentPos = 0;
+            const wordsWithPositions = words.map((word) => {
               const chars = word.split('');
               const isMarketing = word.toLowerCase() === 'marketing';
+              const charsWithPos = chars.map((char) => {
+                const pos = currentPos++;
+                if (isMarketing && char === 'i') {
+                  epicenterPos = pos;
+                }
+                return { char, pos, isMarketingI: isMarketing && char === 'i' };
+              });
+              currentPos++; // Espace entre mots compte pour 1 unité de distance
+              return { word, charsWithPos };
+            });
 
+            // L'infusion démarre dès que le point a fini son 3e rebond et s'est posé (1.48s)
+            const baseDelay = 1.48;
+            const stagger = 0.105; // Vitesse de propagation ralentie pour un dévoilement encore plus doux et contemplatif
+
+            return wordsWithPositions.map(({ charsWithPos }, wIdx) => {
               return (
-                <><span class="inline-block whitespace-nowrap">{chars.map((char) => {
+                <><span class="inline-block whitespace-nowrap">{charsWithPos.map(({ char, pos, isMarketingI }) => {
+                  const dist = Math.abs(pos - epicenterPos);
+                  const delay = (baseDelay + dist * stagger).toFixed(3);
+
                   // Seul le 'i' du mot "Marketing" a son point qui chute et rebondit
-                  if (isMarketing && char === 'i') {
+                  if (isMarketingI) {
                     return (
                       <span class="i-letter-box relative inline-block align-baseline" aria-hidden="true">
-                        <!-- Tige du i de Marketing (point tronqué) -->
-                        <span class="i-stem block bulb-char">{char}</span>
-                        <!-- Point du i unique de Marketing qui tombe et rebondit avec fluidité -->
+                        <!-- Tige du i de Marketing qui reçoit l'infusion d'encre en premier (dist = 0) -->
+                        <span
+                          class="i-stem block infusion-char"
+                          style={`animation-delay: ${delay}s;`}
+                        >{char}</span>
+                        <!-- Point du i unique de Marketing qui tombe et reste dans sa couleur finale Espresso -->
                         <span class="i-dot-anim absolute inset-0 block pointer-events-none">
                           <span class="i-dot-glyph block">{char}</span>
                         </span>
@@ -89,7 +113,11 @@ const parsedServices = services.map((service) => {
                     );
                   }
                   return (
-                    <span class="bulb-char inline-block" aria-hidden="true">{char}</span>
+                    <span
+                      class="infusion-char inline-block"
+                      style={`animation-delay: ${delay}s;`}
+                      aria-hidden="true"
+                    >{char}</span>
                   );
                 })}</span>{wIdx < words.length - 1 && ' '}</>
               );

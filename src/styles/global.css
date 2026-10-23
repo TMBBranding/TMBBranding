@@ -206,22 +206,22 @@
 
   /* =====================================================================
      ANIMATION TYPOGRAPHIQUE SÉQUENTIELLE MODERNE - SIGLE « TMB »
-     Rythme majestueux (durée 0.90s/0.85s) et enchaînement fluide en relais (~2.95s)
+     Rythme ralenti et solennel (durée 1.10s/1.05s) et relais fluide (~4.30s)
      Courbe équilibrée et continue : cubic-bezier(0.25, 0.1, 0.25, 1)
      Enchaînement dynamique :
-       1. « T » (0.50s -> 1.40s) :
+       1. « T » (0.50s -> 1.60s, durée 1.10s) :
           - Petit délai initial de respiration (0.50s)
           - Barre supérieure arrive depuis le haut (translateY(-480px) -> 0)
           - Tige verticale arrive depuis le bas (translateY(480px) -> 0)
-       2. « M » (1.00s -> 1.90s) :
-          - Débute dès que le T converge
+       2. « M » (1.50s -> 2.60s, durée 1.10s) :
+          - Débute dès que le T converge et s'ancre
           - Moitié gauche arrive depuis le haut (translateY(-480px) -> 0)
           - Moitié droite arrive depuis le bas (translateY(480px) -> 0)
-       3. « B » (1.55s -> 2.95s) :
-          - Tige verticale (1.55s -> 2.40s) :
-             Débute dès que le M converge
+       3. « B » (2.50s -> 4.30s) :
+          - Tige verticale (2.50s -> 3.55s, durée 1.05s) :
+             Débute dès que le M converge et s'ancre
              Couchée à l'horizontale (90deg), se redresse de droite à gauche (0deg)
-          - Boucles arrondies (2.10s -> 2.95s) :
+          - Boucles arrondies (3.25s -> 4.30s, durée 1.05s) :
              Glissent depuis la droite (translateX(480px) -> 0) et se connectent à la tige
      ===================================================================== */
   
@@ -229,24 +229,24 @@
   .tmb-piece-t-bar {
     opacity: 0;
     transform: translateY(-480px);
-    animation: animTmbTBar 0.90s cubic-bezier(0.25, 0.1, 0.25, 1) 0.50s both;
+    animation: animTmbTBar 1.10s cubic-bezier(0.25, 0.1, 0.25, 1) 0.50s both;
   }
   .tmb-piece-t-stem {
     opacity: 0;
     transform: translateY(480px);
-    animation: animTmbTStem 0.90s cubic-bezier(0.25, 0.1, 0.25, 1) 0.50s both;
+    animation: animTmbTStem 1.10s cubic-bezier(0.25, 0.1, 0.25, 1) 0.50s both;
   }
 
   /* --- LETTRE M --- */
   .tmb-piece-m-left {
     opacity: 0;
     transform: translateY(-480px);
-    animation: animTmbMLeft 0.90s cubic-bezier(0.25, 0.1, 0.25, 1) 1.00s both;
+    animation: animTmbMLeft 1.10s cubic-bezier(0.25, 0.1, 0.25, 1) 1.50s both;
   }
   .tmb-piece-m-right {
     opacity: 0;
     transform: translateY(480px);
-    animation: animTmbMRight 0.90s cubic-bezier(0.25, 0.1, 0.25, 1) 1.00s both;
+    animation: animTmbMRight 1.10s cubic-bezier(0.25, 0.1, 0.25, 1) 1.50s both;
   }
 
   /* --- LETTRE B --- */
@@ -255,12 +255,12 @@
     transform-origin: 1432.3px 745px;
     transform-box: view-box;
     transform: translate(1432.3px, 745px) rotate(90deg) translate(-1432.3px, -745px);
-    animation: animTmbBStem 0.85s cubic-bezier(0.25, 0.1, 0.25, 1) 1.55s both;
+    animation: animTmbBStem 1.05s cubic-bezier(0.25, 0.1, 0.25, 1) 2.50s both;
   }
   .tmb-piece-b-loops {
     opacity: 0;
     transform: translateX(480px);
-    animation: animTmbBLoops 0.85s cubic-bezier(0.25, 0.1, 0.25, 1) 2.10s both;
+    animation: animTmbBLoops 1.05s cubic-bezier(0.25, 0.1, 0.25, 1) 3.25s both;
   }
 
   /* Keyframes TMB */
@@ -476,21 +476,25 @@
 
   /* =====================================================================
      ANIMATION TYPOGRAPHIQUE « DIGITAL MARKETING SERVICES »
-     CHUTE DU POINT SUR LE « i » DE MARKETING (3 REBONDS) & SCINTILLEMENT AMPOULE
+     INFUSION CHROMATIQUE RADIALE DEPUIS LE POINT DU « i » DE MARKETING
      Chorégraphie :
-       1. État initial : le titre est estompé (taupe ultra-doux, opacité 20%),
-          seul le « i » de Marketing attend son point.
-       2. Le point du « i » de Marketing chute avec fluidité depuis le haut
-          et rebondit trois fois sans déformation (1.10s).
-       3. Dès qu'il a terminé son 3e rebond et s'est stabilisé (1.48s),
-          le mot scintille amplement façon ampoule à filament (1.15s)
-          puis se stabilise dans l'Espresso signature définitif.
+       1. État initial : le titre repose dans une teinte taupe ultra-douce
+          (opacité 20%), estompé comme un filigrane de haute papeterie.
+       2. Le point du « i » de Marketing chute avec fluidité depuis le haut (1.10s)
+          et effectue 3 rebonds rigides sans déformation, entièrement dans sa
+          couleur finale Espresso (#382820).
+       3. Dès qu'il a terminé son 3e rebond et s'est stabilisé (1.48s) :
+          L'onde d'infusion de couleur finale se propage doucement depuis le « i »
+          vers l'extérieur (à gauche vers Digital, à droite vers Services).
+       4. Au passage de l'onde, chaque lettre éclot élégamment avec une douce
+          lueur cognac/champagne avant de se fixer dans le velouté net et pur
+          de l'Espresso signature définitif.
      ===================================================================== */
-  .bulb-char {
+  .infusion-char {
     opacity: 0.20;
     color: var(--color-taupe-light);
-    filter: blur(0.5px);
-    animation: bulbFlickerIgnite 1.15s cubic-bezier(0.16, 1, 0.3, 1) 1.48s forwards;
+    filter: blur(0.4px);
+    animation: waveInfusion 1.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     will-change: opacity, color, text-shadow, filter;
   }
 
@@ -581,102 +585,35 @@
     }
   }
 
-  /* Scintillement d'allumage façon ampoule à filament (vitesse accrue / micro-pulsations vives sur 1.15s) */
-  @keyframes bulbFlickerIgnite {
+  /* Éclosion douce et soyeuse de la couleur finale (infusion d'encre & halo lumineux chaud) */
+  @keyframes waveInfusion {
     0% {
       opacity: 0.20;
       color: var(--color-taupe-light);
-      filter: blur(0.5px);
+      filter: blur(0.4px);
       text-shadow: none;
     }
-    4% {
-      /* 1er arc électrique vif */
-      opacity: 0.82;
-      color: #8C5332;
+    30% {
+      /* Éveil de la lettre : transition chaleureuse cognac et halo champagne velouté */
+      opacity: 0.85;
+      color: #925C3B;
       filter: blur(0px);
-      text-shadow: 0 0 10px rgba(194, 155, 114, 0.7);
+      text-shadow: 0 0 14px rgba(216, 181, 143, 0.65), 0 0 4px rgba(189, 131, 92, 0.35);
     }
-    8% {
-      /* Micro-chute rapide */
-      opacity: 0.25;
-      color: var(--color-taupe-light);
-      text-shadow: none;
-    }
-    13% {
-      /* 2e impulsion filament */
-      opacity: 0.90;
-      color: #7D4B2A;
-      text-shadow: 0 0 14px rgba(216, 181, 143, 0.8), 0 0 25px rgba(189, 131, 92, 0.35);
-    }
-    18% {
-      /* Baisse brève */
-      opacity: 0.35;
-      color: var(--color-taupe);
-      text-shadow: 0 0 3px rgba(194, 155, 114, 0.2);
-    }
-    24% {
-      /* 3e allumage nerveux */
-      opacity: 0.78;
-      color: #6B422B;
-      text-shadow: 0 0 8px rgba(194, 155, 114, 0.5);
-    }
-    29% {
-      /* Creux rapide */
-      opacity: 0.40;
-      color: var(--color-taupe);
-      text-shadow: none;
-    }
-    36% {
-      /* 4e impulsion montante */
-      opacity: 0.95;
-      color: #553B2E;
-      text-shadow: 0 0 16px rgba(216, 181, 143, 0.85), 0 0 30px rgba(194, 155, 114, 0.4);
-    }
-    42% {
-      /* Micro-hésitation */
-      opacity: 0.55;
-      color: #6B4C3E;
-      text-shadow: 0 0 5px rgba(194, 155, 114, 0.25);
-    }
-    50% {
-      /* 5e surtension intense / filament rayonnant */
+    55% {
+      /* Prise de pigment profond : moka chaud et halo qui s'estompe délicatement */
       opacity: 1;
-      color: #4A352B;
-      text-shadow: 0 0 20px rgba(216, 181, 143, 0.9), 0 0 40px rgba(189, 131, 92, 0.45);
-    }
-    56% {
-      /* Micro-frémissement */
-      opacity: 0.68;
-      color: #553B2E;
+      color: #4A3328;
       text-shadow: 0 0 8px rgba(194, 155, 114, 0.3);
     }
-    64% {
-      /* 6e battement chaud */
-      opacity: 0.96;
-      color: #432E25;
-      text-shadow: 0 0 12px rgba(194, 155, 114, 0.4);
-    }
-    70% {
-      /* Stabilisation progressive */
-      opacity: 0.80;
-      color: #3D2A22;
-      text-shadow: 0 0 5px rgba(194, 155, 114, 0.2);
-    }
-    80% {
-      /* Prise de régime plein */
-      opacity: 1;
-      color: var(--color-espresso);
-      text-shadow: 0 0 3px rgba(194, 155, 114, 0.1);
-    }
     100% {
-      /* Apparence finale : Espresso profond, net, stable */
+      /* Stabilisation permanente : Espresso profond, net, pur */
       opacity: 1;
       color: var(--color-espresso);
       filter: blur(0px);
       text-shadow: none;
     }
   }
-
 
   @media (prefers-reduced-motion: reduce) {
     .calligraphy-mask-stroke,
@@ -696,6 +633,7 @@
     .tmb-piece-b-loops,
     .seal-o-glyph,
     .mist-char,
+    .infusion-char,
     .bulb-char,
     .i-stem,
     .i-dot-glyph {
