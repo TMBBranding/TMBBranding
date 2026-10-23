@@ -13,6 +13,7 @@ const servicesPageEntry = await getEntry('pages', 'services');
 const servicesPage = servicesPageEntry?.data as ServicesPageData | undefined;
 const defaultDeliverablesHeading = servicesPage?.defaultDeliverablesHeading || "Services Include:";
 const inquiryButtonText = servicesPage?.inquiryButtonText || "Inquire About This Service";
+const animateTitle = servicesPage?.animateTitle ?? true;
 
 function parseServiceContent(rawBody: string, fallbackDesc: string, fallbackDeliverables: string) {
   const body = rawBody.replace(/^---[\s\S]*?---\s*/, '').trim();
@@ -53,7 +54,7 @@ const parsedServices = services.map((service) => {
 
 <Layout
   title={servicesPage?.seo?.metaTitle || "Digital Marketing Services — TMB Branding"}
-  description={servicesPage?.seo?.metaDescription || "Explore our 6 core capabilities: Social Media Strategy, Strategic Partnerships, Thought Leadership, Email Marketing, Paid Social, and Events & Activations."}
+  description={servicesPage?.seo?.metaDescription || "Explore our 6 core capabilities: Social Media Strategy, Strategic Partnerships, Thought Leadership, Email Marketing, Paid Social, and Website Design & Development."}
   ogImage={servicesPage?.seo?.ogImage}
   currentPath="/services"
 >
@@ -65,64 +66,68 @@ const parsedServices = services.map((service) => {
           class="relative block w-full font-serif text-[clamp(2.1rem,6vw,4.5rem)] font-normal text-espresso leading-editorial lg:whitespace-nowrap"
           aria-label={servicesPage?.title || "Digital Marketing Services"}
         >
-          {(() => {
-            const rawTitle = servicesPage?.title || "Digital Marketing Services";
-            const words = rawTitle.split(' ');
+          {animateTitle ? (
+            (() => {
+              const rawTitle = servicesPage?.title || "Digital Marketing Services";
+              const words = rawTitle.split(' ');
 
-            // Localisation dynamique de l'épicentre : le « i » de Marketing
-            let epicenterPos = 14;
-            let currentPos = 0;
-            const wordsWithPositions = words.map((word) => {
-              const chars = word.split('');
-              const isMarketing = word.toLowerCase() === 'marketing';
-              const charsWithPos = chars.map((char) => {
-                const pos = currentPos++;
-                if (isMarketing && char === 'i') {
-                  epicenterPos = pos;
-                }
-                return { char, pos, isMarketingI: isMarketing && char === 'i' };
-              });
-              currentPos++; // Espace entre mots compte pour 1 unité de distance
-              return { word, charsWithPos };
-            });
-
-            // L'infusion démarre dès que le point a fini son 3e rebond et s'est posé (1.48s)
-            const baseDelay = 1.48;
-            const stagger = 0.105; // Vitesse de propagation ralentie pour un dévoilement encore plus doux et contemplatif
-
-            return wordsWithPositions.map(({ charsWithPos }, wIdx) => {
-              return (
-                <><span class="inline-block whitespace-nowrap">{charsWithPos.map(({ char, pos, isMarketingI }) => {
-                  const dist = Math.abs(pos - epicenterPos);
-                  const delay = (baseDelay + dist * stagger).toFixed(3);
-
-                  // Seul le 'i' du mot "Marketing" a son point qui chute et rebondit
-                  if (isMarketingI) {
-                    return (
-                      <span class="i-letter-box relative inline-block align-baseline" aria-hidden="true">
-                        <!-- Tige du i de Marketing qui reçoit l'infusion d'encre en premier (dist = 0) -->
-                        <span
-                          class="i-stem block infusion-char"
-                          style={`animation-delay: ${delay}s;`}
-                        >{char}</span>
-                        <!-- Point du i unique de Marketing qui tombe et reste dans sa couleur finale Espresso -->
-                        <span class="i-dot-anim absolute inset-0 block pointer-events-none">
-                          <span class="i-dot-glyph block">{char}</span>
-                        </span>
-                      </span>
-                    );
+              // Localisation dynamique de l'épicentre : le « i » de Marketing
+              let epicenterPos = 14;
+              let currentPos = 0;
+              const wordsWithPositions = words.map((word) => {
+                const chars = word.split('');
+                const isMarketing = word.toLowerCase() === 'marketing';
+                const charsWithPos = chars.map((char) => {
+                  const pos = currentPos++;
+                  if (isMarketing && char === 'i') {
+                    epicenterPos = pos;
                   }
-                  return (
-                    <span
-                      class="infusion-char inline-block"
-                      style={`animation-delay: ${delay}s;`}
-                      aria-hidden="true"
-                    >{char}</span>
-                  );
-                })}</span>{wIdx < words.length - 1 && ' '}</>
-              );
-            });
-          })()}
+                  return { char, pos, isMarketingI: isMarketing && char === 'i' };
+                });
+                currentPos++; // Espace entre mots compte pour 1 unité de distance
+                return { word, charsWithPos };
+              });
+
+              // L'infusion démarre dès que le point a fini son 3e rebond et s'est posé (1.48s)
+              const baseDelay = 1.48;
+              const stagger = 0.105; // Vitesse de propagation ralentie pour un dévoilement encore plus doux et contemplatif
+
+              return wordsWithPositions.map(({ charsWithPos }, wIdx) => {
+                return (
+                  <><span class="inline-block whitespace-nowrap">{charsWithPos.map(({ char, pos, isMarketingI }) => {
+                    const dist = Math.abs(pos - epicenterPos);
+                    const delay = (baseDelay + dist * stagger).toFixed(3);
+
+                    // Seul le 'i' du mot "Marketing" a son point qui chute et rebondit
+                    if (isMarketingI) {
+                      return (
+                        <span class="i-letter-box relative inline-block align-baseline" aria-hidden="true">
+                          <!-- Tige du i de Marketing qui reçoit l'infusion d'encre en premier (dist = 0) -->
+                          <span
+                            class="i-stem block infusion-char"
+                            style={`animation-delay: ${delay}s;`}
+                          >{char}</span>
+                          <!-- Point du i unique de Marketing qui tombe et reste dans sa couleur finale Espresso -->
+                          <span class="i-dot-anim absolute inset-0 block pointer-events-none">
+                            <span class="i-dot-glyph block">{char}</span>
+                          </span>
+                        </span>
+                      );
+                    }
+                    return (
+                      <span
+                        class="infusion-char inline-block"
+                        style={`animation-delay: ${delay}s;`}
+                        aria-hidden="true"
+                      >{char}</span>
+                    );
+                  })}</span>{wIdx < words.length - 1 && ' '}</>
+                );
+              });
+            })()
+          ) : (
+            servicesPage?.title || "Digital Marketing Services"
+          )}
         </h1>
         {servicesPage?.subtitle && (
           <p class="max-w-3xl text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans">
@@ -142,7 +147,7 @@ const parsedServices = services.map((service) => {
       return (
         <section
           id={service.id.replace(/\.md$/, '')}
-          class={`service-section relative w-full min-h-[100dvh] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-14 sm:scroll-mt-16 transition-colors duration-500 ${
+          class={`service-section relative w-full min-h-[100dvh] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-0 transition-colors duration-500 ${
             isEspresso
               ? 'bg-espresso text-creme-powder'
               : 'bg-creme-powder text-espresso'
@@ -315,32 +320,26 @@ const parsedServices = services.map((service) => {
     history.scrollRestoration = 'manual';
   }
 
-  const getHeaderHeight = () => {
-    const header = document.getElementById('site-header');
-    if (!header) return window.innerWidth >= 640 ? 64 : 56;
-    const rect = header.getBoundingClientRect();
-    return rect.height || (window.innerWidth >= 640 ? 64 : 56);
-  };
-
   const alignServiceHash = (smooth = false) => {
     if (!window.location.hash) return;
     const hash = window.location.hash;
     const target = document.querySelector(hash);
     if (!target) return;
 
-    const header = document.getElementById('site-header');
-    header?.classList.remove('-translate-y-full');
-
-    const headerHeight = getHeaderHeight();
     const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
     const targetRect = target.getBoundingClientRect();
     const targetTop = targetRect.top + currentScrollY;
-    const scrollToY = Math.max(0, targetTop - headerHeight);
+    const scrollToY = Math.max(0, targetTop);
 
     window.scrollTo({
       top: scrollToY,
       behavior: smooth ? 'smooth' : 'auto'
     });
+
+    const header = document.getElementById('site-header');
+    if (scrollToY > 20) {
+      header?.classList.add('-translate-y-full');
+    }
   };
 
   if (window.location.hash) {

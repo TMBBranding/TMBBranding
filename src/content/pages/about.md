@@ -1,6 +1,7 @@
 ---
 hero:
   title: Building TMB
+  animateTitle: true
   subtitle: The founder-led story behind a founder-led agency.
 bioFounder:
   name: Tiffany

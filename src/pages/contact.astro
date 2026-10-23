@@ -9,6 +9,7 @@ if (!contactEntry) {
   throw new Error("Failed to load collection 'pages/contact'");
 }
 const contact = contactEntry.data as ContactPageData;
+const animateTitle = contact.animateTitle ?? true;
 
 const rawTitle = contact.title || "Let’s Tell Your Brand Story";
 const targetPhrase = "Your Brand Story";
@@ -43,14 +44,20 @@ if (targetIndex !== -1) {
             class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial select-text"
             aria-label={rawTitle}
           >
-            <span class="sr-only">{rawTitle}</span>
-            <span aria-hidden="true">
-              <span>{prefix}</span><span
-                class="typewriter-container inline"
-                id="contact-typewriter"
-                data-text={animatedText}
-              ><span class="typewriter-output"></span><span class="typewriter-cursor" aria-hidden="true"></span><noscript><span class="inline">{animatedText}</span><style>.typewriter-cursor { display: none !important; }</style></noscript></span>
-            </span>
+            {animateTitle ? (
+              <>
+                <span class="sr-only">{rawTitle}</span>
+                <span aria-hidden="true">
+                  <span>{prefix}</span><span
+                    class="typewriter-container inline"
+                    id="contact-typewriter"
+                    data-text={animatedText}
+                  ><span class="typewriter-output"></span><span class="typewriter-cursor" aria-hidden="true"></span><noscript><span class="inline">{animatedText}</span><style>.typewriter-cursor { display: none !important; }</style></noscript></span>
+                </span>
+              </>
+            ) : (
+              rawTitle
+            )}
           </h1>
           <p class="text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans max-w-2xl">
             {contact.subtitle}

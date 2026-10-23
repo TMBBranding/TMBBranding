@@ -1,5 +1,6 @@
 ---
 title: Let’s Tell Your Brand Story
+animateTitle: true
 subtitle: New beginnings. Next chapters. Meaningful growth. Build what's next.
 servicePlaceholder: Select an option
 serviceOptions:
@@ -8,7 +9,7 @@ serviceOptions:
   - Thought Leadership & Branding
   - Email Marketing
   - Paid Social
-  - Events & Activations
+  - Website Design & Development
   - Something else
 budgetOptions:
   - < $5,000

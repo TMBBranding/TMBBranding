@@ -1,5 +1,6 @@
 ---
 title: Digital Marketing Services
+animateTitle: true
 subtitle: At TMB Branding, we partner with founder-led brands to bring visionary
   ideas to life. Through strategic storytelling, community building, and
   digital-first marketing, we craft campaigns and experiences that spark
@@ -12,6 +13,6 @@ seo:
   metaTitle: Digital Marketing Services — TMB Branding
   metaDescription: "Explore our 6 core capabilities: Social Media Strategy,
     Strategic Partnerships, Thought Leadership, Email Marketing, Paid Social,
-    and Events & Activations."
+    and Website Design & Development."
   ogImage: /images/uploads/hero-services.png
 ---

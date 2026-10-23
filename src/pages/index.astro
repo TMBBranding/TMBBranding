@@ -20,6 +20,7 @@ const heroVideoUrl = home.hero.video || "/videos/hero-workspace.mp4";
 const heroPosterUrl = home.hero.posterImage || "/videos/preview-frame.jpg";
 const videoPlayLabel = home.hero.videoPlayLabel || "Play video";
 const videoPauseLabel = home.hero.videoPauseLabel || "Pause video";
+const animateTitle = home.hero.animateTitle ?? true;
 
 function getFirstSentence(text?: string): string {
   if (!text) return '';
@@ -71,36 +72,46 @@ function getFirstSentence(text?: string): string {
         </div>
       )}
 
-      <!-- Main Title with Calligraphic Animated E -->
-      <h1 class="hero-title font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal leading-[1.08] tracking-tight text-white drop-shadow-md max-w-4xl mx-auto">
-        {(() => {
-          const rawTitle = home.hero.title || "Elevating Founder-Led Brands";
-          const firstSpace = rawTitle.trimStart().indexOf(' ');
-          const firstWord = firstSpace !== -1 ? rawTitle.trimStart().slice(0, firstSpace) : rawTitle;
-          const rest = firstSpace !== -1 ? rawTitle.trimStart().slice(firstSpace).trim() : '';
+      <!-- Main Title (with optional word-specific animation) -->
+      <h1 class:list={[
+        "font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal leading-[1.08] tracking-tight text-white drop-shadow-md max-w-4xl mx-auto",
+        animateTitle && "hero-title"
+      ]}>
+        {animateTitle ? (
+          (() => {
+            const rawTitle = home.hero.title || "Elevating Founder-Led Brands";
+            const firstSpace = rawTitle.trimStart().indexOf(' ');
+            const firstWord = firstSpace !== -1 ? rawTitle.trimStart().slice(0, firstSpace) : rawTitle;
+            const rest = firstSpace !== -1 ? rawTitle.trimStart().slice(firstSpace).trim() : '';
 
-          let italic = '';
-          let afterItalic = '';
-          if (rest.includes('Founder-Led')) {
-            italic = 'Founder-Led';
-            afterItalic = rest.split('Founder-Led').slice(1).join('Founder-Led').trim();
-          } else {
-            afterItalic = rest;
-          }
+            let italic = '';
+            let afterItalic = '';
+            if (rest.includes('Founder-Led')) {
+              italic = 'Founder-Led';
+              afterItalic = rest.split('Founder-Led').slice(1).join('Founder-Led').trim();
+            } else {
+              afterItalic = rest;
+            }
 
-          return (
-            <>
-              <span class="relative inline-block align-baseline">
-                <span>{firstWord}</span>
-                <span class="elevating-trail absolute inset-0 pointer-events-none select-none text-white" aria-hidden="true">{firstWord}</span>
-              </span>{italic ? <> <span class="italic whitespace-nowrap">{italic}</span><br />{afterItalic}</> : <><br />{afterItalic}</>}
-            </>
-          );
-        })()}
+            return (
+              <>
+                <span class="relative inline-block align-baseline">
+                  <span>{firstWord}</span>
+                  <span class="elevating-trail absolute inset-0 pointer-events-none select-none text-white" aria-hidden="true">{firstWord}</span>
+                </span>{italic ? <> <span class="italic whitespace-nowrap">{italic}</span><br />{afterItalic}</> : <><br />{afterItalic}</>}
+              </>
+            );
+          })()
+        ) : (
+          home.hero.title || "Elevating Founder-Led Brands"
+        )}
       </h1>
 
       <!-- Subtitle -->
-      <p class="hero-subtitle text-base sm:text-lg md:text-xl text-creme-powder/90 font-light leading-relaxed max-w-2xl mx-auto font-sans drop-shadow-sm">
+      <p class:list={[
+        "text-base sm:text-lg md:text-xl text-creme-powder/90 font-light leading-relaxed max-w-2xl mx-auto font-sans drop-shadow-sm",
+        animateTitle && "hero-subtitle"
+      ]}>
         {home.hero.subtitle}
       </p>
     </div>

@@ -1,5 +1,6 @@
 ---
 title: Our Brands
+animateTitle: true
 subtitle: We’re proud to partner with some of the most inspiring founder-led
   brands in the fashion, beauty, wellness, and lifestyle spaces. From seed-stage
   to household names, our work is rooted in strategy, storytelling, and a deep

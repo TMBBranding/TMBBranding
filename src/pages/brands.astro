@@ -73,6 +73,7 @@ const renderedBrands = await Promise.all(
 
 const brandsPageEntry = await getEntry('pages', 'brands');
 const brandsPage = brandsPageEntry?.data as BrandsPageData | undefined;
+const animateTitle = brandsPage?.animateTitle ?? true;
 ---
 
 <Layout
@@ -86,50 +87,54 @@ const brandsPage = brandsPageEntry?.data as BrandsPageData | undefined;
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="max-w-3xl space-y-6">
         <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial" aria-label={brandsPage?.title || "Our Brands"}>
-          {(() => {
-            const rawTitle = brandsPage?.title || "Our Brands";
-            const trimmed = rawTitle.trimStart();
-            const startsWithO = /^[OoÔôÖö]/.test(trimmed);
+          {animateTitle ? (
+            (() => {
+              const rawTitle = brandsPage?.title || "Our Brands";
+              const trimmed = rawTitle.trimStart();
+              const startsWithO = /^[OoÔôÖö]/.test(trimmed);
 
-            if (!startsWithO) {
-              return rawTitle;
-            }
+              if (!startsWithO) {
+                return rawTitle;
+              }
 
-            const restOfTitle = trimmed.slice(1);
-            const baseDelay = 1.68;
-            const stagger = 0.210;
+              const restOfTitle = trimmed.slice(1);
+              const baseDelay = 1.68;
+              const stagger = 0.210;
 
-            let charIndex = 0;
-            const words = restOfTitle.split(/(\s+)/);
+              let charIndex = 0;
+              const words = restOfTitle.split(/(\s+)/);
 
-            return (
-              <>
-                <span class="inline-block" aria-hidden="true"><AnimatedLetterO /></span>{words.map((chunk) => {
-                  if (/^\s+$/.test(chunk)) {
-                    charIndex += 0.5;
-                    return <span class="char-space" aria-hidden="true">&nbsp;</span>;
-                  }
-                  return (
-                    <span class="inline-block whitespace-nowrap" aria-hidden="true">
-                      {chunk.split('').map((char) => {
-                        const delay = (baseDelay + charIndex * stagger).toFixed(3);
-                        charIndex++;
-                        return (
-                          <span
-                            class="mist-char"
-                            style={`animation-delay: ${delay}s;`}
-                            aria-hidden="true"
-                          >
-                            {char}
-                          </span>
-                        );
-                      })}
-                    </span>
-                  );
-                })}
-              </>
-            );
-          })()}
+              return (
+                <>
+                  <span class="inline-block" aria-hidden="true"><AnimatedLetterO /></span>{words.map((chunk) => {
+                    if (/^\s+$/.test(chunk)) {
+                      charIndex += 0.5;
+                      return <span class="char-space" aria-hidden="true">&nbsp;</span>;
+                    }
+                    return (
+                      <span class="inline-block whitespace-nowrap" aria-hidden="true">
+                        {chunk.split('').map((char) => {
+                          const delay = (baseDelay + charIndex * stagger).toFixed(3);
+                          charIndex++;
+                          return (
+                            <span
+                              class="mist-char"
+                              style={`animation-delay: ${delay}s;`}
+                              aria-hidden="true"
+                            >
+                              {char}
+                            </span>
+                          );
+                        })}
+                      </span>
+                    );
+                  })}
+                </>
+              );
+            })()
+          ) : (
+            brandsPage?.title || "Our Brands"
+          )}
         </h1>
         {brandsPage?.subtitle && (
           <p class="text-base sm:text-lg lg:text-xl text-taupe font-light leading-relaxed font-sans">
@@ -147,7 +152,7 @@ const brandsPage = brandsPageEntry?.data as BrandsPageData | undefined;
       return (
         <section
           id={brand.id.replace(/\.md$/, '')}
-          class="brand-section relative w-full min-h-[100dvh] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-14 sm:scroll-mt-16 transition-colors duration-500"
+          class="brand-section relative w-full min-h-[100dvh] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-0 transition-colors duration-500"
         >
           <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full my-auto">
             <article class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-10 xl:gap-16 items-center">
@@ -224,32 +229,26 @@ const brandsPage = brandsPageEntry?.data as BrandsPageData | undefined;
     history.scrollRestoration = 'manual';
   }
 
-  const getHeaderHeight = () => {
-    const header = document.getElementById('site-header');
-    if (!header) return window.innerWidth >= 640 ? 64 : 56;
-    const rect = header.getBoundingClientRect();
-    return rect.height || (window.innerWidth >= 640 ? 64 : 56);
-  };
-
   const alignBrandHash = (smooth = false) => {
     if (!window.location.hash) return;
     const hash = window.location.hash;
     const target = document.querySelector(hash);
     if (!target) return;
 
-    const header = document.getElementById('site-header');
-    header?.classList.remove('-translate-y-full');
-
-    const headerHeight = getHeaderHeight();
     const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
     const targetRect = target.getBoundingClientRect();
     const targetTop = targetRect.top + currentScrollY;
-    const scrollToY = Math.max(0, targetTop - headerHeight);
+    const scrollToY = Math.max(0, targetTop);
 
     window.scrollTo({
       top: scrollToY,
       behavior: smooth ? 'smooth' : 'auto'
     });
+
+    const header = document.getElementById('site-header');
+    if (scrollToY > 20) {
+      header?.classList.add('-translate-y-full');
+    }
   };
 
   if (window.location.hash) {

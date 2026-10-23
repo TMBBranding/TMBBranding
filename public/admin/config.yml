@@ -24,6 +24,7 @@ collections:
             fields:
               - { label: "Kicker / Header Accent", name: "kicker", widget: "string", required: false }
               - { label: "Main Title", name: "title", widget: "string" }
+              - { label: "Activer l'animation du titre", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Active l'effet visuel spécifique sur le titre (optimisé pour le titre initial 'Elevating Founder-Led Brands'). Décocher si vous modifiez le titre." }
               - { label: "Subtitle", name: "subtitle", widget: "text" }
               - { label: "Background Video (Hero)", name: "video", widget: "file", required: false, default: "/videos/hero-workspace.mp4", hint: "Full-screen background video file (MP4, WebM, etc.)" }
               - { label: "Preview Image (Poster)", name: "posterImage", widget: "image", required: false, default: "/videos/preview-frame.jpg", hint: "Image displayed while the video is loading" }
@@ -53,6 +54,7 @@ collections:
         format: "frontmatter"
         fields:
           - { label: "Main Title", name: "title", widget: "string" }
+          - { label: "Activer l'animation du titre", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Active l'animation de la goutte d'encre sur le 'i' de Marketing et la propagation. Décocher si vous modifiez le titre." }
           - { label: "Subtitle / Introduction", name: "subtitle", widget: "text" }
           - { label: "Inquiry Button Text", name: "inquiryButtonText", widget: "string", required: false, default: "Inquire About This Service" }
           - { label: "Default Deliverables Heading", name: "defaultDeliverablesHeading", widget: "string", required: false, default: "Services Include:", hint: "Used when a service markdown file does not specify an explicit heading." }
@@ -70,6 +72,7 @@ collections:
         format: "frontmatter"
         fields:
           - { label: "Main Title", name: "title", widget: "string" }
+          - { label: "Activer l'animation du titre", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Active l'animation calligraphique du 'O' de Our Brands et le voile de brume. Décocher si vous modifiez le titre." }
           - { label: "Subtitle / Introduction", name: "subtitle", widget: "text" }
           - label: "Search Engine Optimization (SEO)"
             name: "seo"
@@ -89,6 +92,7 @@ collections:
             widget: "object"
             fields:
               - { label: "Title", name: "title", widget: "string" }
+              - { label: "Activer l'animation du titre", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Active l'animation dessinée du logo TMB dans le titre. Décocher si vous modifiez le titre." }
               - { label: "Subtitle / Story Title", name: "subtitle", widget: "text", required: false }
           - label: "Founder Biography (Tiffany)"
             name: "bioFounder"
@@ -114,6 +118,7 @@ collections:
         format: "frontmatter"
         fields:
           - { label: "Main Title", name: "title", widget: "string" }
+          - { label: "Activer l'animation du titre", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Active l'effet machine à écrire sur 'Your Brand Story'. Décocher si vous modifiez le titre." }
           - { label: "Subtitle", name: "subtitle", widget: "text" }
           - { label: "Dropdown Placeholder Text", name: "servicePlaceholder", widget: "string", default: "Select an option", required: false }
           - label: "Inquiry Service Options"
@@ -125,7 +130,7 @@ collections:
               - "Thought Leadership & Branding"
               - "Email Marketing"
               - "Paid Social"
-              - "Events & Activations"
+              - "Website Design & Development"
               - "Something else"
             field: { label: "Service Option", name: "option", widget: "string" }
           - label: "Budget Ranges"

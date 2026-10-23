@@ -223,32 +223,61 @@ const isActive = (href: string) => {
   // Smart Autohide on Scroll
   let lastScrollY = window.scrollY;
   let isTicking = false;
-  let suppressAutohide = !!window.location.hash;
+  let isAligningHash = !!window.location.hash;
 
-  if (suppressAutohide) {
-    header?.classList.remove('-translate-y-full');
+  if (isAligningHash) {
+    if (window.scrollY > 20 || window.location.hash) {
+      header?.classList.add('-translate-y-full');
+    }
     setTimeout(() => {
-      suppressAutohide = false;
+      isAligningHash = false;
       lastScrollY = window.scrollY;
+      if (window.scrollY > 20) {
+        header?.classList.add('-translate-y-full');
+      }
     }, 1200);
   }
 
   window.addEventListener('hashchange', () => {
-    suppressAutohide = true;
-    header?.classList.remove('-translate-y-full');
+    isAligningHash = true;
+    header?.classList.add('-translate-y-full');
     setTimeout(() => {
-      suppressAutohide = false;
+      isAligningHash = false;
       lastScrollY = window.scrollY;
+      if (window.scrollY > 20) {
+        header?.classList.add('-translate-y-full');
+      }
     }, 1000);
   });
+
+  const releaseHashLock = () => {
+    if (isAligningHash) {
+      isAligningHash = false;
+      lastScrollY = window.scrollY;
+    }
+  };
+  window.addEventListener('wheel', releaseHashLock, { passive: true });
+  window.addEventListener('touchstart', releaseHashLock, { passive: true });
 
   const handleScroll = () => {
     const currentScrollY = window.scrollY;
 
-    // Never hide header when mobile menu is open or during initial hash alignment
+    // Never hide header when mobile menu is open
     const isMobileMenuOpen = navBtn && navBtn.getAttribute('aria-expanded') === 'true';
-    if (isMobileMenuOpen || suppressAutohide) {
+    if (isMobileMenuOpen) {
       header?.classList.remove('-translate-y-full');
+      lastScrollY = currentScrollY;
+      isTicking = false;
+      return;
+    }
+
+    // Keep header hidden during initial hash alignment unless user is at the very top
+    if (isAligningHash) {
+      if (currentScrollY <= 20) {
+        header?.classList.remove('-translate-y-full');
+      } else {
+        header?.classList.add('-translate-y-full');
+      }
       lastScrollY = currentScrollY;
       isTicking = false;
       return;

@@ -10,6 +10,7 @@ export const homeSchema = z.object({
   hero: z.object({
     kicker: z.string().optional(),
     title: z.string(),
+    animateTitle: z.boolean().default(true).optional(),
     subtitle: z.string(),
     video: z.string().optional(),
     posterImage: z.string().optional(),
@@ -31,6 +32,7 @@ export const homeSchema = z.object({
 export const aboutSchema = z.object({
   hero: z.object({
     title: z.string(),
+    animateTitle: z.boolean().default(true).optional(),
     subtitle: z.string().optional(),
   }),
   bioFounder: z.object({
@@ -46,6 +48,7 @@ export const aboutSchema = z.object({
 
 export const servicesPageSchema = z.object({
   title: z.string(),
+  animateTitle: z.boolean().default(true).optional(),
   subtitle: z.string().optional(),
   inquiryButtonText: z.string().optional(),
   defaultDeliverablesHeading: z.string().optional(),
@@ -54,12 +57,14 @@ export const servicesPageSchema = z.object({
 
 export const brandsPageSchema = z.object({
   title: z.string(),
+  animateTitle: z.boolean().default(true).optional(),
   subtitle: z.string().optional(),
   seo: seoSchema,
 });
 
 export const contactSchema = z.object({
   title: z.string(),
+  animateTitle: z.boolean().default(true).optional(),
   subtitle: z.string(),
   servicePlaceholder: z.string().optional(),
   serviceOptions: z.array(z.string()),
