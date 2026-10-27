@@ -5,7 +5,7 @@ hero:
   subtitle: The founder-led story behind a founder-led agency.
 bioFounder:
   name: Tiffany
-  portraitImage: /images/uploads/founder-tiffany.png
+  portraitImage: /images/uploads/untitled-design-7-.png
   portraitAlt: Portrait of Tiffany, Founder of TMB Branding
   body: >
     TMB Branding was born out of a deep love for storytelling, brand building,
