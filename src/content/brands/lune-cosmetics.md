@@ -1,8 +1,8 @@
 ---
-name: "L’Une Cosmetics"
+name: L’Une Cosmetics
 order: 5
-logoImage: "/images/uploads/brand-lune-logo.png"
-coverImage: "/images/uploads/brand-lune.png"
+logoImage: /images/uploads/brand-lune-logo.png
+coverImage: /images/uploads/4.png
 ---
 
 A cosmetics brand based in Italy with retail in France + Germany.
