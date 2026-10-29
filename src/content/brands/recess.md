@@ -1,8 +1,8 @@
 ---
-name: "Recess by Amy Kiska & Molly Morse"
+name: Recess by Amy Kiska & Molly Morse
 order: 4
-logoImage: "/images/uploads/brand-recess-logo.png"
-coverImage: "/images/uploads/brand-recess.png"
+logoImage: /images/uploads/brand-recess-logo.png
+coverImage: /images/uploads/6.png
 ---
 
 Recess is transforming how parents discover and book kids’ camps, classes, and activities — and we’ve been along for the ride since before day one.
