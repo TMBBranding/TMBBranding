@@ -1,8 +1,8 @@
 ---
-name: "OPI"
+name: OPI
 order: 6
-logoImage: "/images/uploads/brand-opi-logo.png"
-coverImage: "/images/uploads/brand-opi.png"
+logoImage: /images/uploads/brand-opi-logo.png
+coverImage: /images/uploads/5.png
 ---
 
 Managing both consumer and professional audiences required a strategy that could balance education, inspiration, and commerce without losing sight of the brand. Tiffany led social strategy across both channels, rebuilding momentum and strengthening social as a meaningful driver of community and conversion. Within one year, we:
