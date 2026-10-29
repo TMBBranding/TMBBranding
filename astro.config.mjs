@@ -6,9 +6,23 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://tmbbranding.com',
   output: 'static',
-  redirects: {
-    '/admin': '/admin/index.html',
-    '/sveltia': '/sveltia/index.html',
+  vite: {
+    plugins: [
+      {
+        name: 'serve-static-index',
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            if (req.url === '/sveltia' || req.url === '/sveltia/') {
+              req.url = '/sveltia/index.html';
+            }
+            if (req.url === '/admin' || req.url === '/admin/') {
+              req.url = '/admin/index.html';
+            }
+            next();
+          });
+        },
+      },
+    ],
   },
   integrations: [
     tailwind({

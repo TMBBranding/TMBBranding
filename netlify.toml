@@ -16,8 +16,20 @@
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
 
+# Exception for Sveltia CMS interface
+[[headers]]
+  for = "/sveltia/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+
 # Automatic redirect for admin access
 [[redirects]]
   from = "/admin"
   to = "/admin/"
+  status = 301
+
+# Automatic redirect for sveltia access
+[[redirects]]
+  from = "/sveltia"
+  to = "/sveltia/"
   status = 301
