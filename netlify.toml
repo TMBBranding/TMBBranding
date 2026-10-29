@@ -10,15 +10,9 @@
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
 
-# Exception for Decap CMS interface
+# Exception for Admin CMS interface
 [[headers]]
   for = "/admin/*"
-  [headers.values]
-    X-Frame-Options = "SAMEORIGIN"
-
-# Exception for Sveltia CMS interface
-[[headers]]
-  for = "/sveltia/*"
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
 
@@ -28,8 +22,13 @@
   to = "/admin/"
   status = 301
 
-# Automatic redirect for sveltia access
+# Redirect former /sveltia to /admin/
+[[redirects]]
+  from = "/sveltia/*"
+  to = "/admin/"
+  status = 301
+
 [[redirects]]
   from = "/sveltia"
-  to = "/sveltia/"
+  to = "/admin/"
   status = 301

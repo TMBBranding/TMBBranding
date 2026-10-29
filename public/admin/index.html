@@ -4,12 +4,21 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
-    <title>TMB Branding — Decap CMS Admin</title>
-    <!-- Netlify Identity Widget -->
-    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <title>TMB Branding — Admin CMS</title>
+    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+    <script>
+      try {
+        const key = 'sveltia-cms.prefs';
+        const prefs = JSON.parse(localStorage.getItem(key) || '{}');
+        if (!prefs.locale || prefs.locale === 'auto' || prefs.locale.startsWith('fr')) {
+          prefs.locale = 'en-US';
+          localStorage.setItem(key, JSON.stringify(prefs));
+        }
+      } catch (e) {}
+    </script>
   </head>
   <body>
-    <!-- Decap CMS Script -->
-    <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+    <!-- Sveltia CMS Script -->
+    <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
   </body>
 </html>

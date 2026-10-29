@@ -12,10 +12,10 @@ export default defineConfig({
         name: 'serve-static-index',
         configureServer(server) {
           server.middlewares.use((req, res, next) => {
-            if (req.url === '/sveltia' || req.url === '/sveltia/') {
-              req.url = '/sveltia/index.html';
-            }
             if (req.url === '/admin' || req.url === '/admin/') {
+              req.url = '/admin/index.html';
+            }
+            if (req.url === '/sveltia' || req.url === '/sveltia/') {
               req.url = '/admin/index.html';
             }
             next();
