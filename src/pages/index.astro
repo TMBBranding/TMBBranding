@@ -149,7 +149,10 @@ function getFirstSentence(text?: string): string {
   </section>
 
   <!-- 2. SCROLLING CONTENT WRAPPER (Slides up over the fixed hero video) -->
-  <div class="relative z-20 shadow-[0_-25px_50px_rgba(0,0,0,0.4)] bg-creme-powder">
+  <div class="relative z-20 bg-creme-powder">
+    <!-- Top Curtain Shadow over Hero Video (Zero bleed to footer) -->
+    <div class="pointer-events-none absolute top-0 inset-x-0 h-0 shadow-[0_-25px_50px_rgba(0,0,0,0.4)]" aria-hidden="true"></div>
+
     <!-- 2. SERVICES GRID -->
   <section class="py-24 sm:py-32 bg-espresso text-creme-powder border-b border-espresso-deep/40">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
