@@ -44,7 +44,7 @@ const parsedServices = services.map((service) => {
       raw = '';
     }
   }
-  const parsed = parseServiceContent(raw, service.data.shortDescription, defaultDeliverablesHeading);
+  const parsed = parseServiceContent(raw, service.data.shortDescription || service.data.cardDescription || '', defaultDeliverablesHeading);
   return {
     service,
     ...parsed,

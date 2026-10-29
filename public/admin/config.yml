@@ -272,10 +272,11 @@ collections:
     fields:
       - { label: "Service Title", name: "title", widget: "string" }
       - { label: "Display Order", name: "order", widget: "number", value_type: "int", default: 1 }
-      - { label: "Short Description", name: "shortDescription", widget: "text" }
+      - { label: "Homepage Card Text", name: "cardDescription", widget: "text", required: false, hint: "Texte affiché sur la carte du service (Page d'accueil). Entièrement indépendant de la page Services." }
+      - { label: "Short Description (Fallback / SEO)", name: "shortDescription", widget: "text", required: false, hint: "Description courte de secours si le texte de la carte n'est pas renseigné." }
       - { label: "Homepage Card Image", name: "cardImage", widget: "image", required: false, hint: "Photo affichée sur la carte du service (Page d'accueil). Si non renseignée, utilise la photo de la page services." }
       - { label: "Services Page Image", name: "coverImage", widget: "image", required: false, hint: "Photo affichée dans la section du service sur la page /services." }
-      - { label: "Detailed Description (Markdown)", name: "body", widget: "markdown" }
+      - { label: "Services Page Content (Markdown)", name: "body", widget: "markdown", hint: "Description et liste des prestations (### Services Include:) affichées sur la page /services." }
 
   # ==========================================
   # BRANDS COLLECTION (Client portfolio)

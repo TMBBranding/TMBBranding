@@ -188,7 +188,7 @@ function getFirstSentence(text?: string): string {
                     </a>
                   </h3>
                   <p class="text-taupe text-sm leading-relaxed font-light line-clamp-3">
-                    {getFirstSentence(service.data.shortDescription)}
+                    {service.data.cardDescription || getFirstSentence(service.data.shortDescription)}
                   </p>
                 </div>
               </div>

@@ -166,7 +166,8 @@ export const settingsSchema = z.object({
 export const serviceSchema = z.object({
   title: z.string(),
   order: z.number().default(0),
-  shortDescription: z.string(),
+  cardDescription: z.string().optional(),
+  shortDescription: z.string().optional(),
   coverImage: z.string().optional(),
   cardImage: z.string().optional(),
   detailImage: z.string().optional(),
