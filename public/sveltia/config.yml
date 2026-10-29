@@ -1,0 +1,295 @@
+backend:
+  name: github
+  repo: TMBBranding/TMBBranding
+  branch: main
+
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  # ==========================================
+  # SINGLE PAGES (Home, About, Contact)
+  # ==========================================
+  - name: "pages"
+    label: "Pages"
+    delete: false
+    files:
+      - name: "home"
+        label: "Home Page"
+        file: "src/content/pages/home.md"
+        format: "frontmatter"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Kicker / Header Accent", name: "kicker", widget: "string", required: false }
+              - { label: "Main Title", name: "title", widget: "string" }
+              - { label: "Enable Title Animation", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Enables the specific visual effect on the title (optimized for the initial title 'Elevating Founder-Led Brands'). Uncheck if you modify the title." }
+              - { label: "Subtitle", name: "subtitle", widget: "text" }
+              - { label: "Background Video (Hero)", name: "video", widget: "file", required: false, default: "/videos/hero-workspace.mp4", hint: "Full-screen background video file (MP4, WebM, etc.)" }
+              - { label: "Preview Image (Poster)", name: "posterImage", widget: "image", required: false, default: "/videos/preview-frame.jpg", hint: "Image displayed while the video is loading" }
+              - { label: "Video Play Button Label", name: "videoPlayLabel", widget: "string", required: false, default: "Play video" }
+              - { label: "Video Pause Button Label", name: "videoPauseLabel", widget: "string", required: false, default: "Pause video" }
+          - { label: "Services Section Title", name: "servicesSectionTitle", widget: "string", required: false, default: "Boutique Brand & Digital Marketing" }
+          - { label: "Brands Section Title", name: "brandsSectionTitle", widget: "string", required: false, default: "Trusted by Visionary Founders" }
+          - label: "Client Testimonials"
+            name: "testimonials"
+            widget: "list"
+            summary: "{{fields.author}} — {{fields.role}}"
+            fields:
+              - { label: "Quote / Testimonial", name: "quote", widget: "text" }
+              - { label: "Author", name: "author", widget: "string" }
+              - { label: "Role & Brand", name: "role", widget: "string" }
+          - label: "Search Engine Optimization (SEO)"
+            name: "seo"
+            widget: "object"
+            fields:
+              - { label: "Meta Title", name: "metaTitle", widget: "string" }
+              - { label: "Meta Description", name: "metaDescription", widget: "text" }
+              - { label: "Open Graph Image (OG)", name: "ogImage", widget: "image", required: false }
+
+      - name: "services_page"
+        label: "Services Page (Header & SEO)"
+        file: "src/content/pages/services.md"
+        format: "frontmatter"
+        fields:
+          - { label: "Main Title", name: "title", widget: "string" }
+          - { label: "Enable Title Animation", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Enables the ink drop animation on the 'i' of Marketing and the propagation effect. Uncheck if you modify the title." }
+          - { label: "Subtitle / Introduction", name: "subtitle", widget: "text" }
+          - { label: "Inquiry Button Text", name: "inquiryButtonText", widget: "string", required: false, default: "Inquire About This Service" }
+          - { label: "Default Deliverables Heading", name: "defaultDeliverablesHeading", widget: "string", required: false, default: "Services Include:", hint: "Used when a service markdown file does not specify an explicit heading." }
+          - label: "Search Engine Optimization (SEO)"
+            name: "seo"
+            widget: "object"
+            fields:
+              - { label: "Meta Title", name: "metaTitle", widget: "string" }
+              - { label: "Meta Description", name: "metaDescription", widget: "text" }
+              - { label: "Open Graph Image (OG)", name: "ogImage", widget: "image", required: false }
+
+      - name: "brands_page"
+        label: "Brands Page (Header & SEO)"
+        file: "src/content/pages/brands.md"
+        format: "frontmatter"
+        fields:
+          - { label: "Main Title", name: "title", widget: "string" }
+          - { label: "Enable Title Animation", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Enables the calligraphic animation on the 'O' of Our Brands and the mist veil. Uncheck if you modify the title." }
+          - { label: "Subtitle / Introduction", name: "subtitle", widget: "text" }
+          - label: "Search Engine Optimization (SEO)"
+            name: "seo"
+            widget: "object"
+            fields:
+              - { label: "Meta Title", name: "metaTitle", widget: "string" }
+              - { label: "Meta Description", name: "metaDescription", widget: "text" }
+              - { label: "Open Graph Image (OG)", name: "ogImage", widget: "image", required: false }
+
+      - name: "about"
+        label: "About Page"
+        file: "src/content/pages/about.md"
+        format: "frontmatter"
+        fields:
+          - label: "Hero"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Enable Title Animation", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Enables the hand-drawn sketch animation of the TMB logo in the title. Uncheck if you modify the title." }
+              - { label: "Subtitle / Story Title", name: "subtitle", widget: "text", required: false }
+          - label: "Founder Biography (Tiffany)"
+            name: "bioFounder"
+            widget: "object"
+            fields:
+              - { label: "Full Name", name: "name", widget: "string" }
+              - { label: "Portrait Photo", name: "portraitImage", widget: "image" }
+              - { label: "Portrait Alt Text", name: "portraitAlt", widget: "string", required: false, default: "Portrait of Tiffany" }
+              - { label: "Biography & Vision", name: "body", widget: "markdown", hint: "Paragraphs before <!-- split --> appear beside the portrait photo. The rest stretch full-width below." }
+          - { label: "Paragraphs Beside Photo", name: "paragraphsBesidePhoto", widget: "number", value_type: "int", default: 3, required: false, hint: "Number of paragraphs next to the portrait if <!-- split --> is not used in the text." }
+          - { label: "Closing Invitation Text with Links", name: "closingText", widget: "string", required: false, hint: "Example: We’d love to work with you. [Get in touch](/contact) or visit our [Brands](/brands) page." }
+          - label: "Search Engine Optimization (SEO)"
+            name: "seo"
+            widget: "object"
+            fields:
+              - { label: "Meta Title", name: "metaTitle", widget: "string" }
+              - { label: "Meta Description", name: "metaDescription", widget: "text" }
+              - { label: "Open Graph Image (OG)", name: "ogImage", widget: "image", required: false }
+
+      - name: "contact"
+        label: "Contact Page"
+        file: "src/content/pages/contact.md"
+        format: "frontmatter"
+        fields:
+          - { label: "Main Title", name: "title", widget: "string" }
+          - { label: "Enable Title Animation", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Enables the typewriter effect on 'Your Brand Story'. Uncheck if you modify the title." }
+          - { label: "Subtitle", name: "subtitle", widget: "text" }
+          - { label: "Dropdown Placeholder Text", name: "servicePlaceholder", widget: "string", default: "Select an option", required: false }
+          - label: "Inquiry Service Options"
+            name: "serviceOptions"
+            widget: "list"
+            default:
+              - "Social Media Strategy"
+              - "Strategic Partnerships"
+              - "Thought Leadership & Branding"
+              - "Email Marketing"
+              - "Paid Social"
+              - "Website Design & Development"
+              - "Something else"
+            field: { label: "Service Option", name: "option", widget: "string" }
+          - label: "Budget Ranges"
+            name: "budgetOptions"
+            widget: "list"
+            field: { label: "Budget Range", name: "budget", widget: "string" }
+          - { label: "Submit Button Text", name: "submitButtonText", widget: "string", default: "Submit", required: false }
+          - { label: "Submitting Button Text (Loading)", name: "submittingButtonText", widget: "string", default: "Submitting...", required: false }
+
+          - label: "Form Labels & Placeholders"
+            name: "formLabels"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "First Name Label", name: "firstName", widget: "string", default: "First Name" }
+              - { label: "Last Name Label", name: "lastName", widget: "string", default: "Last Name" }
+              - { label: "Email Address Label", name: "email", widget: "string", default: "Email Address" }
+              - { label: "Service Dropdown Label", name: "service", widget: "string", default: "I'm Interested In" }
+              - { label: "Budget Label", name: "budget", widget: "string", default: "Your project budget" }
+              - { label: "Message Label", name: "message", widget: "string", default: "Tell us more about your project" }
+              - { label: "GDPR Consent Text", name: "consent", widget: "text", default: "I consent to TMB Branding processing my contact information solely for the purpose of this project inquiry in accordance with privacy principles." }
+
+          - label: "Form Validation & Error Messages"
+            name: "formErrors"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "First Name Error", name: "firstName", widget: "string", default: "Please enter your first name." }
+              - { label: "Last Name Error", name: "lastName", widget: "string", default: "Please enter your last name." }
+              - { label: "Email Address Error", name: "email", widget: "string", default: "Please enter a valid email address." }
+              - { label: "Service Selection Error", name: "service", widget: "string", default: "Please select an option." }
+              - { label: "Budget Error", name: "budget", widget: "string", default: "Please select your project budget." }
+              - { label: "Message Error", name: "message", widget: "string", default: "Please include a brief description of your project." }
+              - { label: "Consent Error", name: "consent", widget: "string", default: "Consent is required to submit your inquiry." }
+              - { label: "API Submission Failed Error", name: "submitFailed", widget: "string", default: "Unable to submit inquiry. Please verify your details or email us directly at tiffany@tmbbranding.com." }
+
+          - label: "Form Success Screen"
+            name: "formSuccess"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Success Kicker / Accent", name: "kicker", widget: "string", default: "Inquiry Transmitted" }
+              - { label: "Success Title", name: "title", widget: "string", default: "Thank you for reaching out!" }
+              - { label: "Success Description", name: "message", widget: "text", default: "Your brief has been received. The TMB team will review your objectives and respond within 24 to 48 business hours." }
+              - { label: "Send Another Message Button Text", name: "resetButtonText", widget: "string", default: "Send Another Message" }
+              - { label: "Explore Works Button Text", name: "exploreButtonText", widget: "string", default: "Explore Recent Works →" }
+              - { label: "Explore Works Button URL", name: "exploreButtonUrl", widget: "string", default: "/brands" }
+          - label: "Search Engine Optimization (SEO)"
+            name: "seo"
+            widget: "object"
+            fields:
+              - { label: "Meta Title", name: "metaTitle", widget: "string" }
+              - { label: "Meta Description", name: "metaDescription", widget: "text" }
+              - { label: "Open Graph Image (OG)", name: "ogImage", widget: "image", required: false }
+
+      - name: "settings"
+        label: "Site Settings, Navigation & Footer"
+        file: "src/content/pages/settings.md"
+        format: "frontmatter"
+        fields:
+          - { label: "Brand Name (Logo Header)", name: "brandName", widget: "string", default: "TMB BRANDING" }
+          - { label: "Site Language Code", name: "siteLanguage", widget: "string", default: "en", hint: "HTML lang attribute (e.g. 'en', 'fr')" }
+          - label: "Main Navigation Links"
+            name: "navItems"
+            widget: "list"
+            fields:
+              - { label: "Link Label", name: "label", widget: "string" }
+              - { label: "Link URL / Path", name: "href", widget: "string" }
+            default:
+              - { label: "Services", href: "/services" }
+              - { label: "Brands", href: "/brands" }
+              - { label: "About Us", href: "/about" }
+              - { label: "Contact", href: "/contact" }
+          - { label: "Inquiries Section Title (Footer)", name: "inquiriesTitle", widget: "string", default: "WORK WITH TMB" }
+          - { label: "Inquiries Tagline (Footer)", name: "inquiriesSubtitle", widget: "text", default: "New beginnings. Next chapters. Meaningful growth. Let's build what's next." }
+          - { label: "Contact Link Text", name: "contactLinkText", widget: "string", default: "Contact us" }
+          - { label: "Phone Number", name: "phone", widget: "string", default: "+1 512 529 1677" }
+          - { label: "Contact Email", name: "email", widget: "string", default: "tiffany@tmbbranding.com" }
+          - { label: "Social Section Title", name: "socialTitle", widget: "string", default: "Follow Us" }
+          - { label: "Instagram Handle", name: "instagramHandle", widget: "string", default: "@tmbbranding" }
+          - { label: "Instagram URL", name: "instagramUrl", widget: "string", default: "https://www.instagram.com/tmbbranding/" }
+          - { label: "City / Headquarters", name: "location", widget: "string", default: "International" }
+          - { label: "Copyright Text (Footer)", name: "copyrightText", widget: "string", default: "© 2026 TMB Branding. All rights reserved." }
+          - { label: "Company Legal / Alternate Name (SEO)", name: "companyName", widget: "string", default: "TMB Branding", required: false }
+          - { label: "Founder Name (SEO)", name: "founderName", widget: "string", default: "Tiffany", required: false }
+          - { label: "Founder Job Title (SEO)", name: "founderTitle", widget: "string", default: "Founder & Creative Director", required: false }
+          - { label: "Open Graph Locale (SEO)", name: "ogLocale", widget: "string", default: "en_US", required: false }
+
+      - name: "theme"
+        label: "Theme & Color Palette"
+        file: "src/content/pages/theme.md"
+        format: "frontmatter"
+        fields:
+          - label: "Neutral Bases (Backgrounds)"
+            name: "creme"
+            widget: "object"
+            fields:
+              - { label: "Primary Background (Creme Powder)", name: "powder", widget: "color", default: "#FAF7F2" }
+              - { label: "Secondary Background / Cards (Alabaster)", name: "alabaster", widget: "color", default: "#F3EFEA" }
+              - { label: "Border Color", name: "border", widget: "color", default: "#E4DDD4" }
+
+          - label: "Primary Accent Shade (Cognac / Warm Terracotta)"
+            name: "terracotta"
+            widget: "object"
+            fields:
+              - { label: "Primary Cognac (Hover buttons, links)", name: "default", widget: "color", default: "#9E6742" }
+              - { label: "Dark Cognac (Active / Pressed)", name: "dark", widget: "color", default: "#7D4B2A" }
+              - { label: "Light Cognac (Subtle hovers)", name: "light", widget: "color", default: "#BD835C" }
+
+          - label: "Typography & Headings (Espresso)"
+            name: "espresso"
+            widget: "object"
+            fields:
+              - { label: "Primary Espresso (Headings, buttons & sections)", name: "default", widget: "color", default: "#382820" }
+              - { label: "Deep Espresso (Video overlay / shadows)", name: "deep", widget: "color", default: "#1C1513" }
+
+          - label: "Secondary Text (Taupe)"
+            name: "taupe"
+            widget: "object"
+            fields:
+              - { label: "Primary Taupe (Subtitles & descriptions)", name: "default", widget: "color", default: "#6B5C55" }
+              - { label: "Light Taupe", name: "light", widget: "color", default: "#94847D" }
+
+          - label: "Kickers & Golden Accents (Champagne / Bronze)"
+            name: "ocre"
+            widget: "object"
+            fields:
+              - { label: "Primary Champagne (Kickers & accent lines)", name: "default", widget: "color", default: "#C29B72" }
+              - { label: "Light Champagne (Accents on dark background)", name: "light", widget: "color", default: "#D8B58F" }
+
+  # ==========================================
+  # SERVICES COLLECTION (Multiple files)
+  # ==========================================
+  - name: "services"
+    label: "Services"
+    folder: "src/content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Service Title", name: "title", widget: "string" }
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int", default: 1 }
+      - { label: "Homepage Card Text", name: "cardDescription", widget: "text", required: false, hint: "Text displayed on the service card (Homepage). Completely independent from the Services page." }
+      - { label: "Short Description (Fallback / SEO)", name: "shortDescription", widget: "text", required: false, hint: "Fallback short description if the card text is not provided." }
+      - { label: "Homepage Card Image", name: "cardImage", widget: "image", required: false, hint: "Image displayed on the service card (Homepage). If not provided, uses the Services page image." }
+      - { label: "Services Page Image", name: "coverImage", widget: "image", required: false, hint: "Image displayed in the service section on the /services page." }
+      - { label: "Services Page Content (Markdown)", name: "body", widget: "markdown", hint: "Description and list of deliverables (### Services Include:) displayed on the /services page." }
+
+  # ==========================================
+  # BRANDS COLLECTION (Client portfolio)
+  # ==========================================
+  - name: "brands"
+    label: "Client Brands"
+    folder: "src/content/brands"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Brand Name", name: "name", widget: "string" }
+      - { label: "Display Order", name: "order", widget: "number", value_type: "int", default: 1 }
+      - { label: "Logo", name: "logoImage", widget: "image" }
+      - { label: "Cover Image", name: "coverImage", widget: "image" }
+      - { label: "Case Study / Overview (Markdown)", name: "body", widget: "markdown" }

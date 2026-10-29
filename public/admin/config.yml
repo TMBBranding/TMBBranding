@@ -24,7 +24,7 @@ collections:
             fields:
               - { label: "Kicker / Header Accent", name: "kicker", widget: "string", required: false }
               - { label: "Main Title", name: "title", widget: "string" }
-              - { label: "Activer l'animation du titre", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Active l'effet visuel spécifique sur le titre (optimisé pour le titre initial 'Elevating Founder-Led Brands'). Décocher si vous modifiez le titre." }
+              - { label: "Enable Title Animation", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Enables the specific visual effect on the title (optimized for the initial title 'Elevating Founder-Led Brands'). Uncheck if you modify the title." }
               - { label: "Subtitle", name: "subtitle", widget: "text" }
               - { label: "Background Video (Hero)", name: "video", widget: "file", required: false, default: "/videos/hero-workspace.mp4", hint: "Full-screen background video file (MP4, WebM, etc.)" }
               - { label: "Preview Image (Poster)", name: "posterImage", widget: "image", required: false, default: "/videos/preview-frame.jpg", hint: "Image displayed while the video is loading" }
@@ -54,7 +54,7 @@ collections:
         format: "frontmatter"
         fields:
           - { label: "Main Title", name: "title", widget: "string" }
-          - { label: "Activer l'animation du titre", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Active l'animation de la goutte d'encre sur le 'i' de Marketing et la propagation. Décocher si vous modifiez le titre." }
+          - { label: "Enable Title Animation", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Enables the ink drop animation on the 'i' of Marketing and the propagation effect. Uncheck if you modify the title." }
           - { label: "Subtitle / Introduction", name: "subtitle", widget: "text" }
           - { label: "Inquiry Button Text", name: "inquiryButtonText", widget: "string", required: false, default: "Inquire About This Service" }
           - { label: "Default Deliverables Heading", name: "defaultDeliverablesHeading", widget: "string", required: false, default: "Services Include:", hint: "Used when a service markdown file does not specify an explicit heading." }
@@ -72,7 +72,7 @@ collections:
         format: "frontmatter"
         fields:
           - { label: "Main Title", name: "title", widget: "string" }
-          - { label: "Activer l'animation du titre", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Active l'animation calligraphique du 'O' de Our Brands et le voile de brume. Décocher si vous modifiez le titre." }
+          - { label: "Enable Title Animation", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Enables the calligraphic animation on the 'O' of Our Brands and the mist veil. Uncheck if you modify the title." }
           - { label: "Subtitle / Introduction", name: "subtitle", widget: "text" }
           - label: "Search Engine Optimization (SEO)"
             name: "seo"
@@ -92,7 +92,7 @@ collections:
             widget: "object"
             fields:
               - { label: "Title", name: "title", widget: "string" }
-              - { label: "Activer l'animation du titre", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Active l'animation dessinée du logo TMB dans le titre. Décocher si vous modifiez le titre." }
+              - { label: "Enable Title Animation", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Enables the hand-drawn sketch animation of the TMB logo in the title. Uncheck if you modify the title." }
               - { label: "Subtitle / Story Title", name: "subtitle", widget: "text", required: false }
           - label: "Founder Biography (Tiffany)"
             name: "bioFounder"
@@ -118,7 +118,7 @@ collections:
         format: "frontmatter"
         fields:
           - { label: "Main Title", name: "title", widget: "string" }
-          - { label: "Activer l'animation du titre", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Active l'effet machine à écrire sur 'Your Brand Story'. Décocher si vous modifiez le titre." }
+          - { label: "Enable Title Animation", name: "animateTitle", widget: "boolean", default: true, required: false, hint: "Enables the typewriter effect on 'Your Brand Story'. Uncheck if you modify the title." }
           - { label: "Subtitle", name: "subtitle", widget: "text" }
           - { label: "Dropdown Placeholder Text", name: "servicePlaceholder", widget: "string", default: "Select an option", required: false }
           - label: "Inquiry Service Options"
@@ -151,7 +151,7 @@ collections:
               - { label: "Service Dropdown Label", name: "service", widget: "string", default: "I'm Interested In" }
               - { label: "Budget Label", name: "budget", widget: "string", default: "Your project budget" }
               - { label: "Message Label", name: "message", widget: "string", default: "Tell us more about your project" }
-              - { label: "RGPD Consent Text", name: "consent", widget: "text", default: "I consent to TMB Branding processing my contact information solely for the purpose of this project inquiry in accordance with privacy principles." }
+              - { label: "GDPR Consent Text", name: "consent", widget: "text", default: "I consent to TMB Branding processing my contact information solely for the purpose of this project inquiry in accordance with privacy principles." }
 
           - label: "Form Validation & Error Messages"
             name: "formErrors"
@@ -272,11 +272,11 @@ collections:
     fields:
       - { label: "Service Title", name: "title", widget: "string" }
       - { label: "Display Order", name: "order", widget: "number", value_type: "int", default: 1 }
-      - { label: "Homepage Card Text", name: "cardDescription", widget: "text", required: false, hint: "Texte affiché sur la carte du service (Page d'accueil). Entièrement indépendant de la page Services." }
-      - { label: "Short Description (Fallback / SEO)", name: "shortDescription", widget: "text", required: false, hint: "Description courte de secours si le texte de la carte n'est pas renseigné." }
-      - { label: "Homepage Card Image", name: "cardImage", widget: "image", required: false, hint: "Photo affichée sur la carte du service (Page d'accueil). Si non renseignée, utilise la photo de la page services." }
-      - { label: "Services Page Image", name: "coverImage", widget: "image", required: false, hint: "Photo affichée dans la section du service sur la page /services." }
-      - { label: "Services Page Content (Markdown)", name: "body", widget: "markdown", hint: "Description et liste des prestations (### Services Include:) affichées sur la page /services." }
+      - { label: "Homepage Card Text", name: "cardDescription", widget: "text", required: false, hint: "Text displayed on the service card (Homepage). Completely independent from the Services page." }
+      - { label: "Short Description (Fallback / SEO)", name: "shortDescription", widget: "text", required: false, hint: "Fallback short description if the card text is not provided." }
+      - { label: "Homepage Card Image", name: "cardImage", widget: "image", required: false, hint: "Image displayed on the service card (Homepage). If not provided, uses the Services page image." }
+      - { label: "Services Page Image", name: "coverImage", widget: "image", required: false, hint: "Image displayed in the service section on the /services page." }
+      - { label: "Services Page Content (Markdown)", name: "body", widget: "markdown", hint: "Description and list of deliverables (### Services Include:) displayed on the /services page." }
 
   # ==========================================
   # BRANDS COLLECTION (Client portfolio)

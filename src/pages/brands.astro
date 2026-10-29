@@ -156,13 +156,15 @@ const animateTitle = brandsPage?.animateTitle ?? true;
         >
           <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full my-auto">
             <article class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-10 xl:gap-16 items-center">
-              <!-- Imagery Container (Square 1:1 Ratio, No White Frame, object-top for portrait) -->
+              <!-- Imagery Container (Natural Ratio) -->
               <div class={`lg:col-span-6 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
-                <div class="brand-image-box relative w-full aspect-square max-h-[34vh] sm:max-h-[40vh] lg:max-h-[58vh] max-w-[34vh] sm:max-w-[40vh] lg:max-w-[58vh] overflow-hidden shadow-warm bg-creme-alabaster mx-auto">
+                <div class={`brand-image-box relative overflow-hidden shadow-warm bg-creme-alabaster mx-auto ${isPortrait ? 'w-fit max-w-lg' : 'w-full'}`}>
                   <img
                     src={brand.data.coverImage}
                     alt={brand.data.name}
-                    class={`w-full h-full object-cover ${isPortrait ? 'object-top' : 'object-center'}`}
+                    width={dimensions?.width}
+                    height={dimensions?.height}
+                    class={`${isPortrait ? 'w-auto h-auto max-h-[56vh] sm:max-h-[66vh] lg:max-h-[74vh] max-w-full block mx-auto' : 'w-full h-auto block'}`}
                     loading="lazy"
                   />
                 </div>
@@ -199,8 +201,14 @@ const animateTitle = brandsPage?.animateTitle ?? true;
     }
 
     .brand-section .brand-image-box {
-      max-height: 25vh !important;
-      max-width: 25vh !important;
+      max-height: 32vh !important;
+    }
+
+    .brand-section .brand-image-box img {
+      max-height: 32vh !important;
+      width: auto !important;
+      max-width: 100% !important;
+      margin: 0 auto;
     }
 
     .brand-section .brand-content-box {

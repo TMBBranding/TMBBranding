@@ -2,7 +2,7 @@
 name: Influxious by Funmi Monet
 order: 3
 logoImage: /images/uploads/brand-influxious-logo.png
-coverImage: /images/uploads/2.png
+coverImage: /images/uploads/brand-influxious.png
 ---
 Founded by licensed therapist and fragrance expert Funmi Monet, Influxious is a modern fragrance house rooted in Nigerian heritage, intentional self-expression, and the belief that fragrance is an extension of identity.
 
