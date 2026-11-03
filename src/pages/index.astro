@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import AnimatedLetterE from '../components/AnimatedLetterE.astro';
 import { getEntry, getCollection } from 'astro:content';
 import type { HomePageData } from '../content/config';
 
@@ -95,10 +94,7 @@ function getFirstSentence(text?: string): string {
 
             return (
               <>
-                <span class="relative inline-block align-baseline">
-                  <span>{firstWord}</span>
-                  <span class="elevating-trail absolute inset-0 pointer-events-none select-none text-white" aria-hidden="true">{firstWord}</span>
-                </span>{italic ? <> <span class="italic whitespace-nowrap">{italic}</span><br />{afterItalic}</> : <><br />{afterItalic}</>}
+                {firstWord}{italic ? <> <span class="italic whitespace-nowrap">{italic}</span><br />{afterItalic}</> : <><br />{afterItalic}</>}
               </>
             );
           })()
@@ -239,7 +235,7 @@ function getFirstSentence(text?: string): string {
         <div id="testimonials-carousel" class="grid grid-cols-1 items-center">
           {home.testimonials.map((item, idx) => (
             <div
-              class={`testimonial-slide col-start-1 row-start-1 w-full text-center px-4 flex flex-col justify-center items-center transition-opacity duration-700 ease-in-out ${
+              class={`testimonial-slide col-start-1 row-start-1 w-full text-center px-4 flex flex-col justify-center items-center transition-opacity duration-1000 ease-in-out ${
                 idx === 0 ? 'opacity-100 z-10 pointer-events-auto' : 'opacity-0 z-0 pointer-events-none'
               }`}
               data-index={idx}
@@ -361,7 +357,7 @@ function getFirstSentence(text?: string): string {
 
   function startTestimonialsAutoPlay() {
     stopTestimonialsAutoPlay();
-    testimonialTimer = setInterval(nextTestimonial, 4500);
+    testimonialTimer = setInterval(nextTestimonial, 8000);
   }
 
   function stopTestimonialsAutoPlay() {
@@ -406,38 +402,10 @@ function getFirstSentence(text?: string): string {
     }
   }
 
-  /* 2. Upward ascending trail: graceful, floating elevation echo */
-  /* Perfectly fluid, single continuous ease-out curve, zero hitch, mirrors rising motion */
-  .elevating-trail {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    user-select: none;
-    opacity: 0;
-    color: inherit;
-    will-change: transform, opacity, filter;
-    animation: elevatingAscend 5s cubic-bezier(0.33, 1, 0.68, 1) 1.25s forwards;
-  }
-
-  @keyframes elevatingAscend {
-    0% {
-      opacity: 0.55;
-      transform: translateY(0);
-      filter: blur(1px);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(-1.0em);
-      filter: blur(8px);
-    }
-  }
-
-  /* 3. Subtitle: smooth fade-in as the elevating trail dissolves and vanishes (~3.1s) */
+  /* 2. Subtitle: smooth fade-in at the end of the main title animation (0.3s + 1.9s = 2.2s) */
   .hero-subtitle {
     will-change: opacity, transform;
-    animation: heroSubtitleFadeIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) 3.1s both;
+    animation: heroSubtitleFadeIn 1.2s cubic-bezier(0.25, 1, 0.5, 1) 1.6s both;
   }
 
   @keyframes heroSubtitleFadeIn {
@@ -456,9 +424,6 @@ function getFirstSentence(text?: string): string {
     .hero-title {
       animation-name: heroTitleRiseMobile;
     }
-    .elevating-trail {
-      animation-name: elevatingAscendMobile;
-    }
   }
 
   @keyframes heroTitleRiseMobile {
@@ -474,19 +439,6 @@ function getFirstSentence(text?: string): string {
     }
   }
 
-  @keyframes elevatingAscendMobile {
-    0% {
-      opacity: 0.55;
-      transform: translateY(0);
-      filter: blur(1px);
-    }
-    100% {
-      opacity: 0;
-      transform: translateY(-1.85em);
-      filter: blur(8px);
-    }
-  }
-
   /* Accessibility: respect user preference for reduced motion */
   @media (prefers-reduced-motion: reduce) {
     .hero-title,
@@ -495,9 +447,6 @@ function getFirstSentence(text?: string): string {
       opacity: 1 !important;
       transform: none !important;
       filter: none !important;
-    }
-    .elevating-trail {
-      display: none !important;
     }
   }
 </style>
