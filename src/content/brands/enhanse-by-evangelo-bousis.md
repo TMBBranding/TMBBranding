@@ -2,7 +2,7 @@
 name: Enhanse by Evangelo Bousis
 order: 4
 logoImage: /images/uploads/enhanse_logo.png
-coverImage: /images/uploads/Untitled design (7).png
+coverImage: /images/uploads/Untitled design (7)-1.png
 ---
 
 Founded by Evangelo Bousis, Enhanse is bringing a fresh perspective to men’s skincare. TMB joined the brand at the beginning of its next chapter, reimagining its social strategy and shaping how its story comes to life online.
