@@ -114,10 +114,10 @@ if (rawBody.includes('<!-- split -->')) {
   <!-- 2. BIO FOUNDER SECTION (TIFFANY) -->
   <section class="pb-24 sm:pb-32">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start lg:items-center">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start lg:items-center about-bio-grid">
         
         <!-- Portrait Column with Studio Framing -->
-        <div class="lg:col-span-5 lg:self-center">
+        <div class="lg:col-span-5 lg:self-center about-bio-photo">
           <div class="relative">
             <!-- Warm Ambient Shadow -->
             <div class="absolute -inset-2 bg-gradient-to-tr from-creme-border/50 via-taupe/10 to-transparent blur-lg opacity-60"></div>
@@ -134,7 +134,7 @@ if (rawBody.includes('<!-- split -->')) {
         </div>
 
         <!-- Biography Story Column (Top Story) -->
-        <div class="lg:col-span-7 space-y-6 lg:pl-4">
+        <div class="lg:col-span-7 space-y-6 lg:pl-4 about-bio-text">
           {about.hero.subtitle && (
             <div class="space-y-3">
               <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso leading-editorial">
@@ -174,3 +174,21 @@ if (rawBody.includes('<!-- split -->')) {
     </div>
   </section>
 </Layout>
+
+<style>
+  @media (min-width: 1030px) and (max-width: 1036px) and (orientation: portrait) {
+    .about-bio-grid {
+      display: flow-root;
+    }
+    .about-bio-photo {
+      float: left;
+      width: calc((100% - 11 * 4rem) / 12 * 5 + 4 * 4rem); /* même largeur que col-span-5 actuel */
+      margin-right: 4rem;  /* équivalent du gap-16 actuel */
+      margin-bottom: 2rem;
+    }
+    .about-bio-text {
+      padding-left: 0; /* supprime lg:pl-4 pour éviter un décalage sous la photo */
+    }
+  }
+</style>
+
