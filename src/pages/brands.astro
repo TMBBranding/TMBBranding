@@ -83,7 +83,7 @@ const animateTitle = brandsPage?.animateTitle ?? true;
   currentPath="/brands"
 >
   <!-- HEADER SECTION -->
-  <section class="pt-16 pb-16 sm:pt-24 sm:pb-20 lg:pt-28 lg:pb-24">
+  <section class="pt-12 pb-16 sm:pt-20 sm:pb-16 lg:pt-24 lg:pb-16">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="max-w-3xl space-y-6">
         <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl font-normal text-espresso leading-editorial" aria-label={brandsPage?.title || "Our Brands"}>
@@ -149,12 +149,17 @@ const animateTitle = brandsPage?.animateTitle ?? true;
   <div class="flex flex-col">
     {renderedBrands.map(({ brand, Content, dimensions, isPortrait }, index) => {
       const isReversed = index % 2 === 1;
+      const isFirst = index === 0;
       return (
         <section
           id={brand.id.replace(/\.md$/, '')}
-          class="brand-section relative w-full min-h-[min(100dvh,60rem)] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-0 transition-colors duration-500"
+          class={`brand-section relative w-full flex items-center justify-center scroll-mt-0 transition-colors duration-500 ${
+            isFirst
+              ? 'min-h-0 pt-0 sm:pt-2 lg:pt-3 pb-8 sm:pb-12 lg:pb-32'
+              : 'min-h-[min(100dvh,60rem)] py-8 sm:py-12 lg:py-16'
+          }`}
         >
-          <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full my-auto">
+          <div class={`max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full ${isFirst ? 'mt-0 mb-auto' : 'my-auto'}`}>
             <article class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-10 xl:gap-16 items-center">
               <!-- Imagery Container (Natural Ratio) -->
               <div class={`lg:col-span-6 ${isReversed ? 'lg:order-2' : 'lg:order-1'}`}>
@@ -198,6 +203,16 @@ const animateTitle = brandsPage?.animateTitle ?? true;
       min-height: 50dvh !important;
       padding-top: 1.25rem !important;
       padding-bottom: 1.25rem !important;
+    }
+
+    .brand-section:first-of-type {
+      min-height: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 3rem !important;
+    }
+
+    .brand-section:first-of-type > div {
+      margin-top: 0 !important;
     }
 
     .brand-section .brand-image-box {

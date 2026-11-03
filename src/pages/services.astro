@@ -59,7 +59,7 @@ const parsedServices = services.map((service) => {
   currentPath="/services"
 >
   <!-- HERO HEADER (NO BOTTOM BORDER) -->
-  <section class="pt-16 pb-12 sm:pt-24 sm:pb-16 lg:pt-28 lg:pb-20">
+  <section class="pt-12 pb-16 sm:pt-20 sm:pb-16 lg:pt-24 lg:pb-16">
     <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
       <div class="max-w-5xl space-y-6">
         <h1
@@ -143,17 +143,22 @@ const parsedServices = services.map((service) => {
     {parsedServices.map(({ service, description, deliverablesHeading, deliverables }, index) => {
       const isEspresso = index % 2 === 1;
       const isVisualRight = index % 2 === 1;
+      const isFirst = index === 0;
 
       return (
         <section
           id={service.id.replace(/\.md$/, '')}
-          class={`service-section relative w-full min-h-[min(100dvh,60rem)] flex items-center justify-center py-8 sm:py-12 lg:py-16 scroll-mt-0 transition-colors duration-500 ${
+          class={`service-section relative w-full flex items-center justify-center scroll-mt-0 transition-colors duration-500 ${
+            isFirst
+              ? 'min-h-0 pt-0 sm:pt-2 lg:pt-3 pb-24 sm:pb-24 lg:pb-52'
+              : 'min-h-[min(100dvh,60rem)] py-8 sm:py-12 lg:py-16'
+          } ${
             isEspresso
               ? 'bg-espresso text-creme-powder'
               : 'bg-creme-powder text-espresso'
           }`}
         >
-          <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full my-auto">
+          <div class={`max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 w-full ${isFirst ? 'mt-0 mb-auto' : 'my-auto'}`}>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-10 xl:gap-16 items-center">
               
               <!-- Visual Column (No Hover Effects) -->
@@ -264,6 +269,16 @@ const parsedServices = services.map((service) => {
       min-height: 50dvh !important;
       padding-top: 1.25rem !important;
       padding-bottom: 1.25rem !important;
+    }
+
+    .service-section:first-of-type {
+      min-height: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 2.5rem !important;
+    }
+
+    .service-section:first-of-type > div {
+      margin-top: 0 !important;
     }
 
     .service-section .service-image-box {
