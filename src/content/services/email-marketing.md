@@ -2,7 +2,7 @@
 title: Creative Services
 order: 4
 cardDescription: Photography, videography, creative direction, and production for brands with a story to tell.
-shortDescription: We create impactful email campaigns that nurture community and drive action. From design to automation, our strategies prioritize segmentation, storytelling, and performance.
+shortDescription: Brand photography, commercial videography, creative direction, set design, video production, and post-production for fashion, beauty, wellness, and lifestyle brands.
 cardImage: /images/uploads/Workspace - Designer reviewing mood board of curated interior design ins - TVS.png
 coverImage: /images/uploads/Workspace - Designer reviewing mood board of curated interior design ins - TVS.png
 ---
