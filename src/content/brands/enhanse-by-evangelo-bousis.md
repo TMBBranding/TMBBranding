@@ -1,7 +1,7 @@
 ---
 name: Enhanse by Evangelo Bousis
 order: 4
-logoImage: /images/uploads/15.png
+logoImage: /images/uploads/enhanse_logo.png
 coverImage: /images/uploads/Untitled design (7).png
 ---
 

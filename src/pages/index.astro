@@ -15,6 +15,14 @@ const services = allServices.sort((a, b) => (a.data.order ?? 0) - (b.data.order 
 const allBrands = await getCollection('brands');
 const brands = allBrands.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0));
 
+const MARQUEE_MIN_SLOTS = 20;
+const marqueeRepeat = brands.length > 0 ? Math.ceil(MARQUEE_MIN_SLOTS / brands.length) : 0;
+const marqueeSlots = Array.from({ length: marqueeRepeat }).flatMap((_, r) =>
+  brands.map((b) => ({ b, isCopy: r > 0 }))
+);
+// ~3,5 s par slot => vitesse quasi constante (~40-60 px/s) quel que soit le nombre de marques
+const marqueeDuration = marqueeSlots.length * 3.5;
+
 const heroVideoUrl = home.hero.video || "/videos/hero-workspace.mp4";
 const heroPosterUrl = home.hero.posterImage || "/videos/preview-frame.jpg";
 const videoPlayLabel = home.hero.videoPlayLabel || "Play video";
@@ -200,37 +208,49 @@ function getFirstSentence(text?: string): string {
 
   <!-- 3. TRUSTED BY VISIONARY FOUNDERS & CLIENT TESTIMONIALS -->
   <section class="py-24 sm:py-32 bg-creme-powder">
-    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 space-y-20 sm:space-y-28">
-      
-      <!-- Top: Brands Showcase -->
-      <div class="space-y-12">
-        <div class="text-center max-w-2xl mx-auto">
-          <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso">
-            {home.brandsSectionTitle || "Trusted by Visionary Founders"}
-          </h2>
-        </div>
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+      <div class="text-center max-w-2xl mx-auto">
+        <h2 class="font-serif text-3xl sm:text-4xl lg:text-5xl text-espresso">
+          {home.brandsSectionTitle || "Trusted by Visionary Founders"}
+        </h2>
+      </div>
+    </div>
 
-        <!-- Monochrome Logos Grid on Black Background, No Borders, Prominent Centered Logos -->
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6 items-center">
-          {brands.map((b) => (
-            <a
-              href={`/brands#${b.id.replace(/\.md$/, '')}`}
-              class="group bg-black p-5 sm:p-6 flex items-center justify-center h-28 sm:h-32 transition-all duration-300 shadow-warm-xs hover:shadow-warm hover:-translate-y-0.5 hover:bg-neutral-950"
-              title={b.data.name}
-              aria-label={b.data.name}
-            >
-              <img
-                src={b.data.logoImage}
-                alt={`${b.data.name} logo`}
-                class="max-h-14 sm:max-h-16 max-w-[85%] w-auto h-auto object-contain brightness-0 invert opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                loading="lazy"
-              />
-            </a>
-          ))}
+    <!-- Top: Brands Showcase Marquee -->
+    {brands.length > 0 && (
+      <div class="brands-marquee w-full bg-black h-28 sm:h-32 overflow-hidden mt-12" style={`--marquee-duration:${marqueeDuration}s`}>
+        <div class="brands-viewport w-full h-full">
+          <div class="brands-track flex w-max h-full">
+            {[0, 1].map((g) => (
+              <ul class="flex shrink-0 h-full" aria-hidden={g === 1 ? 'true' : undefined}>
+                {marqueeSlots.map(({ b, isCopy }) => (
+                  <li class="brand-slot h-full shrink-0 flex items-center justify-center px-8 sm:px-12 lg:px-16" data-copy={isCopy || g === 1 ? '' : undefined}>
+                    <a
+                      href={`/brands#${b.id.replace(/\.md$/, '')}`}
+                      class="brand-link inline-flex items-center justify-center"
+                      title={b.data.name}
+                      aria-label={b.data.name}
+                      tabindex={isCopy || g === 1 ? -1 : undefined}
+                    >
+                      <img
+                        src={b.data.logoImage}
+                        alt={isCopy || g === 1 ? '' : `${b.data.name} logo`}
+                        class="brand-logo max-h-14 sm:max-h-16 max-w-[180px] sm:max-w-[220px] w-auto h-auto object-contain brightness-0 invert"
+                        loading="eager"
+                        decoding="async"
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
         </div>
       </div>
+    )}
 
-      <!-- Bottom: Testimonials Auto-Carousel -->
+    <!-- Bottom: Testimonials Auto-Carousel -->
+    <div class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mt-20 sm:mt-28">
       <div class="max-w-3xl mx-auto">
         <div id="testimonials-carousel" class="grid grid-cols-1 items-center">
           {home.testimonials.map((item, idx) => (
@@ -264,7 +284,6 @@ function getFirstSentence(text?: string): string {
           ))}
         </div>
       </div>
-
     </div>
   </section>
   </div>
@@ -448,5 +467,35 @@ function getFirstSentence(text?: string): string {
       transform: none !important;
       filter: none !important;
     }
+  }
+
+  .brands-viewport {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 clamp(24px, 8vw, 128px), #000 calc(100% - clamp(24px, 8vw, 128px)), transparent);
+    mask-image: linear-gradient(to right, transparent, #000 clamp(24px, 8vw, 128px), #000 calc(100% - clamp(24px, 8vw, 128px)), transparent);
+  }
+  .brands-track {
+    animation: brandsScroll var(--marquee-duration, 70s) linear infinite;
+    will-change: transform;
+  }
+  @keyframes brandsScroll {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+  .brand-logo {
+    opacity: 0.9;
+    transition: transform 300ms ease, opacity 300ms ease;
+  }
+  .brands-marquee:focus-within .brands-track { animation-play-state: paused; }
+  .brand-link:focus-visible { outline: 1px solid rgba(255, 255, 255, 0.7); outline-offset: 6px; }
+  .brand-link:focus-visible .brand-logo { opacity: 1; transform: scale(1.08); }
+  @media (hover: hover) and (pointer: fine) {
+    .brands-marquee:hover .brands-track { animation-play-state: paused; }
+    .brand-link:hover .brand-logo { opacity: 1; transform: scale(1.08); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .brands-track { animation: none; }
+    .brands-viewport { -webkit-mask-image: none; mask-image: none; overflow-x: auto; }
+    .brands-track > ul:not(:first-child),
+    .brand-slot[data-copy] { display: none; }
   }
 </style>
