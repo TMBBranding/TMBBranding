@@ -1,0 +1,9 @@
+# Security Headers Configuration
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+
+# Exception for Admin CMS interface
+/admin/*
+  X-Frame-Options: SAMEORIGIN

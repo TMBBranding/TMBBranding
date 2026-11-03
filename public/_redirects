@@ -1,0 +1,4 @@
+# Automatic redirect for admin access
+/admin   /admin/   301
+/sveltia /admin/   301
+/sveltia/* /admin/ 301
